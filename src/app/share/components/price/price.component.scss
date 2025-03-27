@@ -1,0 +1,14 @@
+@import "styles.scss";
+
+.prices{
+  @include standar-box(90%,5px,row);
+  font-family: 'Inter', sans-serif;
+  gap: 30px;
+  justify-content: space-between;
+  a{
+    align-content: center;
+  }
+  .btn{
+    @include standard-button(white, red);
+  }
+}

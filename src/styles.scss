@@ -1,0 +1,36 @@
+/* You can add global styles to this file, and also import other style files */
+$dark-blue: #193540;
+$blue: #3C6373;
+$light-blue: #689BA6;
+$ultra-light-blue: #99B8BF;
+$broken-white: #F2F2F2;
+$grey: #B3B3B3;
+
+@mixin standard-button($bgcolor, $color){
+  background-color: $bgcolor;
+  color: $color;
+  padding: 10px 20px;
+  font-weight: bold;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  border-radius: 20px;
+  border: 1px solid $color;
+  width: fit-content;
+
+  &:hover{
+    background-color: $color;
+    color: $bgcolor;
+    border: 1px solid $bgcolor;
+  }
+}
+
+@mixin standar-box($width, $margin, $flex_direction){
+  margin: $margin;
+  width: $width;
+  padding: 20px;
+  background-color: $broken-white;
+  display: flex;
+  justify-self: center;
+  flex-direction: $flex_direction;
+  border: 1px solid $ultra-light-blue;
+}
