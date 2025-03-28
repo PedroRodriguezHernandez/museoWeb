@@ -1,7 +1,7 @@
 @import "styles.scss";
 
 .itemList{
-  @include standar-box(90%,10px,row);
+  @include standard-box(90%,10px,row);
   font-family: 'Inter', sans-serif;
   gap: 30px;
   border-radius: 20px;

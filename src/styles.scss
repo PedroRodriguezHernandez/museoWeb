@@ -24,7 +24,7 @@ $grey: #B3B3B3;
   }
 }
 
-@mixin standar-box($width, $margin, $flex_direction){
+@mixin standard-box($width, $margin, $flex_direction){
   margin: $margin;
   width: $width;
   padding: 20px;
@@ -33,4 +33,28 @@ $grey: #B3B3B3;
   justify-self: center;
   flex-direction: $flex_direction;
   border: 1px solid $ultra-light-blue;
+}
+
+@mixin standard-inputContainer{
+  background-color: $broken-white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 5px;
+  max-width: 460px;
+  border: 1px solid black;
+  border-radius: 15px;
+
+  input{
+    background-color: $broken-white;
+    border: none;
+    width: 100%;
+    padding-right: 40px;
+    height: 35px;
+    font-size: 18px;
+    &:focus{
+      outline: none;
+      border: none;
+    }
+  }
 }

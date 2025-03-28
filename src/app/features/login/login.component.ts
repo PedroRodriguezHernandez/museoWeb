@@ -8,5 +8,9 @@ import { Component } from '@angular/core';
     styleUrl: './login.component.scss'
 })
 export class LoginComponent {
+  isPasswordHidden: boolean = true;
 
+  togglePassword() {
+    this.isPasswordHidden = !this.isPasswordHidden
+  }
 }
