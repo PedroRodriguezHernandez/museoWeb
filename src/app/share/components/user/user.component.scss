@@ -1,12 +1,11 @@
 @import 'styles.scss';
 
 .user{
-  @include standard-box(90%,5px,row);
+  @include standard-box(90%,5px,5);
   font-family: 'Inter', sans-serif;
-  gap: 30px;
-  justify-content: space-between;
-  a{
-    align-content: center;
+
+  .cell{
+    align-self: center;
   }
   .btn{
     @include standard-button($blue, white);

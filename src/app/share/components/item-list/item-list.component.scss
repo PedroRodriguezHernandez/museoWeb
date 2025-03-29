@@ -1,7 +1,14 @@
 @import "styles.scss";
 
 .itemList{
-  @include standard-box(90%,10px,row);
+  width: 90%;
+  margin: 10px;
+  padding: 20px;
+  background-color: $broken-white;
+  border: 1px solid $ultra-light-blue;
+  justify-self: center;
+  display: flex;
+  flex-direction: row;
   font-family: 'Inter', sans-serif;
   gap: 30px;
   border-radius: 20px;

@@ -24,16 +24,25 @@ $grey: #B3B3B3;
   }
 }
 
-@mixin standard-box($width, $margin, $flex_direction){
+@mixin standard-box($width, $margin, $columns: 1) {
   margin: $margin;
   width: $width;
   padding: 20px;
   background-color: $broken-white;
-  display: flex;
-  justify-self: center;
-  flex-direction: $flex_direction;
+  display: grid;
+  grid-template-columns: repeat(#{$columns}, 1fr);
   border: 1px solid $ultra-light-blue;
+  justify-self: center;
+
+  .cell {
+    align-self: center;
+    display: flex;
+    justify-content: center;
+  }
 }
+
+
+
 
 @mixin standard-inputContainer{
   background-color: $broken-white;

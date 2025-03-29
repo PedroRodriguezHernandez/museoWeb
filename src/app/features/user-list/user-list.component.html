@@ -1,0 +1,33 @@
+<section class="content-list">
+  <app-header></app-header>
+  <div class="top">
+
+    <div class="filter">
+      <label for="options">Search by</label>
+      <select class="selector" id="options">
+        <option value="1">Name</option>
+        <option value="2">ID</option>
+        <option value="3">User Level</option>
+      </select>
+
+      <input class="input-search" placeholder="Search">
+
+    </div>
+    <button class="btn">Add +</button>
+  </div>
+
+  <div class="content">
+
+    <div class="header-user">
+      <label class="cell"><strong>ID</strong></label>
+      <label class="cell">Name</label>
+      <label class="cell">User Name</label>
+      <label class="cell">User Level</label>
+      <div class="cell" style="padding: 10px 20px"></div>
+    </div>
+
+    <div *ngFor="let _ of array">
+      <app-user></app-user>
+    </div>
+  </div>
+</section>

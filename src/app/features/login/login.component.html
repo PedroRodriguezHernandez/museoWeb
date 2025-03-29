@@ -1,4 +1,4 @@
-<div class="login">
+<section class="login">
   <div class="left">
     <img src="assets/images/picture-gallery-interface-icon-vector.jpg" alt="museum image">
   </div>
@@ -29,6 +29,6 @@
         <input [type]="isPasswordHidden ? 'password' : 'text'" class="password">
       </div>
     </div>
-    <button class="btn">Login</button>
+    <button class="btn" (click)="onSubmit()">Login</button>
   </div>
-</div>
+</section>
