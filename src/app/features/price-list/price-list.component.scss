@@ -1,0 +1,61 @@
+@import "styles.scss";
+
+.content-list{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  .top {
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 0;
+    background-color: white;
+
+    .filter{
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+      font-family: 'Inter', sans-serif;
+      font-weight: bold;
+      align-items: center;
+
+      .selector{
+        padding: 2px;
+        background-color: $broken-white;
+        border-radius: 5px;
+        border: 1px solid $ultra-light-blue;
+      }
+
+      .input-search{
+        padding: 5px;
+        background-color: $broken-white;
+        border-radius: 5px;
+        border: 1px solid $ultra-light-blue;
+
+        &::placeholder{
+          color: $light-blue;
+        }
+      }
+    }
+
+    .btn {
+      position: absolute;
+      right: 10px;
+      @include standard-button($blue, $broken-white);
+      border-radius: 10px;
+    }
+  }
+  .header-user{
+    @include standard-box(90%,5px,6);
+    font-family: 'Inter', sans-serif;
+    border-radius: 10px 10px 0 0;
+  }
+  .content {
+    flex: 1;
+    overflow-y: auto;
+  }
+
+}

@@ -1,0 +1,78 @@
+@import "styles.scss";
+
+
+.CUD-publish{
+  font-family: 'Inter', sans-serif;
+  background-color: $broken-white;
+  header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px 15px;
+
+    .btn{
+      @include standard-button($broken-white,red);
+      border-radius: 10px;
+    }
+
+    .right{
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+      .btn{
+        @include standard-button($blue,$broken-white);
+        border-radius: 10px;
+      }
+      .MenuButton{
+        justify-content: center;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+        .bar{
+          width: 30px;
+          height: 5px;
+          background-color: $dark-blue;
+        }
+        &:hover{
+          .bar{
+            background-color: lighten($dark-blue, 30);
+          }
+        }
+      }
+    }
+  }
+  .body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    .top-body{
+      width: 90%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      .left{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        img{width: 100px; height: 100px}
+      }
+
+      .right{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 5px;
+        width: 75%;
+        input{
+          width: 60%;
+          max-width: 750px;
+        }
+
+      }
+    }
+  }
+}

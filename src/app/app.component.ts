@@ -6,13 +6,14 @@ import {UserComponent} from './share/components/user/user.component';
 import {PriceComponent} from './share/components/price/price.component';
 import {LoginComponent} from './features/login/login.component';
 import {ContentListComponent} from './features/content-list/content-list.component';
+import {CUDPublishComponent} from './share/modals/cud-publish/cud-publish.component';
 
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, HeaderComponent,
     ItemListComponent, UserComponent,
     PriceComponent,LoginComponent,
-    ContentListComponent
+    ContentListComponent, CUDPublishComponent
   ],
   templateUrl: './app.component.html',
   standalone: true,
