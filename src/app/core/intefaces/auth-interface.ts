@@ -9,3 +9,5 @@ export interface AuthInterface {
   logout(): void;
   getCurrentUser(): Observable<AuthUser | null>;
 }
+
+

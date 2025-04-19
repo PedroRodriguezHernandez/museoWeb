@@ -7,13 +7,14 @@ import {PriceComponent} from './share/components/price/price.component';
 import {LoginComponent} from './features/login/login.component';
 import {ContentListComponent} from './features/content-list/content-list.component';
 import {CUDPublishComponent} from './share/modals/cud-publish/cud-publish.component';
+import {PruebaComponent} from './prueba/prueba.component';
 
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, HeaderComponent,
     ItemListComponent, UserComponent,
-    PriceComponent,LoginComponent,
-    ContentListComponent, CUDPublishComponent
+    PriceComponent, LoginComponent,
+    ContentListComponent, CUDPublishComponent, PruebaComponent
   ],
   templateUrl: './app.component.html',
   standalone: true,
