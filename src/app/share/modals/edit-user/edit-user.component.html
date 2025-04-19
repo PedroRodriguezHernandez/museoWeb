@@ -1,0 +1,61 @@
+<section class="add-user" *ngIf = "visible">
+  <h1 class="title">Edit user</h1>
+  <form [formGroup]="form">
+    <div class="user-name">
+      <label  for="user-name">User name</label>
+      <input type="text"
+             [formControl]="form.controls.UserName"
+             [ngClass]="{'input-error' : form.controls.UserName.invalid && submit}"
+             placeholder="Set user name..." id="user-name">
+    </div>
+    <div class="name">
+      <label  for="name">Name</label>
+      <input type="text"
+             [formControl]="form.controls.name"
+             [ngClass]="{'input-error' : form.controls.name.invalid && submit}"
+             placeholder="Set Name..." id="name">
+    </div>
+    <div class="level">
+      <label  for="level">User Level</label>
+      <select class="level"
+              [formControl]="form.controls.level"
+              [ngClass]="{'input-error' : form.controls.level.invalid && submit}"
+              id="level">
+        <option value="1">Opción 1</option>
+        <option value="2">Opción 2</option>
+        <option value="3">Opción 3</option>
+      </select>
+    </div>
+    <div class="date-range">
+      <label>Date Range</label>
+      <div class="group">
+        <div class="from">
+          <label  for="from">From</label>
+          <input type="date"
+                 [formControl]="form.controls.from"
+                 [ngClass]="{'input-error' : form.controls.from.invalid && submit}"
+                 id="from">
+        </div>
+        <div class="to">
+          <label  for="to">To</label>
+          <input type="date"
+                 [formControl]="form.controls.to"
+                 [ngClass]="{'input-error' : form.controls.to.invalid && submit}"
+                 id="to" >
+        </div>
+      </div>
+    </div>
+    <label>
+      Enable
+      <input type="checkbox"
+             [formControl]="form.controls.enable"
+             [ngClass]="{'input-error' : form.controls.enable.invalid && submit}">
+    </label>
+
+  </form>
+  <div class="foot">
+    <button class="cancel" (click)="closePopup()">Cancel</button>
+    <button class="add" (click)="onSubmit()">Update</button>
+  </div>
+    <button class="cancel" (click)="closePopup()">Delete</button>
+</section>

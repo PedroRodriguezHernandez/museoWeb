@@ -1,7 +1,7 @@
 <section class="content-list">
   <app-header></app-header>
     <div class="top">
-      <button class="btn">Add +</button>
+      <button class="btn" (click)="addItem()">Add +</button>
     </div>
     <div class="content">
       <div *ngFor="let _ of array">

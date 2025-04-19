@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-item-list',
@@ -8,5 +9,8 @@ import { Component } from '@angular/core';
     styleUrl: './item-list.component.scss'
 })
 export class ItemListComponent {
-
+  constructor(private router: Router) { }
+  editItem() {
+    this.router.navigate(['/crud-publish'])
+  }
 }
