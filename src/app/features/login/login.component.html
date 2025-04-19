@@ -2,18 +2,23 @@
   <div class="left">
     <img src="assets/images/picture-gallery-interface-icon-vector.jpg" alt="museum image">
   </div>
-  <div class="right">
+  <form class="right" [formGroup]="form">
     <h1 class="title">Lorem Ipsum</h1>
-    <div class="user-credential">
-      <label class="text">User Name</label>
-      <div class="inputContainer">
+    <div class="user-credential" >
+      <label class="text"
+             [ngClass]="{'label-error' : form.controls.user.invalid && submit}"
+      >User Name</label>
+      <div class="inputContainer" [ngClass]="{'input-error' : form.controls.user.invalid && submit}">
         <img src="assets/icons/account_circle_24dp_3C6373_FILL0_wght400_GRAD0_opsz24.png" alt="icon">
-        <input type="text" class="userName">
+        <input
+          type="text"
+          [formControl]="form.controls.user"
+          class="userName">
       </div>
     </div>
     <div class="user-credential">
-      <label class="text">Password</label>
-      <div class="inputContainer">
+      <label class="text" [ngClass]="{'label-error' : form.controls.password.invalid && submit}">Password</label>
+      <div class="inputContainer" [ngClass]="{'input-error' : form.controls.password.invalid && submit}">
         <img
           src="assets/icons/lock_24dp_3C6373_FILL0_wght400_GRAD0_opsz24.png"
           alt="icon"
@@ -26,9 +31,11 @@
           (click)="togglePassword()"
           [hidden]="isPasswordHidden"
         >
-        <input [type]="isPasswordHidden ? 'password' : 'text'" class="password">
+        <input [type]="isPasswordHidden ? 'password' : 'text'"
+               [formControl]="form.controls.password"
+               class="password">
       </div>
     </div>
     <button class="btn" (click)="onSubmit()">Login</button>
-  </div>
+  </form>
 </section>

@@ -1,1 +1,6 @@
-<quill-editor class="quill" [(ngModel)]="editorContent" [modules]="editorModules" placeholder="Write a description..."></quill-editor>
+<quill-editor class="quill"
+              [(ngModel)]="content"
+              [formControl]="control"
+              [modules]="editorModules"
+              placeholder="Write a description..."
+></quill-editor>

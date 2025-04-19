@@ -1,0 +1,57 @@
+<section class="add-user" *ngIf="visible">
+  <h1 class="title">Add offer</h1>
+  <form [formGroup]="form">
+    <div class="name">
+      <label  for="name">Name</label>
+      <input
+        type="text"
+        [formControl]="form.controls.name"
+        [ngClass]="{'input-error' : form.controls.name.invalid && submit}"
+        placeholder="Set name..." id="name">
+    </div>
+    <div class="price">
+      <label  for="price">Price</label>
+      <input type="number"
+             [formControl]="form.controls.price"
+             [ngClass]="{'input-error' : form.controls.price.invalid && submit}"
+             placeholder="Set price..." id="price">
+    </div>
+    <div class="age">
+      <label  for="age">Age</label>
+      <select class="age"
+              [formControl]="form.controls.age"
+              [ngClass]="{'input-error' : form.controls.age.invalid && submit}"
+              id="age"
+      >
+        <option value="" disabled>Select one option</option>
+        <option value="1">Child</option>
+        <option value="2">Teenagers</option>
+        <option value="3">Adult</option>
+        <option value="4">Senior</option>
+      </select>
+    </div>
+    <div class="date-range">
+      <label>Date Range</label>
+      <div class="group">
+        <div class="from">
+          <label  for="from">From</label>
+          <input type="date"
+                 [formControl]="form.controls.from"
+                 [ngClass]="{'input-error' : form.controls.from.invalid && submit}"
+                 id="from">
+        </div>
+        <div class="to">
+          <label  for="to" >To</label>
+          <input type="date"
+                 [formControl]="form.controls.to"
+                 [ngClass]="{'input-error' : form.controls.to.invalid && submit}"
+                 id="to" >
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="foot">
+    <button class="cancel" (click)="closePopup()">Cancel</button>
+    <button class="add" (click)="addOffer()">Add Offer</button>
+  </div>
+</section>

@@ -1,8 +1,8 @@
 <section class="CUD-publish">
   <header>
-    <button class="btn" id="exit">Exit</button>
+    <button class="btn" (click)="exit()" id="exit">Exit</button>
     <div class="right">
-      <button class="btn" id="saves">Saves</button>
+      <button class="btn" (click)="save()"id="saves">Saves</button>
       <div class="MenuButton">
         <div class="bar"></div>
         <div class="bar"></div>
@@ -10,20 +10,26 @@
       </div>
     </div>
   </header>
-  <div class="body">
+  <form [formGroup]="form" class="body">
     <div class="top-body">
       <div class="left">
-        <img src="./assets/images/picture-gallery-interface-icon-vector.jpg" alt="image of item">
-        <button class="btn">Choose File</button>
+        <img [src]="imageSrc" alt="image of item">
+        <input type="file" #fileInput accept="image/*"
+               (change)="onFileSelected($event)" hidden>
+        <button class="btn" (click)="fileInput.click()">Choose File</button>
       </div>
       <div class="right">
         <label>Title</label>
-        <input type="text" placeholder="Set title...">
+        <input type="text"
+               [formControl]="form.controls.title"
+               placeholder="Set title...">
       </div>
 
     </div>
-    <div class="editor-container" style="width: 800px; height: 400px;">
-      <app-quill-editor ></app-quill-editor>
+    <div class="editor-container">
+      <app-quill-editor
+        [control]="form.controls.description"
+      ></app-quill-editor>
     </div>
-  </div>
+  </form>
 </section>

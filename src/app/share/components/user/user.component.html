@@ -4,6 +4,8 @@
   <a class="cell">Lorem Ipsum</a>
   <a class="cell">Lorem Ipsum</a>
   <div class="cell">
-  <button class="btn">Edit</button>
+  <button class="btn" (click)="OpenPopUp()">Edit</button>
   </div>
+  <div class="overlay" *ngIf="showEditUser"></div>
+  <app-edit-user [visible]="showEditUser" (close)="ClosePopUp()"></app-edit-user>
 </div>

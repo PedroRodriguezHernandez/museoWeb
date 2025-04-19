@@ -12,7 +12,9 @@
       <input class="input-search" placeholder="Search">
 
     </div>
-    <button class="btn">Add +</button>
+    <button class="btn" (click)="openPopup()">Add +</button>
+    <div class="overlay" *ngIf="addPrice"></div>
+    <app-add-offer [visible]="addPrice" (close)="closePopup()"></app-add-offer>
   </div>
 
   <div class="content">

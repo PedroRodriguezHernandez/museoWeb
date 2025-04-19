@@ -36,6 +36,13 @@
           height: 30px;
         }
       }
+      .input-error{
+        @include standard-input-error();
+      }
+
+      .label-error{
+        color: red;
+      }
     }
 
     .btn{

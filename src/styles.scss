@@ -6,6 +6,15 @@ $ultra-light-blue: #99B8BF;
 $broken-white: #F2F2F2;
 $grey: #B3B3B3;
 
+body{
+  margin: 0;
+  max-width: 100vw;
+  max-height: 100vh;
+}
+
+@mixin standard-input-error{
+  border: 1px solid red;
+}
 @mixin standard-button($bgcolor, $color){
   background-color: $bgcolor;
   color: $color;

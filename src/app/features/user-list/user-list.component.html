@@ -13,7 +13,9 @@
       <input class="input-search" placeholder="Search">
 
     </div>
-    <button class="btn">Add +</button>
+    <button class="btn" (click)="OpenPopUp()">Add +</button>
+    <div class="overlay" *ngIf="popup"></div>
+    <app-add-user [visible]="popup" (close)="closePopup()"></app-add-user>
   </div>
 
   <div class="content">

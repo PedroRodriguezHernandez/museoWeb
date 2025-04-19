@@ -47,6 +47,16 @@
       @include standard-button($blue, $broken-white);
       border-radius: 10px;
     }
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.4);
+      z-index: 1000;
+    }
+
   }
   .header-user{
     @include standard-box(90%,5px,5);
