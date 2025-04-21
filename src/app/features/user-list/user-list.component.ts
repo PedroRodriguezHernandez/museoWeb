@@ -4,6 +4,7 @@ import {ItemListComponent} from '../../share/components/item-list/item-list.comp
 import {NgForOf, NgIf} from '@angular/common';
 import {UserComponent} from '../../share/components/user/user.component';
 import {AddUserComponent} from '../../share/modals/add-user/add-user.component';
+import {supabase} from '../../core/services/supabase.service';
 
 @Component({
   selector: 'app-user-list',
@@ -19,7 +20,7 @@ import {AddUserComponent} from '../../share/modals/add-user/add-user.component';
   standalone: true,
   styleUrl: './user-list.component.scss'
 })
-export class UserListComponent{
+export class UserListComponent implements OnInit{
 
   array = Array.from({length:5});
   popup = false;
@@ -32,5 +33,15 @@ export class UserListComponent{
 
   closePopup() {
     this.popup = false;
+  }
+
+  ngOnInit(): void {
+    supabase.auth.getUser().then(({ data, error }) => {
+      if (error || !data.user) {
+        console.error('❌ No hay usuario o hubo un error:', error);
+        return;
+      }
+      console.log('👤 Usuario actual (Supabase JSON):', JSON.stringify(data.user, null, 2));
+    });
   }
 }

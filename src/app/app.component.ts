@@ -10,15 +10,16 @@ import {CUDPublishComponent} from './share/modals/cud-publish/cud-publish.compon
 import {AddUserComponent} from './share/modals/add-user/add-user.component';
 import {EditUserComponent} from './share/modals/edit-user/edit-user.component';
 import {AddOfferComponent} from './share/modals/add-offer/add-offer.component';
+import {UserListComponent} from './features/user-list/user-list.component';
 
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, HeaderComponent,
     ItemListComponent, UserComponent,
-    PriceComponent,LoginComponent,
+    PriceComponent, LoginComponent,
     ContentListComponent, CUDPublishComponent,
-    AddUserComponent,EditUserComponent,
-    AddOfferComponent
+    AddUserComponent, EditUserComponent,
+    AddOfferComponent, UserListComponent
   ],
   templateUrl: './app.component.html',
   standalone: true,

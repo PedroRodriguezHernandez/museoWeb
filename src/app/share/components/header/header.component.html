@@ -26,9 +26,14 @@
       Manage User
     </a>
   </nav>
-  <div class="MenuButton">
+  <div class="MenuButton" (click)="toggleSidebar()">
     <div class="bar"></div>
     <div class="bar"></div>
     <div class="bar"></div>
   </div>
+</div>
+<div class="sidebar" *ngIf="isSidebarOpen">
+  <nav class="nav-link">
+    <a (click)="logOut()" class="close">LogOut</a>
+  </nav>
 </div>

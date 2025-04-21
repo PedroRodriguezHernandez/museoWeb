@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import {Router} from '@angular/router';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {NgClass} from '@angular/common';
+import {AuthSupabaseService} from '../../core/services/auth-supabase.service';
+import {AuthInterface} from '../../core/intefaces/auth-interface';
 
 @Component({
     selector: 'app-login',
@@ -14,11 +16,15 @@ import {NgClass} from '@angular/common';
     styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-  constructor(private router: Router){}
+  constructor(
+    private router: Router,
+    @Inject(AuthSupabaseService) private authInterface: AuthInterface
+  ){}
+
   protected isPasswordHidden: boolean = true;
   protected submit = false;
   form = new FormGroup({
-    user: new FormControl("", [Validators.required]),
+    user: new FormControl("", [Validators.required, Validators.email]),
     password: new FormControl("", [Validators.required]),
   });
 
@@ -28,8 +34,18 @@ export class LoginComponent {
 
   onSubmit() {
     this.submit = true;
-    if(this.form.valid){
-      this.router.navigate(['/content-list']);
+    if(this.form.valid ){
+      const email: string = String(this.form.get('user')?.value || '');
+      const password: string = String(this.form.get('password')?.value || '');
+
+      this.authInterface.login(email, password).subscribe({
+        next: (user) => {
+          this.router.navigate(['/content-list']);
+        },
+        error: (err) => {
+          console.error('Login fallido:', err);
+        }
+      });
     }else{
       console.log(this.form.markAllAsTouched());
     }
