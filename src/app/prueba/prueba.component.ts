@@ -8,7 +8,10 @@ import {AuthSupabaseService} from '../core/services/auth-supabase.service';
   styleUrl: './prueba.component.scss'
 })
 export class PruebaComponent implements OnInit {
-  constructor(protected auth : AuthSupabaseService) {  }
+  constructor(
+    protected auth : AuthSupabaseService,
+    protected exhibition: exposi
+  ) {  }
 
   ngOnInit(): void {
     this.auth.login('admin@admin.com', 'admin').subscribe({
