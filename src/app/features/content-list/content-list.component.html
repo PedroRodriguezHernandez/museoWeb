@@ -4,8 +4,8 @@
       <button class="btn" (click)="addItem()">Add +</button>
     </div>
     <div class="content">
-      <div *ngFor="let _ of array">
-        <app-item-list></app-item-list>
+      <div *ngFor="let expo of expositions">
+        <app-item-list [exhibition]="expo" ></app-item-list>
       </div>
     </div>
 </section>

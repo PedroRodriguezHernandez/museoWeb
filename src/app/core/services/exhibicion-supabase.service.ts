@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, from } from 'rxjs';
+import {Observable, from, defer} from 'rxjs';
 import { map } from 'rxjs/operators';
 import {Exposition, ExpositionInterface} from '../intefaces/exposition-interface';
 import {supabase} from './supabase.service';
@@ -12,17 +12,19 @@ export class ExpositionService implements ExpositionInterface {
 
 
   getExpositions(): Observable<Exposition[]> {
-    return from(
-      supabase
-        .from(this.table)
-        .select('*')
-    ).pipe(
-      map(({ data, error }) => {
-        if (error) throw error;
-        return data as Exposition[];
-      })
-    );
+    return defer(async () => {
+      const { data: exhibition, error } = await supabase
+        .from('exhibition')
+        .select('*');
+
+      if (error) {
+        console.error('Error al obtener exposiciones:', error.message);
+        throw error;
+      }
+      return exhibition as Exposition[];
+    });
   }
+
 
   getExpositionById(id: string): Observable<Exposition> {
     return from(
