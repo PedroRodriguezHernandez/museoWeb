@@ -76,3 +76,40 @@ body{
     }
   }
 }
+
+@mixin standard-sidebar{
+  position: fixed;
+  right: 0;
+  height: 100vh;
+  background-color: $broken-white;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  padding: 2rem 1.5rem;
+  transition: left 3s ease;
+  z-index: 1000;
+  border-left: 1px solid $ultra-light-blue;
+
+  .nav-link {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    a {
+      font-family: 'Inter', sans-serif;
+      font-weight: bold;
+      color: $dark-blue;
+      text-decoration: none;
+      padding: 10px 0;
+
+      &:hover {
+        color: lighten($dark-blue, 30);
+      }
+
+      &.active {
+        text-decoration: underline;
+        text-underline-offset: 4px;
+        text-decoration-color: $blue;
+        text-decoration-thickness: 2px;
+      }
+    }
+  }
+}

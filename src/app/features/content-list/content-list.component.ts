@@ -31,21 +31,13 @@ export class ContentListComponent implements OnInit{
   ngOnInit(): void {
     this.exhibitions.getExpositions().subscribe({
       next: (expositions) => {
-        console.log('Exposiciones obtenidas:', expositions);
         this.expositions = expositions;
-        for(const  expo of this.expositions){
-          console.log(expo)
-        }
       },
       error: (err) => {
         console.error('Error al obtener las exposiciones:', err);
       }
     });
-
-
   }
-
-  array = Array.from({length:5});
 
   addItem() {
     this.router.navigate(['/crud-publish'])

@@ -43,41 +43,64 @@ export class ExpositionService implements ExpositionInterface {
 
   addExposition(exposition: Exposition): Observable<Exposition> {
     return from(
-      supabase
-        .from(this.table)
-        .insert(exposition)
-        .single()
-    ).pipe(
-      map(({ data, error }) => {
-        if (error) throw error;
-        return data as Exposition;
-      })
+      (async () => {
+        const { data, error } = await supabase
+          .from('exhibition')
+          .insert([
+            {
+              title: exposition.title,
+              description: exposition.description,
+              imageUrl: exposition.imageUrl,
+              enable: exposition.enable
+            }
+          ])
+          .select();
+
+        if (error) {
+          throw error;
+        }
+
+        return data?.[0] as Exposition;
+      })()
     );
   }
 
-  updateExposition(id: string, exposition: Partial<Exposition>): Observable<void> {
+
+  updateExposition(id: string, exposition: Partial<Exposition>): Observable<Exposition> {
     return from(
-      supabase
-        .from(this.table)
-        .update(exposition)
-        .eq('id', id)
-    ).pipe(
-      map(({ error }) => {
-        if (error) throw error;
-      })
+      (async () => {
+        const { data, error } = await supabase
+          .from('exhibition')
+          .update({
+            title: exposition.title,
+            description: exposition.description,
+            imageUrl: exposition.imageUrl,
+            enable: exposition.enable
+          })
+          .eq('id', id)
+          .select();
+
+        if (error) {
+          throw error;
+        }
+
+        return data?.[0] as Exposition;
+      })()
     );
   }
+
 
   deleteExposition(id: string): Observable<void> {
     return from(
-      supabase
-        .from(this.table)
-        .delete()
-        .eq('id', id)
-    ).pipe(
-      map(({ error }) => {
-        if (error) throw error;
-      })
+      (async () => {
+        const { data, error } = await supabase
+          .from('exhibition')
+          .delete()
+          .eq('id', id)
+        if (error) {
+          throw error;
+        }
+      })()
     );
   }
 }

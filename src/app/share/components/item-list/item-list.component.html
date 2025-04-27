@@ -1,11 +1,9 @@
-<div class="itemList">
-  <img class="image" src="./assets/images/picture-gallery-interface-icon-vector.jpg" alt="image Item">
+<div class="itemList" [ngStyle]="{'borderColor': condition ? 'green' : 'red'}">
+  <img class="image" [src]="image" alt="image Item">
   <div class="content">
     <div class="information">
       <h2 class="title">{{title}}</h2>
-      <p class="data">
-        {{description}}
-      </p>
+      <p class="data" [innerHTML]="description"></p>
     </div>
     <button class="btn" (click)="editItem()">Edit</button>
   </div>

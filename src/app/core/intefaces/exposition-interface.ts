@@ -1,7 +1,7 @@
 import {Observable} from 'rxjs';
 
 export interface Exposition {
-  id: string;
+  id?: string;
   title: string;
   description: string;
   imageUrl?: string;
@@ -12,6 +12,6 @@ export interface ExpositionInterface {
   getExpositions(): Observable<Exposition[]>;
   getExpositionById(id: string): Observable<Exposition>;
   addExposition(exposition: Exposition): Observable<Exposition>;
-  updateExposition(id: string, exposition: Partial<Exposition>): Observable<void>;
+  updateExposition(id: string, exposition: Partial<Exposition>): Observable<Exposition>;
   deleteExposition(id: string): Observable<void>;
 }

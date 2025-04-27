@@ -20,7 +20,7 @@ import {supabase} from '../../core/services/supabase.service';
   standalone: true,
   styleUrl: './user-list.component.scss'
 })
-export class UserListComponent implements OnInit{
+export class UserListComponent{
 
   array = Array.from({length:5});
   popup = false;
@@ -33,15 +33,5 @@ export class UserListComponent implements OnInit{
 
   closePopup() {
     this.popup = false;
-  }
-
-  ngOnInit(): void {
-    supabase.auth.getUser().then(({ data, error }) => {
-      if (error || !data.user) {
-        console.error('❌ No hay usuario o hubo un error:', error);
-        return;
-      }
-      console.log('👤 Usuario actual (Supabase JSON):', JSON.stringify(data.user, null, 2));
-    });
   }
 }

@@ -30,6 +30,13 @@
         font-weight: bold;
         margin-top: 0;
       }
+      .data{
+        max-height: 100px;
+        overflow: hidden;
+        overflow-wrap: anywhere;
+        word-break: normal;
+        text-align: justify;
+      }
     }
     .btn{
       @include standard-button($blue,$broken-white);

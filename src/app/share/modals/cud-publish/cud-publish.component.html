@@ -3,19 +3,24 @@
     <button class="btn" (click)="exit()" id="exit">Exit</button>
     <div class="right">
       <button class="btn" (click)="save()"id="saves">Saves</button>
-      <div class="MenuButton">
+      <div class="MenuButton" (click)="toggleSidebar()">
         <div class="bar"></div>
         <div class="bar"></div>
         <div class="bar"></div>
       </div>
     </div>
   </header>
+  <div class="bar-menu" *ngIf="isSidebarOpen">
+    <nav class="nav-link">
+      <a  class="publish">Publish Exhibition</a>
+      <a  class="delete" (click)="deleteExhibition()">Delete Exhibition</a>
+    </nav>
+  </div>
   <form [formGroup]="form" class="body">
     <div class="top-body">
       <div class="left">
-        <img [src]="imageSrc" alt="image of item">
-        <input type="file" #fileInput accept="image/*"
-               (change)="onFileSelected($event)" hidden>
+        <img [src]="exhibition.imageUrl" alt="image of item">
+        <input type="file" #fileInput accept="image/*" hidden>
         <button class="btn" (click)="fileInput.click()">Choose File</button>
       </div>
       <div class="right">
@@ -28,6 +33,7 @@
     </div>
     <div class="editor-container">
       <app-quill-editor
+        [content]="exhibition.description"
         [control]="form.controls.description"
       ></app-quill-editor>
     </div>
