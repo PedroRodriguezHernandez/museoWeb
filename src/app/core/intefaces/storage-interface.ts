@@ -1,7 +1,7 @@
 import {Observable} from 'rxjs';
 
 export interface StorageInterface {
-  uploadFile(path:string, fileUrl:string): Observable<string>;
-  getFile(path:string): Observable<string>;
-  deleteFile(path:string): Observable<void>;
+  uploadFile(bucket: string, file:File): Observable<string>;
+  getFile(bucket: string, path:string): Observable<string>;
+  deleteFile(bucket: string, path:string): Observable<void>;
 }

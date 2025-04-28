@@ -11,42 +11,29 @@ import {supabase} from '../core/services/supabase.service';
   standalone: true,
   styleUrl: './prueba.component.scss'
 })
-export class PruebaComponent implements OnInit {
+export class PruebaComponent{
+  private file: File | any = null;
   constructor(
     protected auth : AuthSupabaseService,
-    protected exhibition: ExpositionService
+    protected exhibition: ExpositionService,
+    //protected storage: StorageSupabaseService
   ) {  }
 
-  ngOnInit(): void {
-    this.auth.login('admin@admin.com', 'admin').subscribe({
-      next: user => console.log('Login OK:', user),
-      error: err => console.error('Login ERROR:', err)
-    });
 
+  async  showExhibitions() {
+   //const path = `${this.file.name}`;
+    // console.log( await supabase.storage.from('image-exhibiton').getPublicUrl("Macintosh.png"))
+   //console.log( await supabase.storage.from('image-exhibiton').upload(path,this.file))
+   console.log( await supabase.storage
+      .from('image-exhibiton')
+      .remove(['61978104997570c2109bbaf1_charco_la_mareta-o9ut3nx4kjsisd83d3zf7esjffle3svqwo4nuuwb2s.jpeg']))
 
-    const newExposition: Exposition = {
-      id: '',
-      title: 'loremIpsum',
-      description: 'UloremIpsum',
-      imageUrl: 'loremIpsum',
-      QRUrl: 'loremIpsum',
-      enable: true,
-    };
-
-
-   // this.exhibition.addExposition(newExposition);
   }
 
-  showExhibitions() {
-    this.exhibition.getExpositions().subscribe({
-      next: (expositions) => {
-        console.log('Exposiciones obtenidas:', expositions);
-        // Aquí puedes asignar las exposiciones a una variable o manejar la respuesta
-      },
-      error: (err) => {
-        console.error('Error al obtener las exposiciones:', err);
-      }
-    });
+  onFileSelected(event: Event) {
+    const fileInput = event.target as HTMLInputElement;
+    if (fileInput.files){
+      this.file = fileInput.files.item(0);
+    }
   }
-
 }
