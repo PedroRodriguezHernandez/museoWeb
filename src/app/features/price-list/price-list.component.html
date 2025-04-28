@@ -27,8 +27,8 @@
       <label class="cell">Age</label>
       <div class="cell" style="padding: 10px 20px"></div>
     </div>
-    <div *ngFor="let _ of array">
-      <app-price></app-price>
+    <div *ngFor="let offer of offers">
+      <app-price [offer]="offer"></app-price>
     </div>
 
   </div>

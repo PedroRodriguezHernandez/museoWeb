@@ -1,9 +1,11 @@
-import {Component, Inject} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {NgClass} from '@angular/common';
 import {AuthSupabaseService} from '../../core/services/auth-supabase.service';
 import {AuthInterface} from '../../core/intefaces/auth-interface';
+import {supabase} from '../../core/services/supabase.service';
+import {map} from 'rxjs';
 
 @Component({
     selector: 'app-login',
@@ -15,11 +17,19 @@ import {AuthInterface} from '../../core/intefaces/auth-interface';
     standalone: true,
     styleUrl: './login.component.scss'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
   constructor(
     private router: Router,
     @Inject(AuthSupabaseService) private authInterface: AuthInterface
   ){}
+
+  ngOnInit() {
+    const user = this.authInterface.getCurrentUser()
+
+    if (user) {
+      this.router.navigate(['content-list']);
+    }
+  }
 
   protected isPasswordHidden: boolean = true;
   protected submit = false;

@@ -1,10 +1,10 @@
 <div class="prices">
-  <a class="cell"><strong>Lorem Ipsum</strong></a>
-  <a class="cell">00.00$</a>
-  <a class="cell">00/00/0000</a>
-  <a class="cell">00/00/0000</a>
-  <a class="cell">00</a>
+  <a class="cell"><strong>{{ name }}</strong></a>
+  <a class="cell">{{ price }}$</a>
+  <a class="cell">{{ startDate }}</a>
+  <a class="cell">{{ endDate }}</a>
+  <a class="cell">{{ age }}</a>
   <div class="cell">
-    <button class="btn">Delete</button>
+    <button class="btn" (click)="delete()">Delete</button>
   </div>
 </div>

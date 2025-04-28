@@ -12,15 +12,15 @@
   </header>
   <div class="bar-menu" *ngIf="isSidebarOpen">
     <nav class="nav-link">
-      <a  class="publish">Publish Exhibition</a>
+      <a  class="publish" (click)="setPublish()">Publish Exhibition</a>
       <a  class="delete" (click)="deleteExhibition()">Delete Exhibition</a>
     </nav>
   </div>
   <form [formGroup]="form" class="body">
     <div class="top-body">
       <div class="left">
-        <img [src]="exhibition.imageUrl" alt="image of item">
-        <input type="file" #fileInput accept="image/*" hidden>
+        <img [src]="previewUrl || exhibition.imageUrl" alt="image of item">
+        <input type="file" #fileInput (change)="setImage($event)" accept="image/*" hidden>
         <button class="btn" (click)="fileInput.click()">Choose File</button>
       </div>
       <div class="right">

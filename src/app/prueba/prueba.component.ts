@@ -3,6 +3,11 @@ import {AuthSupabaseService} from '../core/services/auth-supabase.service';
 import {ExpositionService} from '../core/services/exhibicion-supabase.service';
 import {Exposition} from '../core/intefaces/exposition-interface';
 import {supabase} from '../core/services/supabase.service';
+import {StorageSupabaseService} from '../core/services/storage-supabase.service';
+import {subscribe} from 'node:diagnostics_channel';
+import {log} from 'node:util';
+import {finalize} from 'rxjs';
+import {File} from 'node:buffer';
 
 @Component({
   selector: 'app-prueba',
@@ -11,42 +16,36 @@ import {supabase} from '../core/services/supabase.service';
   standalone: true,
   styleUrl: './prueba.component.scss'
 })
-export class PruebaComponent implements OnInit {
+export class PruebaComponent implements OnInit{
+  private file: File | any = null;
+  private ejemplo: string = "";
   constructor(
     protected auth : AuthSupabaseService,
-    protected exhibition: ExpositionService
+    protected exhibition: ExpositionService,
+    protected storage: StorageSupabaseService,
   ) {  }
 
-  ngOnInit(): void {
-    this.auth.login('admin@admin.com', 'admin').subscribe({
-      next: user => console.log('Login OK:', user),
-      error: err => console.error('Login ERROR:', err)
-    });
 
 
-    const newExposition: Exposition = {
-      id: '',
-      title: 'loremIpsum',
-      description: 'UloremIpsum',
-      imageUrl: 'loremIpsum',
-      QRUrl: 'loremIpsum',
-      enable: true,
-    };
+  async showExhibitions() {
+
+    await supabase.storage.from('image-exhibiton')
+      .remove(['prueba.png'])
 
 
-   // this.exhibition.addExposition(newExposition);
+
+  }
+  async ngOnInit(){
+    await this.auth.logout()
+    await this.auth.login("admin@admin.com", "admin")
   }
 
-  showExhibitions() {
-    this.exhibition.getExpositions().subscribe({
-      next: (expositions) => {
-        console.log('Exposiciones obtenidas:', expositions);
-        // Aquí puedes asignar las exposiciones a una variable o manejar la respuesta
-      },
-      error: (err) => {
-        console.error('Error al obtener las exposiciones:', err);
-      }
-    });
+  onFileSelected(event: Event) {
+    const fileInput: HTMLInputElement = event.target as HTMLInputElement;
+    if (fileInput.files){
+      this.file = fileInput.files.item(0);
+    }
   }
+
 
 }

@@ -8,8 +8,6 @@ import {supabase} from './supabase.service';
   providedIn: 'root'
 })
 export class ExpositionService implements ExpositionInterface {
-  private table = 'exhibition';
-
 
   getExpositions(): Observable<Exposition[]> {
     return defer(async () => {
@@ -18,7 +16,6 @@ export class ExpositionService implements ExpositionInterface {
         .select('*');
 
       if (error) {
-        console.error('Error al obtener exposiciones:', error.message);
         throw error;
       }
       return exhibition as Exposition[];
@@ -29,7 +26,7 @@ export class ExpositionService implements ExpositionInterface {
   getExpositionById(id: string): Observable<Exposition> {
     return from(
       supabase
-        .from(this.table)
+        .from('exhibition')
         .select('*')
         .eq('id', id)
         .single()
