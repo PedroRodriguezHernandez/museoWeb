@@ -28,7 +28,7 @@
       <div class="cell" style="padding: 10px 20px"></div>
     </div>
     <div *ngFor="let offer of offers">
-      <app-price [offer]="offer"></app-price>
+      <app-price (update)="takeOffers()" [offer]="offer"></app-price>
     </div>
 
   </div>

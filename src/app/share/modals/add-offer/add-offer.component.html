@@ -18,17 +18,11 @@
     </div>
     <div class="age">
       <label  for="age">Age</label>
-      <select class="age"
+      <input type="number" class="age"
               [formControl]="form.controls.age"
               [ngClass]="{'input-error' : form.controls.age.invalid && submit}"
               id="age"
       >
-        <option value="" disabled>Select one option</option>
-        <option value="1">Child</option>
-        <option value="2">Teenagers</option>
-        <option value="3">Adult</option>
-        <option value="4">Senior</option>
-      </select>
     </div>
     <div class="date-range">
       <label>Date Range</label>

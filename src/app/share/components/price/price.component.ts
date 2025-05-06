@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Inject, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Inject, Input, OnInit, output, Output} from '@angular/core';
 import {Offer, OfferInterface} from '../../../core/intefaces/offer-interface';
 import {SafeHtml} from '@angular/platform-browser';
 import {OfferSupabaseService} from '../../../core/services/offer-supabase.service';
@@ -16,6 +16,7 @@ export class PriceComponent implements OnInit{
     @Inject(OfferSupabaseService) private offerInterface: OfferInterface
   ) {}
   @Input() offer!: Offer;
+  @Output() update = new EventEmitter<void>();
 
   protected name: string = '';
   protected price: number = 0.00;
@@ -32,9 +33,16 @@ export class PriceComponent implements OnInit{
   }
 
 
-  delete() {
+  async delete() {
     if(confirm("Are you sure you want to delete this offer?")) {
-      this.offerInterface.deleteOffer(this.offer.id!)
+      await this.offerInterface.deleteOffer(this.offer.id!).subscribe({
+        next: () => {
+          this.update.emit();
+        }
+      });
+
+
     }
+
   }
 }

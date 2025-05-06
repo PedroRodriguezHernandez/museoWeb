@@ -26,7 +26,21 @@ export class PriceListComponent implements OnInit{
   ) {}
   addPrice = false;
   offers: Offer[] = [];
+
   ngOnInit(): void {
+    this.takeOffers()
+  }
+
+  openPopup(){
+    this.addPrice = true;
+  }
+
+  closePopup(){
+    this.addPrice = false;
+    this.takeOffers();
+  }
+
+  protected takeOffers(){
     this.offersInterface.getOffers().subscribe(
       {
         next : (offers) => {
@@ -36,14 +50,5 @@ export class PriceListComponent implements OnInit{
       }
     )
   }
-
-  openPopup(){
-    this.addPrice = true;
-  }
-
-  closePopup(){
-    this.addPrice = false;
-  }
-
 
 }
