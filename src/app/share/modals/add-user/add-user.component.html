@@ -1,12 +1,12 @@
 <section class="add-user" *ngIf="visible">
   <h1 class="title">Add new user</h1>
   <form [formGroup]="form">
-    <div class="user-name">
-      <label  for="user-name">User name</label>
+    <div class="email">
+      <label  for="email">Email</label>
       <input type="text"
              [formControl]="form.controls.UserName"
              [ngClass]="{'input-error' : form.controls.UserName.invalid && submit}"
-             placeholder="Set user name..." id="user-name">
+             placeholder="Set user name..." id="email">
     </div>
     <div class="name">
       <label  for="name">Name</label>
@@ -22,9 +22,8 @@
               [ngClass]="{'input-error' : form.controls.level.invalid && submit}"
               id="level">
         <option value="" disabled selected>Select one option</option>
-        <option value="1">Opción 1</option>
-        <option value="2">Opción 2</option>
-        <option value="3">Opción 3</option>
+        <option value="admin">Admin</option>
+        <option value="worker">Worker</option>
       </select>
     </div>
     <div class="date-range">
