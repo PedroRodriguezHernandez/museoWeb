@@ -34,6 +34,11 @@
 </div>
 <div class="sidebar" *ngIf="isSidebarOpen">
   <nav class="nav-link">
+    <a (click)="changePassword()" class="changePassword">Change Password</a>
     <a (click)="logOut()" class="close">LogOut</a>
   </nav>
+</div>
+
+<div *ngIf="true">
+  <app-change-password></app-change-password>
 </div>

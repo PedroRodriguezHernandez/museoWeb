@@ -13,9 +13,6 @@
       <input class="input-search" placeholder="Search">
 
     </div>
-    <button class="btn" (click)="OpenPopUp()">Add +</button>
-    <div class="overlay" *ngIf="popup"></div>
-    <app-add-user [visible]="popup" (close)="closePopup()"></app-add-user>
   </div>
 
   <div class="content">
@@ -23,13 +20,13 @@
     <div class="header-user">
       <label class="cell"><strong>ID</strong></label>
       <label class="cell">Name</label>
-      <label class="cell">User Name</label>
-      <label class="cell">User Level</label>
+      <label class="cell">Email</label>
+      <label class="cell">Role</label>
       <div class="cell" style="padding: 10px 20px"></div>
     </div>
 
-    <div *ngFor="let _ of array">
-      <app-user></app-user>
+    <div *ngFor="let user of users">
+      <app-user [user]="user"></app-user>
     </div>
   </div>
 </section>

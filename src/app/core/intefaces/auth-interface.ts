@@ -8,6 +8,7 @@ export interface AuthInterface {
   login(user: string, password:string): Observable<AuthUser>;
   logout(): void;
   getCurrentUser(): Observable<AuthUser | null>;
+  changePassword(newPassword: string): Observable<void>;
 }
 
 

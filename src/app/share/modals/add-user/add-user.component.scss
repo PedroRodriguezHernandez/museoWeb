@@ -1,86 +1,28 @@
 @import "styles.scss";
-.add-user{
-  z-index: 1000;
-  position: absolute;
-  background-color: white;
-  max-width: 800px;
-  max-height: 900px;
-  min-width: 500px;
-  min-height: 600px;
-  width: fit-content;
-  height: fit-content;
-  border: 1px solid;
-  left: 50%;
-  transform: translate(-50%, 0);
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-  justify-content: space-around;
-  align-items: center;
-  font-family: 'Inter', sans-serif;
-  padding: 10px 40px;
 
-  input, select {
-    background-color: $broken-white;
-    border: 1px solid $ultra-light-blue;
-    padding: 4px;
-    border-radius: 10px;
-    &::placeholder{
-      color: $ultra-light-blue;
-    }
-  }
-  select{
-    background-color: $broken-white;
-    border: 1px solid $ultra-light-blue;
-    padding: 4px;
-    border-radius: 10px;
-    &::placeholder{
-      color: $ultra-light-blue;
-    }
-  }
+.add-user {
+  @include standard-modal();
 
-  form{
-    width: 80%;
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-
+  .form{
     .input-error{
       @include standard-input-error();
     }
-
-    div{
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-
-    .date-range{
-      .group{
-        display: flex;
-        flex-direction: row;
-        font-size: 12px;
-        justify-content: space-around;
-        div{width: 40%;}
-      }
-    }
   }
-
-  .foot{
+  .foot {
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     gap: 40px;
-    .cancel{
+
+    .cancel {
       @include standard-button(white, red);
       border-radius: 10px;
     }
 
-    .add{
+    .add {
       @include standard-button($blue, $broken-white);
       border-radius: 10px;
     }
-
   }
 }

@@ -4,8 +4,8 @@
     <div class="user-name">
       <label  for="user-name">User name</label>
       <input type="text"
-             [formControl]="form.controls.UserName"
-             [ngClass]="{'input-error' : form.controls.UserName.invalid && submit}"
+             [formControl]="form.controls.email"
+             [ngClass]="{'input-error' : form.controls.email.invalid && submit}"
              placeholder="Set user name..." id="user-name">
     </div>
     <div class="name">
@@ -18,12 +18,11 @@
     <div class="level">
       <label  for="level">User Level</label>
       <select class="level"
-              [formControl]="form.controls.level"
-              [ngClass]="{'input-error' : form.controls.level.invalid && submit}"
+              [formControl]="form.controls.rol"
+              [ngClass]="{'input-error' : form.controls.rol.invalid && submit}"
               id="level">
-        <option value="1">Opción 1</option>
-        <option value="2">Opción 2</option>
-        <option value="3">Opción 3</option>
+        <option value="admin">Admin</option>
+        <option value="worker">Worker</option>
       </select>
     </div>
     <div class="date-range">
@@ -32,15 +31,15 @@
         <div class="from">
           <label  for="from">From</label>
           <input type="date"
-                 [formControl]="form.controls.from"
-                 [ngClass]="{'input-error' : form.controls.from.invalid && submit}"
+                 [formControl]="form.controls.start_date"
+                 [ngClass]="{'input-error' : form.controls.start_date.invalid && submit}"
                  id="from">
         </div>
         <div class="to">
           <label  for="to">To</label>
           <input type="date"
-                 [formControl]="form.controls.to"
-                 [ngClass]="{'input-error' : form.controls.to.invalid && submit}"
+                 [formControl]="form.controls.end_date"
+                 [ngClass]="{'input-error' : form.controls.end_date.invalid && submit}"
                  id="to" >
         </div>
       </div>
@@ -57,5 +56,4 @@
     <button class="cancel" (click)="closePopup()">Cancel</button>
     <button class="add" (click)="onSubmit()">Update</button>
   </div>
-    <button class="cancel" (click)="closePopup()">Delete</button>
 </section>

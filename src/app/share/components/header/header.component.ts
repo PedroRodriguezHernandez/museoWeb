@@ -3,13 +3,15 @@ import {Router, RouterLink, RouterLinkActive} from '@angular/router';
 import {NgIf} from '@angular/common';
 import {AuthSupabaseService} from '../../../core/services/auth-supabase.service';
 import {AuthInterface} from '../../../core/intefaces/auth-interface';
+import {ChangePasswordComponent} from '../../modals/change-password/change-password.component';
 
 @Component({
   selector: 'app-header',
   imports: [
     RouterLinkActive,
     RouterLink,
-    NgIf
+    NgIf,
+    ChangePasswordComponent
   ],
   templateUrl: './header.component.html',
   standalone: true,
@@ -21,6 +23,7 @@ export class HeaderComponent {
     @Inject(AuthSupabaseService) private authInterface: AuthInterface
   ) {}
   isSidebarOpen: boolean = false;
+  boolean: boolean = false;
 
   toggleSidebar(): void {
     this.isSidebarOpen = !this.isSidebarOpen;
@@ -30,5 +33,9 @@ export class HeaderComponent {
     console.log("logOut");
     this.router.navigate(['/']);
     this.authInterface.logout();
+  }
+
+  changePassword() {
+    this.boolean = true;
   }
 }

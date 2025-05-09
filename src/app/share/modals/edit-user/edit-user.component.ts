@@ -1,6 +1,8 @@
-import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Inject, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {NgClass, NgIf} from '@angular/common';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {User, UserInterface} from '../../../core/intefaces/user-interface';
+import {UserSupabaseService} from '../../../core/services/user-supabase.service';
 
 @Component({
   selector: 'app-edit-user',
@@ -13,17 +15,21 @@ import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/
     standalone: true,
     styleUrl: './edit-user.component.scss'
 })
-export class EditUserComponent {
+export class EditUserComponent implements OnInit{
+  constructor(
+    @Inject(UserSupabaseService) private userInterface : UserInterface
+  ) { }
+  @Input() user!: User;
   @Input() visible: boolean = false;
   @Output() close = new EventEmitter<void>();
   submit: boolean = false;
 
   form = new FormGroup({
-    UserName: new FormControl({ value: "Lorem Ipsum", disabled: true }, [Validators.required]),
+    email: new FormControl({ value: "Lorem Ipsum", disabled: true }, [Validators.required]),
     name: new FormControl({ value: "Lorem Ipsum", disabled: true }, [Validators.required]),
-    level: new FormControl("",[Validators.required]),
-    from: new FormControl(""),
-    to: new FormControl(""),
+    rol: new FormControl("",[Validators.required]),
+    start_date: new FormControl(""),
+    end_date: new FormControl(""),
     enable: new FormControl(true, [Validators.required])
   });
 
@@ -36,7 +42,30 @@ export class EditUserComponent {
   onSubmit(){
     this.submit = true;
     if(this.form.valid){
-      this.closePopup();
+      if(confirm('Are you sure do you want to update this user?'))
+      {
+        const user: User = this.updateUser()
+        this.userInterface.updateUser(user).subscribe();
+        this.closePopup();
+      }
+    }
+  }
+  private updateUser(): User {
+    this.user.rol = this.form.value.rol!;
+    this.user.end_date =  this.form.value.end_date ? new Date(this.form.value.end_date) :  undefined;
+    this.user.start_date =  new Date(this.form.value.start_date!);
+    return this.user;
+  }
+  ngOnInit(): void {
+    if(this.user){
+      this.form.patchValue({
+        name: this.user.name,
+        email: this.user.email,
+        rol: this.user.rol,
+        start_date: this.user.start_date.toString(),
+        end_date: this.user.end_date ? this.user.end_date.toString() : undefined,
+        enable: this.user.enable
+      })
     }
   }
 

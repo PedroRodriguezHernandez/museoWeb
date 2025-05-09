@@ -3,10 +3,18 @@ import {AuthInterface, AuthUser} from '../intefaces/auth-interface';
 import {from, map, Observable} from 'rxjs';
 import {supabase} from './supabase.service';
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthSupabaseService implements AuthInterface {
+  changePassword(newPassword: string): Observable<void> {
+    return from(
+      supabase.auth.updateUser({password:newPassword}).then(({error})=>{
+        if(error) throw error;
+      })
+    );
+  }
 
   login(user: string, password: string): Observable<AuthUser> {
     return from(

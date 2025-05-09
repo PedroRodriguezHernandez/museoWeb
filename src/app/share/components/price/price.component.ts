@@ -30,6 +30,7 @@ export class PriceComponent implements OnInit{
     this.age = this.offer.age;
     this.startDate = this.offer.startDate;
     this.endDate = this.offer.endDate;
+
   }
 
 

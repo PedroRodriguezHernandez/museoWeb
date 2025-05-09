@@ -1,11 +1,11 @@
 <div class="user">
-  <a class="cell"><strong>000000000</strong></a>
-  <a class="cell">Lorem Ipsum</a>
-  <a class="cell">Lorem Ipsum</a>
-  <a class="cell">Lorem Ipsum</a>
+  <a class="cell"><strong>{{ id }}</strong></a>
+  <a class="cell">{{ name }}</a>
+  <a class="cell">{{ userName }}</a>
+  <a class="cell">{{ userLevel }}</a>
   <div class="cell">
   <button class="btn" (click)="OpenPopUp()">Edit</button>
   </div>
   <div class="overlay" *ngIf="showEditUser"></div>
-  <app-edit-user [visible]="showEditUser" (close)="ClosePopUp()"></app-edit-user>
+  <app-edit-user [user]="user" [visible]="showEditUser" (close)="ClosePopUp()"></app-edit-user>
 </div>
