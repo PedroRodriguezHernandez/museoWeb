@@ -36,5 +36,4 @@ export class UserComponent implements OnInit{
     this.showEditUser = false;
   }
 
-
 }
