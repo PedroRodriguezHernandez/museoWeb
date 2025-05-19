@@ -23,7 +23,7 @@ export class HeaderComponent {
     @Inject(AuthSupabaseService) private authInterface: AuthInterface
   ) {}
   isSidebarOpen: boolean = false;
-  boolean: boolean = false;
+  changePassword: boolean = false;
 
   toggleSidebar(): void {
     this.isSidebarOpen = !this.isSidebarOpen;
@@ -35,7 +35,12 @@ export class HeaderComponent {
     this.authInterface.logout();
   }
 
-  changePassword() {
-    this.boolean = true;
+  openPopUp() {
+    this.changePassword = true;
+    this.isSidebarOpen = false;
+  }
+
+  closePopUp() {
+    this.changePassword =  false
   }
 }

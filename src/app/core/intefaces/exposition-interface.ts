@@ -7,6 +7,7 @@ export interface Exposition {
   imageUrl?: string;
   QRUrl?: string;
   enable: boolean;
+  views?: number;
 }
 export interface ExpositionInterface {
   getExpositions(): Observable<Exposition[]>;
