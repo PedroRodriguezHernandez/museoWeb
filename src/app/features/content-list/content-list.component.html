@@ -1,11 +1,14 @@
 <section class="content-list">
   <app-header></app-header>
-    <div class="top">
-      <button class="btn" (click)="addItem()">Add +</button>
+  <div class="top">
+    <app-search [data]="expositions"
+                [filteredBy]="'title'"
+                (filtered)="filteredExhibition = $event"></app-search>
+    <button class="btn" (click)="addItem()">Add +</button>
+  </div>
+  <div class="content">
+    <div *ngFor="let expo of filteredExhibition">
+      <app-item-list [exhibition]="expo" ></app-item-list>
     </div>
-    <div class="content">
-      <div *ngFor="let expo of expositions">
-        <app-item-list [exhibition]="expo" ></app-item-list>
-      </div>
-    </div>
+  </div>
 </section>

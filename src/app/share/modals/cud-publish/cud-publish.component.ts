@@ -8,6 +8,7 @@ import {NgIf} from '@angular/common';
 import {DataTransferService} from '../../../core/services/transfer-data.service';
 import {StorageSupabaseService} from '../../../core/services/storage-supabase.service';
 import {StorageInterface} from '../../../core/intefaces/storage-interface';
+import QRCode from 'qrcode';
 
 
 @Component({
@@ -65,7 +66,7 @@ export class CUDPublishComponent implements OnInit{
     if (this.form.valid){
       this.exhibition.title = <string> this.form.value.title;
       this.exhibition.description = <string> this.form.value.description;
-      this.exhibition.enable = false
+      this.exhibition.enable = this.exhibition.enable ? this.exhibition.enable : false;
 
       if(this.exhibition.id){
         if (this.exhibition.imageUrl != this.form.value.image && this.file){
@@ -153,5 +154,31 @@ export class CUDPublishComponent implements OnInit{
           this.exit();
         }
       });
+  }
+
+  async downloadQR() {
+    if (this.exhibition.id && this.exhibition.enable){
+      const filename: string = this.exhibition.title;
+      const content: string =  this.exhibition.id;
+
+      try {
+        const qrDataUrl = await QRCode.toDataURL(content.toString(), {
+          errorCorrectionLevel: 'H',
+          margin: 2,
+          width: 300,
+        })
+        const link = document.createElement('a');
+        link.href = qrDataUrl;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+      } catch (err) {
+        console.error(err);
+      }
+    }else{
+      alert("The action could not be processed. Check that it is saved and published.")
+    }
   }
 }

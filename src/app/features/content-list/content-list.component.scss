@@ -9,13 +9,18 @@
     position: sticky;
     top: 0;
     display: flex;
-    justify-content: right;
+    justify-content: center;
+    align-items: center;
     padding: 15px 0;
     background-color: white;
+
     .btn {
+      position: absolute;
+      right: 10px;
       @include standard-button($blue, $broken-white);
       border-radius: 10px;
     }
+
   }
   .content {
     flex: 1;

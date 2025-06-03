@@ -1,6 +1,18 @@
-.graphic{
-  width: 90vw;
-  height: 50vh;
-  justify-self: center;
-  margin: 20px;
+@import "styles.scss";
+
+.content {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+
+  .title{
+    color: $dark-blue;
+    font-family: 'Inter', sans-serif;
+  }
+  .graphic {
+    width: 90vw;
+    height: 50vh;
+    justify-self: center;
+    margin: 20px;
+  }
 }

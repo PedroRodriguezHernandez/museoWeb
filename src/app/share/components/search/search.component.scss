@@ -1,0 +1,29 @@
+@import "styles.scss";
+
+.filter{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  font-family: 'Inter', sans-serif;
+  font-weight: bold;
+  align-items: center;
+
+
+  .selector{
+    padding: 2px;
+    background-color: $broken-white;
+    border-radius: 5px;
+    border: 1px solid $ultra-light-blue;
+  }
+
+  .input-search{
+    padding: 5px;
+    background-color: $broken-white;
+    border-radius: 5px;
+    border: 1px solid $ultra-light-blue;
+
+    &::placeholder{
+      color: $light-blue;
+    }
+  }
+}
