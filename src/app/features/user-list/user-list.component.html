@@ -1,7 +1,18 @@
 <section class="content-list">
   <app-header></app-header>
   <div class="top">
-   <app-search [data]="users" (filtered)="filteredUsers = $event"></app-search>
+
+    <div class="filter">
+      <label for="options">Search by</label>
+      <select class="selector" id="options">
+        <option value="1">Name</option>
+        <option value="2">ID</option>
+        <option value="3">User Level</option>
+      </select>
+
+      <input class="input-search" placeholder="Search">
+
+    </div>
   </div>
 
   <div class="content">
@@ -14,7 +25,7 @@
       <div class="cell" style="padding: 10px 20px"></div>
     </div>
 
-    <div *ngFor="let user of filteredUsers">
+    <div *ngFor="let user of users">
       <app-user [user]="user"></app-user>
     </div>
   </div>

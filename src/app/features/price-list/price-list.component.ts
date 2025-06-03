@@ -5,7 +5,6 @@ import {NgForOf, NgIf} from '@angular/common';
 import {AddOfferComponent} from '../../share/modals/add-offer/add-offer.component';
 import {Offer, OfferInterface} from '../../core/intefaces/offer-interface';
 import {OfferSupabaseService} from '../../core/services/offer-supabase.service';
-import {SearchComponent} from '../../share/components/search/search.component';
 
 @Component({
   selector: 'app-price-list',
@@ -14,8 +13,7 @@ import {SearchComponent} from '../../share/components/search/search.component';
     PriceComponent,
     NgForOf,
     AddOfferComponent,
-    NgIf,
-    SearchComponent
+    NgIf
   ],
   templateUrl: './price-list.component.html',
   standalone: true,
@@ -28,7 +26,6 @@ export class PriceListComponent implements OnInit{
   ) {}
   addPrice = false;
   offers: Offer[] = [];
-  filterOffers: Offer[] = [];
 
   ngOnInit(): void {
     this.takeOffers()
@@ -48,7 +45,6 @@ export class PriceListComponent implements OnInit{
       {
         next : (offers) => {
           this.offers = offers
-          this.filterOffers = this.offers
         },
         error: (error) => {console.error(error)}
       }

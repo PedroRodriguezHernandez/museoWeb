@@ -6,7 +6,6 @@ import {UserComponent} from '../../share/components/user/user.component';
 import {AddUserComponent} from '../../share/modals/add-user/add-user.component';
 import {User, UserInterface} from '../../core/intefaces/user-interface';
 import {UserSupabaseService} from '../../core/services/user-supabase.service';
-import {SearchComponent} from '../../share/components/search/search.component';
 
 @Component({
   selector: 'app-user-list',
@@ -16,8 +15,7 @@ import {SearchComponent} from '../../share/components/search/search.component';
     NgForOf,
     UserComponent,
     AddUserComponent,
-    NgIf,
-    SearchComponent
+    NgIf
   ],
   templateUrl: './user-list.component.html',
   standalone: true,
@@ -29,7 +27,6 @@ export class UserListComponent implements OnInit{
   ) {}
 
   users: User[] = [];
-  filteredUsers: User[] = []
 
   ngOnInit(): void {
     this.takeUsers()
@@ -40,7 +37,6 @@ export class UserListComponent implements OnInit{
     this.usersInterface.getUsers().subscribe({
       next: (users)=>{
         this.users = users
-        this.filteredUsers = this.users;
       },
       error:(err)=>{console.error(err)}
     })
