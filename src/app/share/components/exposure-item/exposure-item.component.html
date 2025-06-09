@@ -1,0 +1,13 @@
+<div class = "exposureItem" (click)="goToExhibitions()">
+  <div class="top">
+    <h2 class="title">Exposure: {{name}}</h2>
+    <span class="material-icons" aria-label="Delete" (click)="delete()">delete</span>
+  </div>
+
+  <div class="content">
+    <div *ngFor="let exhibition of exhibitions">
+      <strong>title: </strong>{{ exhibition.title }}
+    </div>
+  </div>
+
+</div>

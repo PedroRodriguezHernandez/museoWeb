@@ -31,9 +31,13 @@
                placeholder="Set title...">
         <label for="exposure">Exposure</label>
         <input id="exposure" type="text"
+               list="exposureOptions"
                [formControl]="form.controls.exposure"
                placeholder="Set exposure...">
       </div>
+      <datalist id="exposureOptions">
+        <option *ngFor="let option of exposuresOptions" [value]="option"></option>
+      </datalist>
     </div>
     <div class="dynamic-tags">
       <label for="dynamic-tags">Tags</label>

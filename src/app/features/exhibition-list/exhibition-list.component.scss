@@ -1,0 +1,28 @@
+@import "styles.scss";
+
+.content-list{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  .top {
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 15px 5px;
+    align-items: center;
+    background-color: $broken-white;
+
+    .btn {
+      @include standard-button($blue, $broken-white);
+      border-radius: 10px;
+      height: 40px;
+    }
+    .btn-back{
+      @include standard-button($blue, $broken-white);
+      border-radius: 10px;
+    }
+  }
+}

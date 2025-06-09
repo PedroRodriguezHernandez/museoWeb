@@ -17,5 +17,6 @@ export interface ExpositionInterface {
   getExpositionById(id: string): Observable<Exhibition>;
   addExposition(exposition: Exhibition): Observable<Exhibition>;
   updateExposition(id: string, exposition: Partial<Exhibition>): Observable<Exhibition>;
+  getExpositionsByIds(ids:string[]):Observable<Exhibition[]>;
   deleteExposition(id: string): Observable<void>;
 }

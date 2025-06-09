@@ -8,4 +8,5 @@ export interface ExposureInterface {
   getExposures():Observable<Exposure[]>;
   getExposureByName(name:string):Observable<Exposure>;
   deleteExposureByName(name:string):Observable<void>;
+  getExposuresByNames(names:string[]):Observable<Exposure[]>
 }

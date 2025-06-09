@@ -6,6 +6,7 @@ import { PriceListComponent } from './features/price-list/price-list.component';
 import { AdministrationComponent } from './features/administration/administration.component';
 import { CUDPublishComponent } from './share/modals/cud-publish/cud-publish.component';
 import { authGuard } from './core/guards/auth.guard';
+import {ExhibitionListComponent} from './features/exhibition-list/exhibition-list.component';
 
 export const appRoutes: Routes = [
   { path: '', component: LoginComponent },
@@ -14,6 +15,7 @@ export const appRoutes: Routes = [
   { path: 'price-list', component: PriceListComponent, canActivate: [authGuard] },
   { path: 'administration', component: AdministrationComponent, canActivate: [authGuard] },
   { path: 'crud-publish', component: CUDPublishComponent, canActivate: [authGuard] },
+  { path: 'exhibition-list', component: ExhibitionListComponent, canActivate: [authGuard] },
 ];
 
 export const appRouting = RouterModule.forRoot(appRoutes);

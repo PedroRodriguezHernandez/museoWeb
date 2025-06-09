@@ -4,21 +4,25 @@ import {Router} from '@angular/router';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {ExpositionService} from '../../../core/services/exhibicion-supabase.service';
 import {Exhibition, ExpositionInterface} from '../../../core/intefaces/exposition-interface';
-import {NgIf} from '@angular/common';
+import {CommonModule, NgForOf, NgIf} from '@angular/common';
 import {DataTransferService} from '../../../core/services/transfer-data.service';
 import {StorageSupabaseService} from '../../../core/services/storage-supabase.service';
 import {StorageInterface} from '../../../core/intefaces/storage-interface';
 import QRCode from 'qrcode';
 import {DynamicTagsComponent} from '../../components/dynamic-tags/dynamic-tags.component';
+import {ExposureInterface} from '../../../core/intefaces/exposure-interface';
+import {ExposureSupabaseService} from '../../../core/services/exposure-supabase.service';
 
 
 @Component({
     selector: 'app-cud-publish',
   imports: [
+    CommonModule,
     QuillEditorComponent,
     ReactiveFormsModule,
     NgIf,
-    DynamicTagsComponent
+    DynamicTagsComponent,
+    NgForOf
   ],
     templateUrl: './cud-publish.component.html',
     standalone: true,
@@ -30,9 +34,11 @@ export class CUDPublishComponent implements OnInit{
     private transferData : DataTransferService,
     @Inject(ExpositionService) private exhibitionInterface : ExpositionInterface,
     @Inject(StorageSupabaseService) private storageInterface : StorageInterface,
+    @Inject(ExposureSupabaseService) private exposure : ExposureInterface,
   ) {};
   protected previewUrl: string | null = null;
   protected isSidebarOpen: boolean = false;
+  exposuresOptions: string[] = [];
   private file: File | any = null;
   protected exhibition : Exhibition = {
     title: "",
@@ -50,6 +56,7 @@ export class CUDPublishComponent implements OnInit{
   });
 
   async ngOnInit() {
+    this.loadExposures()
     if(this.transferData.getData() != null) {
       this.exhibition = await this.transferData.getData();
       this.form.patchValue({
@@ -193,5 +200,10 @@ export class CUDPublishComponent implements OnInit{
   onTagsChanged(tags: Record<string, any>) {
     this.exhibition.tags = tags;
   }
-
+  private loadExposures() {
+    this.exposure.getExposures().subscribe((exposures) => {
+      const names = exposures.map(e => e.name);
+      this.exposuresOptions = names;
+    });
+  }
 }

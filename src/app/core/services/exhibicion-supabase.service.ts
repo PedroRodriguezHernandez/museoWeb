@@ -38,6 +38,22 @@ export class ExpositionService implements ExpositionInterface {
     );
   }
 
+  getExpositionsByIds(ids:string[]){
+    return from(
+      supabase
+        .from('exhibition')
+        .select('*')
+        .in('id', ids)
+    ).pipe(
+      map(({ data, error }) => {
+        if (error) {
+          throw error
+        }
+        return data as Exhibition[];
+      })
+    );
+  }
+
   addExposition(exposition: Exhibition): Observable<Exhibition> {
     return from(
       (async () => {

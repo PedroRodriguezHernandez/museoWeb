@@ -1,0 +1,45 @@
+@import "styles.scss";
+
+.exposureItem{
+  width: 90%;
+  margin: 10px;
+  padding: 20px;
+  background-color: $broken-white;
+  border: 1px solid $ultra-light-blue;
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Inter', sans-serif;
+  gap: 20px;
+  border-radius: 20px;
+
+  .top{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .title{
+      font-weight: bold;
+      margin: 0;
+    }
+    .material-icons {
+      font-size: 24px;
+      color: red;
+      cursor: pointer;
+      &:hover {
+        color: darkred;
+        transform: scale(1.1);
+        transition: color 0.3s ease, transform 0.3s ease;
+      }
+    }
+  }
+    content{
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-left: 20px;
+    }
+    .btn{
+      @include standard-button($blue,$broken-white);
+    }
+}
