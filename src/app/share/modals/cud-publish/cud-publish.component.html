@@ -25,15 +25,25 @@
         <button class="btn" (click)="fileInput.click()">Choose File</button>
       </div>
       <div class="right">
-        <label>Title</label>
-        <input type="text"
+        <label for="title">Title</label>
+        <input id="title" type="text"
                [formControl]="form.controls.title"
                placeholder="Set title...">
+        <label for="exposure">Exposure</label>
+        <input id="exposure" type="text"
+               [formControl]="form.controls.exposure"
+               placeholder="Set exposure...">
       </div>
-
     </div>
+    <div class="dynamic-tags">
+      <label for="dynamic-tags">Tags</label>
+      <app-dynamic-tags id="dynamic-tags" [tags]="exhibition.tags || {}" (tagsChanged)="onTagsChanged($event)"></app-dynamic-tags>
+    </div>
+
     <div class="editor-container">
+      <label for="description">Description</label>
       <app-quill-editor
+        id="description"
         [content]="exhibition.description"
         [control]="form.controls.description"
       ></app-quill-editor>

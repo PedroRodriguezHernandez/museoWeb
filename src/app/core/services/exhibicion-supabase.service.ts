@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Observable, from, defer} from 'rxjs';
 import { map } from 'rxjs/operators';
-import {Exposition, ExpositionInterface} from '../intefaces/exposition-interface';
+import {Exhibition, ExpositionInterface} from '../intefaces/exposition-interface';
 import {supabase} from './supabase.service';
 
 @Injectable({
@@ -9,7 +9,7 @@ import {supabase} from './supabase.service';
 })
 export class ExpositionService implements ExpositionInterface {
 
-  getExpositions(): Observable<Exposition[]> {
+  getExpositions(): Observable<Exhibition[]> {
     return defer(async () => {
       const { data: exhibition, error } = await supabase
         .from('exhibition')
@@ -18,12 +18,12 @@ export class ExpositionService implements ExpositionInterface {
       if (error) {
         throw error;
       }
-      return exhibition as Exposition[];
+      return exhibition as Exhibition[];
     });
   }
 
 
-  getExpositionById(id: string): Observable<Exposition> {
+  getExpositionById(id: string): Observable<Exhibition> {
     return from(
       supabase
         .from('exhibition')
@@ -33,12 +33,12 @@ export class ExpositionService implements ExpositionInterface {
     ).pipe(
       map(({ data, error }) => {
         if (error) throw error;
-        return data as Exposition;
+        return data as Exhibition;
       })
     );
   }
 
-  addExposition(exposition: Exposition): Observable<Exposition> {
+  addExposition(exposition: Exhibition): Observable<Exhibition> {
     return from(
       (async () => {
         const { data, error } = await supabase
@@ -48,7 +48,9 @@ export class ExpositionService implements ExpositionInterface {
               title: exposition.title,
               description: exposition.description,
               image_url: exposition.image_url,
-              enable: exposition.enable
+              exposure: exposition.exposure,
+              enable: exposition.enable,
+              tags: exposition.tags
             }
           ])
           .select();
@@ -57,13 +59,13 @@ export class ExpositionService implements ExpositionInterface {
           throw error;
         }
 
-        return data?.[0] as Exposition;
+        return data?.[0] as Exhibition;
       })()
     );
   }
 
 
-  updateExposition(id: string, exposition: Partial<Exposition>): Observable<Exposition> {
+  updateExposition(id: string, exposition: Partial<Exhibition>): Observable<Exhibition> {
     return from(
       (async () => {
         const { data, error } = await supabase
@@ -72,7 +74,9 @@ export class ExpositionService implements ExpositionInterface {
             title: exposition.title,
             description: exposition.description,
             image_url: exposition.image_url,
-            enable: exposition.enable
+            exposure: exposition.exposure,
+            enable: exposition.enable,
+            tags: exposition.tags
           })
           .eq('id', id)
           .select();
@@ -81,7 +85,7 @@ export class ExpositionService implements ExpositionInterface {
           throw error;
         }
 
-        return data?.[0] as Exposition;
+        return data?.[0] as Exhibition;
       })()
     );
   }

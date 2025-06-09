@@ -1,0 +1,20 @@
+<div class="tag-list">
+  <div *ngFor="let tag of tagList; let i = index; trackBy: trackByIndex" class="tag-item">
+    <input
+      type="text"
+      [(ngModel)]="tag.key"
+      placeholder="Key"
+      (blur)="emitTags()"
+      (input)="updateTag(i, 'key', tag.key)"
+    />
+    <input
+      type="text"
+      [(ngModel)]="tag.value"
+      placeholder="Value"
+      (blur)="emitTags()"
+      (input)="updateTag(i, 'value', tag.value)"
+    />
+    <button class="add" (click)="addTag(i)">Add</button>
+    <button class="delete" (click)="removeTag(i)">X</button>
+  </div>
+</div>

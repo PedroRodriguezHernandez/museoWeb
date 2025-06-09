@@ -1,0 +1,44 @@
+
+.tag-list {
+  max-height: 250px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+}
+
+.tag-item {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  align-items: center;
+}
+
+.tag-item input {
+  padding: 0.4rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  flex: 1;
+}
+
+.tag-item button {
+  padding: 0.4rem 0.7rem;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.tag-item button:hover {
+  background-color: #0056b3;
+}
+
+.tag-item button:last-child {
+  background-color: #dc3545;
+}
+
+.tag-item button:last-child:hover {
+  background-color: #a71d2a;
+}

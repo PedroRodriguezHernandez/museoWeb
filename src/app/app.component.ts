@@ -11,7 +11,7 @@ import {AddUserComponent} from './share/modals/add-user/add-user.component';
 import {EditUserComponent} from './share/modals/edit-user/edit-user.component';
 import {AddOfferComponent} from './share/modals/add-offer/add-offer.component';
 import {UserListComponent} from './features/user-list/user-list.component';
-import {PruebaComponent} from './prueba/prueba.component';
+import {DynamicTagsComponent} from './share/components/dynamic-tags/dynamic-tags.component';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +20,7 @@ import {PruebaComponent} from './prueba/prueba.component';
     PriceComponent, LoginComponent,
     ContentListComponent, CUDPublishComponent,
     AddUserComponent, EditUserComponent,
-    AddOfferComponent, UserListComponent, PruebaComponent
+    AddOfferComponent, UserListComponent, DynamicTagsComponent
   ],
   templateUrl: './app.component.html',
   standalone: true,

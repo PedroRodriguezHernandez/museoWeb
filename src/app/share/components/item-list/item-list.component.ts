@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {Exposition} from '../../../core/intefaces/exposition-interface';
+import {Exhibition} from '../../../core/intefaces/exposition-interface';
 import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
 import DOMPurify from 'dompurify';
 import {NgStyle} from '@angular/common';
@@ -22,12 +22,13 @@ export class ItemListComponent implements OnInit{
     protected transferService: DataTransferService
     ) { }
 
-  @Input() exhibition!: Exposition;
+  @Input() exhibition!: Exhibition;
 
   protected title: string = '';
   protected description: SafeHtml = '';
   protected image: string = '';
   protected  condition: boolean = false;
+  protected exposure: string = '';
 
 
 
@@ -38,6 +39,7 @@ export class ItemListComponent implements OnInit{
 
   ngOnInit(): void {
     this.title = this.exhibition.title;
+    this.exposure = this.exhibition.exposure;
     this.image = <string>this.exhibition.image_url;
     const textRaw = this.exhibition.description || '';
     this.description = DOMPurify.sanitize(textRaw.replaceAll('&nbsp;',' '), {RETURN_TRUSTED_TYPE: true});

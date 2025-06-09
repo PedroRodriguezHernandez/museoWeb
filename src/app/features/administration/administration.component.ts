@@ -2,7 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {HeaderComponent} from '../../share/components/header/header.component';
 import {BaseChartDirective} from 'ng2-charts';
 import {GraphicComponent} from '../../share/components/graphic/graphic.component';
-import {Exposition, ExpositionInterface} from '../../core/intefaces/exposition-interface';
+import {Exhibition, ExpositionInterface} from '../../core/intefaces/exposition-interface';
 import {ExpositionService} from '../../core/services/exhibicion-supabase.service';
 
 @Component({
@@ -25,7 +25,7 @@ export class AdministrationComponent implements OnInit{
     {title:"LoremIpsum", data:10}
   ]
 
-  private exhibitions!: Exposition[];
+  private exhibitions!: Exhibition[];
   constructor(
     @Inject(ExpositionService) protected expositionInterface: ExpositionInterface
   ) {

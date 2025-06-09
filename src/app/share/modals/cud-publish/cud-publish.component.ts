@@ -3,12 +3,13 @@ import {QuillEditorComponent} from '../../components/quill-editor/quill-editor.c
 import {Router} from '@angular/router';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {ExpositionService} from '../../../core/services/exhibicion-supabase.service';
-import {Exposition, ExpositionInterface} from '../../../core/intefaces/exposition-interface';
+import {Exhibition, ExpositionInterface} from '../../../core/intefaces/exposition-interface';
 import {NgIf} from '@angular/common';
 import {DataTransferService} from '../../../core/services/transfer-data.service';
 import {StorageSupabaseService} from '../../../core/services/storage-supabase.service';
 import {StorageInterface} from '../../../core/intefaces/storage-interface';
 import QRCode from 'qrcode';
+import {DynamicTagsComponent} from '../../components/dynamic-tags/dynamic-tags.component';
 
 
 @Component({
@@ -16,7 +17,8 @@ import QRCode from 'qrcode';
   imports: [
     QuillEditorComponent,
     ReactiveFormsModule,
-    NgIf
+    NgIf,
+    DynamicTagsComponent
   ],
     templateUrl: './cud-publish.component.html',
     standalone: true,
@@ -32,16 +34,19 @@ export class CUDPublishComponent implements OnInit{
   protected previewUrl: string | null = null;
   protected isSidebarOpen: boolean = false;
   private file: File | any = null;
-  protected exhibition : Exposition = {
+  protected exhibition : Exhibition = {
     title: "",
     description:"",
     image_url:'./assets/images/picture-gallery-interface-icon-vector.jpg',
+    exposure: '',
+    tags: {},
     enable:false
   }
   form  = new FormGroup({
     title : new FormControl(this.exhibition.title,[Validators.required]),
     image: new FormControl(this.exhibition.image_url,[Validators.required]),
-    description: new FormControl(this.exhibition.description,[Validators.required])
+    description: new FormControl(this.exhibition.description,[Validators.required]),
+    exposure: new FormControl(this.exhibition.exposure, [Validators.required]),
   });
 
   async ngOnInit() {
@@ -50,6 +55,7 @@ export class CUDPublishComponent implements OnInit{
       this.form.patchValue({
         title: this.exhibition.title,
         description: this.exhibition.image_url,
+        exposure: this.exhibition.exposure,
         image: this.exhibition.description
       });
     }
@@ -65,6 +71,7 @@ export class CUDPublishComponent implements OnInit{
   save() {
     if (this.form.valid){
       this.exhibition.title = <string> this.form.value.title;
+      this.exhibition.exposure = <string> this.form.value.exposure;
       this.exhibition.description = <string> this.form.value.description;
       this.exhibition.enable = this.exhibition.enable ? this.exhibition.enable : false;
 
@@ -180,6 +187,11 @@ export class CUDPublishComponent implements OnInit{
     }else{
       alert("The action could not be processed. Check that it is saved and published.")
     }
+  }
+
+
+  onTagsChanged(tags: Record<string, any>) {
+    this.exhibition.tags = tags;
   }
 
 }

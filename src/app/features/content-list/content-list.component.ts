@@ -5,7 +5,7 @@ import {ItemListComponent} from '../../share/components/item-list/item-list.comp
 import {CUDPublishComponent} from '../../share/modals/cud-publish/cud-publish.component';
 import {Router} from '@angular/router';
 import {ExpositionService} from '../../core/services/exhibicion-supabase.service';
-import {Exposition, ExpositionInterface} from '../../core/intefaces/exposition-interface';
+import {Exhibition, ExpositionInterface} from '../../core/intefaces/exposition-interface';
 
 @Component({
     selector: 'app-content-list',
@@ -21,7 +21,7 @@ import {Exposition, ExpositionInterface} from '../../core/intefaces/exposition-i
 })
 export class ContentListComponent implements OnInit{
 
-  expositions: Exposition[] = [];
+  expositions: Exhibition[] = [];
   constructor(
     private router: Router,
     @Inject(ExpositionService) private exhibitions : ExpositionInterface

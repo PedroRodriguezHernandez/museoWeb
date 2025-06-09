@@ -1,6 +1,6 @@
 import {Observable} from 'rxjs';
 
-export interface Exposition {
+export interface Exhibition {
   id?: string;
   title: string;
   description: string;
@@ -8,11 +8,14 @@ export interface Exposition {
   QRUrl?: string;
   enable: boolean;
   views?: number;
+  exposure: string;
+  tags?: Record<string, any>;
+
 }
 export interface ExpositionInterface {
-  getExpositions(): Observable<Exposition[]>;
-  getExpositionById(id: string): Observable<Exposition>;
-  addExposition(exposition: Exposition): Observable<Exposition>;
-  updateExposition(id: string, exposition: Partial<Exposition>): Observable<Exposition>;
+  getExpositions(): Observable<Exhibition[]>;
+  getExpositionById(id: string): Observable<Exhibition>;
+  addExposition(exposition: Exhibition): Observable<Exhibition>;
+  updateExposition(id: string, exposition: Partial<Exhibition>): Observable<Exhibition>;
   deleteExposition(id: string): Observable<void>;
 }
