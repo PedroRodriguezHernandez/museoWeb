@@ -4,7 +4,7 @@ export interface Exposition {
   id?: string;
   title: string;
   description: string;
-  imageUrl?: string;
+  image_url?: string;
   QRUrl?: string;
   enable: boolean;
   views?: number;

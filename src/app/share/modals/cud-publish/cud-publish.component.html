@@ -20,7 +20,7 @@
   <form [formGroup]="form" class="body">
     <div class="top-body">
       <div class="left">
-        <img [src]="previewUrl || exhibition.imageUrl" alt="image of item">
+        <img [src]="previewUrl || exhibition.image_url" alt="image of item">
         <input type="file" #fileInput (change)="setImage($event)" accept="image/*" hidden>
         <button class="btn" (click)="fileInput.click()">Choose File</button>
       </div>

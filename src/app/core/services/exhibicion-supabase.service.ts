@@ -47,7 +47,7 @@ export class ExpositionService implements ExpositionInterface {
             {
               title: exposition.title,
               description: exposition.description,
-              imageUrl: exposition.imageUrl,
+              image_url: exposition.image_url,
               enable: exposition.enable
             }
           ])
@@ -71,7 +71,7 @@ export class ExpositionService implements ExpositionInterface {
           .update({
             title: exposition.title,
             description: exposition.description,
-            imageUrl: exposition.imageUrl,
+            image_url: exposition.image_url,
             enable: exposition.enable
           })
           .eq('id', id)

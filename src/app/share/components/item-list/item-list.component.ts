@@ -38,7 +38,7 @@ export class ItemListComponent implements OnInit{
 
   ngOnInit(): void {
     this.title = this.exhibition.title;
-    this.image = <string>this.exhibition.imageUrl;
+    this.image = <string>this.exhibition.image_url;
     const textRaw = this.exhibition.description || '';
     this.description = DOMPurify.sanitize(textRaw.replaceAll('&nbsp;',' '), {RETURN_TRUSTED_TYPE: true});
     this.condition = this.exhibition.enable;

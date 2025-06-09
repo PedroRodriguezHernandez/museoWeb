@@ -35,12 +35,12 @@ export class CUDPublishComponent implements OnInit{
   protected exhibition : Exposition = {
     title: "",
     description:"",
-    imageUrl:'./assets/images/picture-gallery-interface-icon-vector.jpg',
+    image_url:'./assets/images/picture-gallery-interface-icon-vector.jpg',
     enable:false
   }
   form  = new FormGroup({
     title : new FormControl(this.exhibition.title,[Validators.required]),
-    image: new FormControl(this.exhibition.imageUrl,[Validators.required]),
+    image: new FormControl(this.exhibition.image_url,[Validators.required]),
     description: new FormControl(this.exhibition.description,[Validators.required])
   });
 
@@ -49,7 +49,7 @@ export class CUDPublishComponent implements OnInit{
       this.exhibition = await this.transferData.getData();
       this.form.patchValue({
         title: this.exhibition.title,
-        description: this.exhibition.imageUrl,
+        description: this.exhibition.image_url,
         image: this.exhibition.description
       });
     }
@@ -69,14 +69,14 @@ export class CUDPublishComponent implements OnInit{
       this.exhibition.enable = this.exhibition.enable ? this.exhibition.enable : false;
 
       if(this.exhibition.id){
-        if (this.exhibition.imageUrl != this.form.value.image && this.file){
-          this.storageInterface.deleteFile('image-exhibiton', this.exhibition.imageUrl!.split('/').pop()!)
+        if (this.exhibition.image_url != this.form.value.image && this.file){
+          this.storageInterface.deleteFile('image-exhibiton', this.exhibition.image_url!.split('/').pop()!)
             .subscribe({
               next: () =>{
                 this.storageInterface.uploadFile('image-exhibiton', this.file)
                   .subscribe({
                     next : (url) => {
-                      this.exhibition.imageUrl = url;
+                      this.exhibition.image_url = url;
                       this.updateExhibition()
                     },
                     error: err => console.log(err)
@@ -90,7 +90,7 @@ export class CUDPublishComponent implements OnInit{
         this.storageInterface.uploadFile('image-exhibiton', this.file)
           .subscribe({
             next : url => {
-              this.exhibition.imageUrl = url;
+              this.exhibition.image_url = url;
               this.exhibitionInterface.addExposition(this.exhibition)
                 .subscribe({
                   next: () =>{
@@ -112,7 +112,7 @@ export class CUDPublishComponent implements OnInit{
   deleteExhibition() {
     if (this.exhibition.id != null) {
       if (confirm("Are you sure you want to delete this exhibition?")) {
-        this.storageInterface.deleteFile('image-exhibiton', this.exhibition.imageUrl!.split('/').pop()!).subscribe({
+        this.storageInterface.deleteFile('image-exhibiton', this.exhibition.image_url!.split('/').pop()!).subscribe({
           next: () => {
             this.exhibitionInterface.deleteExposition(this.exhibition.id!);
             this.exit();
@@ -137,12 +137,12 @@ export class CUDPublishComponent implements OnInit{
     if(this.exhibition.enable){
       if (confirm("This exhibition is already publish, do you want to change it?")){
         this.exhibition.enable = false;
-        this.updateExhibition();
+        this.save()
       }
     }else {
       if (confirm("Do you want to publish this exhibition?")){
         this.exhibition.enable = true;
-        this.updateExhibition();
+        this.save()
       }
     }
   }
