@@ -10,6 +10,13 @@ import {Museum, MuseumInterface} from '../../core/intefaces/museum-interface';
 import {TicketsSupabaseService} from '../../core/services/tickets-supabase.service';
 import {Tickets, TicketsInterface} from '../../core/intefaces/tickets-interface';
 import {Exposure} from '../../core/intefaces/exposure-interface';
+import {DataNormalizer} from '../../core/utils/data-normalizer';
+import {ChartDataNormalized, normalizeMultiLineData, normalizeVisitsByDate} from '../../core/utils/graphic-normalizer';
+import {NgIf} from '@angular/common';
+import {GraphicSimpleComponent} from '../../share/components/graphic-simple/graphic-simple.component';
+import {
+  GraphicMultiCategoryComponent
+} from '../../share/components/graphic-multi-category/graphic-multi-category.component';
 
 @Component({
   selector: 'app-administration',
@@ -17,6 +24,9 @@ import {Exposure} from '../../core/intefaces/exposure-interface';
     HeaderComponent,
     BaseChartDirective,
     GraphicComponent,
+    NgIf,
+    GraphicSimpleComponent,
+    GraphicMultiCategoryComponent,
   ],
   templateUrl: './administration.component.html',
   standalone: true,
@@ -25,16 +35,14 @@ import {Exposure} from '../../core/intefaces/exposure-interface';
 
 export class AdministrationComponent implements OnInit{
 
-  data: {title:string, data:number}[]= [
-    {title:"LoremIpsum", data:8},
-    {title:"LoremIpsum", data:9},
-    {title:"LoremIpsum", data:10}
-  ]
-
   private exhibitions!: Exhibition[];
   private exposures!: Exposure[];
   private museum!: Museum[];
   private tickets!: Tickets[];
+
+  protected chartType: 'bar' | 'line' = 'line';
+  protected data:any;
+
   constructor(
     @Inject(ExpositionService) protected expositionInterface: ExpositionInterface,
     @Inject(ExposureSupabaseService) protected exposureInterface: ExposureSupabaseService,
@@ -42,62 +50,85 @@ export class AdministrationComponent implements OnInit{
     @Inject(TicketsSupabaseService) protected ticketsInterface: TicketsInterface,
   ) {  }
 
-   ngOnInit(): void {
+  private normalizer!: DataNormalizer;
+  protected simple: boolean = true;
+
+
+  ngOnInit(): void {
     this.loadExposures();
     this.loadExhibition();
     this.loadMuseum();
     this.loadTickets();
   }
 
+  private checkAndInitialize() {
+    if (this.exhibitions && this.exposures && this.museum && this.tickets) {
+      this.normalizer = new DataNormalizer(
+        this.exposures,
+        this.tickets,
+        this.exhibitions,
+        this.museum
+      );
 
-  private cleanData() {
-    this.data = this.exhibitions.map(dt => ({
-      title: dt.title!,
-      data: dt.views!
-    }));
-  }
+      //this.data =this.normalizer.getMuseumFlow()
+      //this.data = this.normalizer.getVisitsByAge();
 
-  private loadTickets() {
-    this.ticketsInterface.getTickets().subscribe(
-      {
-        next: value => {
-          this.tickets = value;
-          console.log(this.tickets)
-        }
-      }
-    )
-  }
 
-  private loadExhibition() {
-    this.expositionInterface.getExpositions().subscribe(
-      {
-        next: value => {
-          this.exhibitions = value;
-          console.log(this.exhibitions)
-        }
-      }
-    )
-  }
+      console.log(this.normalizer.getVisitsByAgePerDay());
 
-  private loadExposures() {
-    this.exposureInterface.getExposures().subscribe(
-      {
-        next: value => {
-          this.exposures = value;
-          console.log(this.exposures)
-        }
-      }
-    )
+      //this.data = this.normalizer.getTicketsSoldByDay();
+      //this.data = this.normalizer.getTotalSalesByDay();
+
+      //this.data =  this.normalizer.getVisitsPerExhibition();
+      console.log(this.normalizer.getDailyViewsFiltered());
+
+      //this.data = this.normalizer.getVisitsPerExposure();
+      this.data = this.normalizer.getDailyViewsPerExposure();
+
+    }
   }
 
   private loadMuseum() {
-    this.museumInterface.getMuseum().subscribe(
-      {
-        next: value => {
-          this.museum = value;
-          console.log(this.museum)
-        }
+    this.museumInterface.getMuseum().subscribe({
+      next: value => {
+        this.museum = value;
+        this.checkAndInitialize();
       }
-    )
+    });
   }
+
+  private loadExhibition() {
+    this.expositionInterface.getExpositions().subscribe({
+      next: value => {
+        this.exhibitions = value;
+        this.checkAndInitialize();
+      }
+    });
+  }
+
+  private loadExposures() {
+    this.exposureInterface.getExposures().subscribe({
+      next: value => {
+        this.exposures = value;
+        this.checkAndInitialize();
+      }
+    });
+  }
+
+  private loadTickets() {
+    this.ticketsInterface.getTickets().subscribe({
+      next: value => {
+        this.tickets = value;
+        this.checkAndInitialize();
+      }
+    });
+  }
+
+  /*private simpleData( ): void {
+    this.data = dataObj.map(item => ({
+      label: String(item[labelKey]),
+      data: item[valueKey]
+    }));
+    this.simple = true;
+  }*/
 }

@@ -22,7 +22,7 @@ export class DataNormalizer {
     this.museums = museums;
   }
 
-  getMuseumFlow(start?: Date, end?: Date): { date: string; visits: number }[] {
+  getMuseumFlow(start?: Date, end?: Date): { label: string; data: number }[] {
     return this.museums
       .filter(entry => {
         const entryDate = entry.date;
@@ -31,17 +31,17 @@ export class DataNormalizer {
         return isAfterStart && isBeforeEnd;
       })
       .map(entry => ({
-        date: entry.date.toISOString().split('T')[0],
-        visits: entry.current_capacity,
+        label: new Date(entry.date).toISOString().split('T')[0],
+        data: entry.current_capacity,
       }));
   }
   getVisitsByAge(options?: {
     startDate?: Date;
     endDate?: Date;
     allowedAges?: string[];
-  }): Record<string, number> {
+  }): { label: string; data: number }[] {
     const { startDate, endDate, allowedAges } = options || {};
-    const visitsByAge: Record<string, number> = {};
+    const visitsMap: Record<string, number> = {};
 
     this.tickets
       .filter(ticket => {
@@ -53,17 +53,21 @@ export class DataNormalizer {
       })
       .forEach(ticket => {
         const ageGroup = ticket.age ?? 'unknown';
-        visitsByAge[ageGroup] = (visitsByAge[ageGroup] || 0) + 1;
+        visitsMap[ageGroup] = (visitsMap[ageGroup] || 0) + 1;
       });
 
-    return visitsByAge;
+    return Object.entries(visitsMap).map(([age, visits]) => ({
+      label: age,
+      data: visits
+    }));
   }
+
 
   getVisitsByAgePerDay(options?: {
     startDate?: Date;
     endDate?: Date;
     allowedAges?: string[];
-  }): Array<Record<string, string | number>> {
+  }): { labels: string[]; categories: Record<string, number[]> } {
     const { startDate, endDate, allowedAges } = options || {};
     const grouped: Record<string, Record<string, number>> = {};
 
@@ -76,7 +80,7 @@ export class DataNormalizer {
         return isAfterStart && isBeforeEnd && isAllowedAge;
       })
       .forEach(ticket => {
-        const dateKey = ticket.buy_at.toISOString().split('T')[0];
+        const dateKey = new Date(ticket.buy_at).toISOString().split('T')[0];
         const ageGroup = ticket.age ?? 'unknown';
 
         if (!grouped[dateKey]) {
@@ -86,13 +90,23 @@ export class DataNormalizer {
         grouped[dateKey][ageGroup] = (grouped[dateKey][ageGroup] || 0) + 1;
       });
 
-    return Object.entries(grouped).map(([date, ageGroups]) => ({
-      date,
-      ...ageGroups,
-    }));
+    const labels = Object.keys(grouped).sort();
+
+    const allCategories = new Set<string>();
+    Object.values(grouped).forEach(ageGroups => {
+      Object.keys(ageGroups).forEach(cat => allCategories.add(cat));
+    });
+
+    const categories: Record<string, number[]> = {};
+    allCategories.forEach(cat => {
+      categories[cat] = labels.map(label => grouped[label][cat] ?? 0);
+    });
+
+    return { labels, categories };
   }
 
-  getTicketsSoldByDay(options?: { startDate?: Date; endDate?: Date }): Array<{ day: string; ticketsSold: number }> {
+
+  getTicketsSoldByDay(options?: { startDate?: Date; endDate?: Date }): Array<{ label: string; data: number }> {
     const { startDate, endDate } = options || {};
     const grouped: Record<string, number> = {};
 
@@ -104,17 +118,17 @@ export class DataNormalizer {
         return afterStart && beforeEnd;
       })
       .forEach(ticket => {
-        const dayKey = ticket.buy_at.toISOString().split('T')[0];
+        const dayKey = new Date(ticket.buy_at).toISOString().split('T')[0];
         grouped[dayKey] = (grouped[dayKey] || 0) + 1;
       });
 
     return Object.entries(grouped).map(([day, ticketsSold]) => ({
-      day,
-      ticketsSold,
+      label: day,
+      data: ticketsSold,
     }));
   }
 
-  getTotalSalesByDay(options?: { startDate?: Date; endDate?: Date }): Array<{ day: string; totalPrice: number }> {
+  getTotalSalesByDay(options?: { startDate?: Date; endDate?: Date }): Array<{ label: string; data: number }> {
     const { startDate, endDate } = options || {};
     const grouped: Record<string, number> = {};
 
@@ -126,20 +140,20 @@ export class DataNormalizer {
         return afterStart && beforeEnd;
       })
       .forEach(ticket => {
-        const dayKey = ticket.buy_at.toISOString().split('T')[0];
+        const dayKey = new Date(ticket.buy_at).toISOString().split('T')[0];
         grouped[dayKey] = (grouped[dayKey] || 0) + ticket.price;
       });
 
     return Object.entries(grouped).map(([day, totalPrice]) => ({
-      day,
-      totalPrice,
+      label: day,
+      data: totalPrice,
     }));
   }
 
   getVisitsPerExhibition(options?: {
     exposures?: string[];
     exhibitionTitles?: string[];
-  }): Array<{ title: string; totalViews: number }> {
+  }): Array<{ label: string; data: number }> {
     const { exposures, exhibitionTitles } = options || {};
 
     let filtered = this.exhibitions;
@@ -156,56 +170,75 @@ export class DataNormalizer {
     }
 
     return filtered.map(ex => ({
-      title: ex.title,
-      totalViews: ex.views ?? 0,
+      label: ex.title,
+      data: ex.views ?? 0,
     }));
   }
 
 
-  getDailyViewsFiltered(options?: {
-    exposures?: string[];
-    exhibitionTitles?: string[];
+  getDailyViewsPerExposure(options?: {
+    exposureNames?: string[];
     startDate?: string;
     endDate?: string;
-  }): Array<{ title: string; dailyViews: Record<string, number> }> {
-    const { exposures, exhibitionTitles, startDate, endDate } = options || {};
+  }): { labels: string[]; categories: Record<string, number[]> } {
+    const { exposureNames, startDate, endDate } = options || {};
 
-    let filtered = this.exhibitions;
-
-    if (exposures && exposures.length > 0) {
-      filtered = filtered.filter(ex => exposures.includes(ex.exposure));
-    }
-
-    if (exhibitionTitles && exhibitionTitles.length > 0) {
-      const lowerTitles = exhibitionTitles.map(t => t.toLowerCase());
-      filtered = filtered.filter(ex =>
-        lowerTitles.some(t => ex.title.toLowerCase().includes(t))
+    let filteredExposures = this.exposures;
+    if (exposureNames && exposureNames.length > 0) {
+      const lowerNames = exposureNames.map(n => n.toLowerCase());
+      filteredExposures = filteredExposures.filter(exposure =>
+        lowerNames.some(n => exposure.name.toLowerCase().includes(n))
       );
     }
 
-    return filtered.map(ex => {
-      const dailyViews = ex.daily_views || {};
-      const filteredDailyViews: Record<string, number> = {};
+    const combinedByDate: Record<string, Record<string, number>> = {};
 
-      Object.entries(dailyViews).forEach(([date, count]) => {
-        if (
-          (!startDate || date >= startDate) &&
-          (!endDate || date <= endDate)
-        ) {
-          filteredDailyViews[date] = count as number;
-        }
+    filteredExposures.forEach(exposure => {
+      const relatedTitles = this.exhibitions
+        .filter(ex => ex.id && (exposure.list ?? []).includes(ex.id))
+        .map(ex => ex.title);
+
+      const filteredViews = this.getDailyViewsFiltered({
+        exhibitionTitles: relatedTitles,
+        startDate,
+        endDate,
       });
 
-      return {
-        title: ex.title,
-        dailyViews: filteredDailyViews,
-      };
+      filteredViews.labels.forEach((date, idx) => {
+        // Sumar todas las vistas para esta fecha
+        let totalForDate = 0;
+        for (const category in filteredViews.categories) {
+          totalForDate += filteredViews.categories[category][idx] ?? 0;
+        }
+
+        if (!combinedByDate[date]) {
+          combinedByDate[date] = {};
+        }
+        combinedByDate[date][exposure.name] = totalForDate;
+      });
     });
+
+    const labels = Object.keys(combinedByDate).sort();
+
+    const allCategories = new Set<string>();
+    Object.values(combinedByDate).forEach(dateMap => {
+      Object.keys(dateMap).forEach(expName => allCategories.add(expName));
+    });
+
+    const categories: Record<string, number[]> = {};
+    allCategories.forEach(expName => {
+      categories[expName] = labels.map(date => combinedByDate[date][expName] ?? 0);
+    });
+
+    return { labels, categories };
   }
+
+
+
 
   getVisitsPerExposure(options?: {
     exposureNames?: string[];
-  }): Array<{ exposure: string; totalViews: number }> {
+  }): Array<{ label: string; data: number }> {
     const { exposureNames } = options || {};
 
     let filteredExposures = this.exposures;
@@ -224,59 +257,66 @@ export class DataNormalizer {
 
       const totalViews = this.getVisitsPerExhibition({
         exhibitionTitles: filteredExhibitions.map(ex => ex.title)
-      }).reduce((sum, ex) => sum + ex.totalViews, 0);
+      }).reduce((sum, ex) => sum + ex.data, 0);
 
       return {
-        exposure: exposure.name,
-        totalViews
+        label: exposure.name,
+        data: totalViews
       };
     });
   }
-
-  getDailyViewsPerExposure(options?: {
-    exposureNames?: string[];
+  getDailyViewsFiltered(options?: {
+    exposures?: string[];
+    exhibitionTitles?: string[];
     startDate?: string;
     endDate?: string;
-  }): Array<{ exposure: string; dailyViews: Record<string, number> }> {
-    const { exposureNames, startDate, endDate } = options || {};
+  }): { labels: string[]; categories: Record<string, number[]> } {
+    const { exposures, exhibitionTitles, startDate, endDate } = options || {};
 
-    let filteredExposures = this.exposures;
+    let filtered = this.exhibitions;
 
-    if (exposureNames && exposureNames.length > 0) {
-      const lowerNames = exposureNames.map(name => name.toLowerCase());
-      filteredExposures = filteredExposures.filter(exposure =>
-        lowerNames.some(n => exposure.name.toLowerCase().includes(n))
+    if (exposures && exposures.length > 0) {
+      filtered = filtered.filter(ex => exposures.includes(ex.exposure));
+    }
+
+    if (exhibitionTitles && exhibitionTitles.length > 0) {
+      const lowerTitles = exhibitionTitles.map(t => t.toLowerCase());
+      filtered = filtered.filter(ex =>
+        lowerTitles.some(t => ex.title.toLowerCase().includes(t))
       );
     }
 
-    return filteredExposures.map(exposure => {
-      const relatedExhibitions = this.exhibitions.filter(
-        ex => ex.id && (exposure.list ?? []).includes(ex.id)
-      );
+    // Construimos el objeto para agrupar por fecha y título
+    const combinedByDate: Record<string, Record<string, number>> = {};
 
-      const views = this.getDailyViewsFiltered({
-        exhibitionTitles: relatedExhibitions.map(ex => ex.title),
-        startDate,
-        endDate,
+    filtered.forEach(ex => {
+      const dailyViews = ex.daily_views || {};
+      Object.entries(dailyViews).forEach(([date, count]) => {
+        if (
+          (!startDate || date >= startDate) &&
+          (!endDate || date <= endDate)
+        ) {
+          if (!combinedByDate[date]) {
+            combinedByDate[date] = {};
+          }
+          combinedByDate[date][ex.title] = count as number;
+        }
       });
-
-      const combinedViews: Record<string, number> = {};
-
-      views.forEach(entry => {
-        Object.entries(entry.dailyViews).forEach(([date, count]) => {
-          combinedViews[date] = (combinedViews[date] || 0) + count;
-        });
-      });
-
-      return {
-        exposure: exposure.name,
-        dailyViews: combinedViews,
-      };
     });
+
+    const labels = Object.keys(combinedByDate).sort();
+
+    // Extraer todas las categorías (títulos)
+    const allCategories = new Set<string>();
+    Object.values(combinedByDate).forEach(catMap => {
+      Object.keys(catMap).forEach(cat => allCategories.add(cat));
+    });
+
+    const categories: Record<string, number[]> = {};
+    allCategories.forEach(cat => {
+      categories[cat] = labels.map(label => combinedByDate[label][cat] ?? 0);
+    });
+
+    return { labels, categories };
   }
-
-
-
-
-
 }

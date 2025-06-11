@@ -1,17 +1,19 @@
-import {Component, Input, OnChanges, SimpleChanges, AfterViewInit} from '@angular/core';
-import {Chart, registerables} from 'chart.js';
+import { Component, Input, OnChanges, SimpleChanges, AfterViewInit } from '@angular/core';
+import { Chart, registerables } from 'chart.js';
+import {ChartDataNormalized, ChartDataNormalizedMulti} from '../../../core/utils/graphic-normalizer';
 
 Chart.register(...registerables);
 
 @Component({
   selector: 'app-graphic',
-  standalone: true,
   templateUrl: './graphic.component.html',
-  styleUrl: './graphic.component.scss',
-  imports: [],
+  styleUrls: ['./graphic.component.scss'],
+  standalone: true
 })
 export class GraphicComponent implements OnChanges, AfterViewInit {
-  @Input() data: { title: string, data: number }[] = [];
+  @Input() chartData!: ChartDataNormalized | ChartDataNormalizedMulti;
+  @Input() type: 'bar' | 'line' = 'bar';
+
 
   public chart: any;
 
@@ -29,36 +31,36 @@ export class GraphicComponent implements OnChanges, AfterViewInit {
   }
 
   createChart() {
-    const labels = this.data.map(dt => dt.title);
-    const values = this.data.map(dt => dt.data);
-
     const canvas = document.getElementById('Chart') as HTMLCanvasElement;
     const ctx = canvas?.getContext('2d');
-
     if (!ctx) return;
 
+    const labels = this.chartData.labels;
+
+    const datasets = 'datasets' in this.chartData
+      ? this.chartData.datasets // multi-line
+      : [{
+        data: this.chartData.values,
+        label: 'Data',
+        backgroundColor: '#3C6373'
+      }];
+
     this.chart = new Chart(ctx, {
-      type: 'bar',
+      type: this.type,
       data: {
-        labels: labels,
-        datasets: [
-          {
-            data: values,
-            backgroundColor: '#3C6373',
-            label: 'Interactions'
-          }
-        ]
+        labels,
+        datasets
       },
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        aspectRatio: 2.5,
         plugins: {
           legend: {
-            display: false
+            display: true
           }
         }
       }
     });
   }
+
 }

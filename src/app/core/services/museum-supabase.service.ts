@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {Museum, MuseumInterface} from '../intefaces/museum-interface';
 import {defer, Observable} from 'rxjs';
 import {supabase} from './supabase.service';
-import {Exhibition} from '../intefaces/exposition-interface';
 
 @Injectable({
   providedIn: 'root'

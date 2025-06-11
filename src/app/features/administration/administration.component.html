@@ -1,6 +1,9 @@
 <app-header></app-header>
 <h1>Exhibition viewing statistics</h1>
-<div class="graphic">
-  <app-graphic [data]="data"></app-graphic>
+<!--div class="graphic" *ngIf="simple">
+  <app-graphic-simple [chartData]="data" [type]="chartType"></app-graphic-simple>
+</div-->
+<div class="graphic" >
+  <app-graphic-multi-category [data]="data" [type]="chartType"></app-graphic-multi-category>
 </div>
 
