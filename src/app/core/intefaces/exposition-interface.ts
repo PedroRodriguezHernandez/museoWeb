@@ -11,7 +11,6 @@ export interface Exhibition {
   exposure: string;
   tags?: Record<string, any>;
   daily_views?: Record<string, any>;
-
 }
 export interface ExpositionInterface {
   getExpositions(): Observable<Exhibition[]>;

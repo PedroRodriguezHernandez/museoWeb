@@ -13,3 +13,4 @@ export interface TicketsInterface {
   getTickets():Observable<Tickets[]>;
   getTicketsById(id:string):Observable<Tickets>
 }
+
