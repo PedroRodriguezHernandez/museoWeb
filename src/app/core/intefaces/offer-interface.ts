@@ -4,9 +4,9 @@ export interface Offer{
   id?: string;
   name: string;
   price: number;
-  age?: number;
-  startDate: Date;
-  endDate?: Date;
+  age?: string;
+  start_date: Date;
+  end_date?: Date;
 }
 
 export interface OfferInterface {

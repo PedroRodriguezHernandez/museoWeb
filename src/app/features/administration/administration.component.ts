@@ -48,7 +48,5 @@ export class AdministrationComponent implements OnInit{
       title: dt.title!,
       data: dt.views!
     }));
-
-    console.log(this.data)
   }
 }

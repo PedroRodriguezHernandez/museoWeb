@@ -64,5 +64,41 @@
     flex: 1;
     overflow-y: auto;
   }
+}
+
+.add-exposure{
+  background-color: rgba(0, 0, 0, 0.4);;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  .background{
+    .content{
+      @include standard-modal();
+      transform: translate(-50%, -50%);
+      form{
+        .input-error{
+          @include standard-input-error();
+        }
+      }
+      .foot {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 40px;
+
+        .cancel {
+          @include standard-button(white, red);
+          border-radius: 10px;
+        }
+
+        .add {
+          @include standard-button($blue, $broken-white);
+          border-radius: 10px;
+        }
+      }
+    }
+  }
 
 }

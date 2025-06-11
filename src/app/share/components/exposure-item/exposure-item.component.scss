@@ -1,39 +1,38 @@
 @import "styles.scss";
-
-.exposureItem{
+.content-exposure{
   width: 90%;
   margin: 10px;
   padding: 20px;
   background-color: $broken-white;
   border: 1px solid $ultra-light-blue;
   justify-self: center;
+  justify-content: space-between;
   display: flex;
-  flex-direction: column;
-  font-family: 'Inter', sans-serif;
-  gap: 20px;
+  flex-direction: row;
   border-radius: 20px;
-
-  .top{
+  .exposureItem{
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
+    font-family: 'Inter', sans-serif;
+    gap: 20px;
 
-    .title{
-      font-weight: bold;
-      margin: 0;
-    }
-    .material-icons {
-      font-size: 24px;
-      color: red;
-      cursor: pointer;
-      &:hover {
-        color: darkred;
-        transform: scale(1.1);
-        transition: color 0.3s ease, transform 0.3s ease;
+    .top{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      .title{
+        cursor: pointer;
+        font-weight: bold;
+        margin: 0;
+
+        &:hover{
+          color: $dark-blue;
+          transform: scale(1.01);
+        }
       }
     }
-  }
-    content{
+    .content{
       display: flex;
       flex-direction: column;
       gap: 10px;
@@ -42,4 +41,33 @@
     .btn{
       @include standard-button($blue,$broken-white);
     }
+  }
+
+  .buttons{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    #delete{
+      font-size: 24px;
+      cursor: pointer;
+      color: red;
+      &:hover {
+        color: darkred;
+        transform: scale(1.1);
+        transition: color 0.3s ease, transform 0.3s ease;
+      }
+    }
+    #go_to{
+      font-size: 30px;
+      cursor: pointer;
+      color: $blue;
+      &:hover {
+        color: $dark-blue;
+        transform: scale(1.1);
+        transition: color 0.3s ease, transform 0.3s ease;
+      }
+    }
+  }
+
 }

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import {Exposure, ExposureInterface} from '../intefaces/exposure-interface';
-import {defer, from, Observable} from 'rxjs';
+import {defer, from, map, Observable} from 'rxjs';
 import {supabase} from './supabase.service';
-import {map} from 'rxjs/operators';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -63,6 +64,25 @@ export class ExposureSupabaseService implements ExposureInterface{
       }
       return exposure as Exposure[]
     });
+  }
+
+  createExposures(name: string): Observable<Exposure> {
+    return from(
+      (async() =>{
+        const {data, error} = await supabase
+            .from('exposure')
+            .insert([{
+              name: name
+            }])
+            .select()
+
+          if (error){
+            throw error
+          }
+
+          return data?.[0] as Exposure
+      })()
+    );
   }
 
 }

@@ -28,7 +28,7 @@ export class AddOfferComponent implements OnChanges{
   form = new FormGroup({
     name: new FormControl("", [Validators.required]),
     price: new FormControl("", [Validators.required, Validators.min(0)]),
-    age: new FormControl("", [Validators.min(0)]),
+    age: new FormControl("", ),
     from: new FormControl(new Date(),[Validators.required]),
     to: new FormControl(""),
   });
@@ -63,9 +63,9 @@ export class AddOfferComponent implements OnChanges{
     return {
       name: this.form.value.name!,
       price: Number(this.form.value.price),
-      age: this.form.value.age ? Number(this.form.value.age) : undefined,
-      startDate: new Date(this.form.value.from!),
-      endDate: this.form.value.to ? new Date(this.form.value.to) : undefined
+      age: this.form.value.age ? this.form.value.age : undefined,
+      start_date: new Date(this.form.value.from!),
+      end_date: this.form.value.to ? new Date(this.form.value.to) : undefined
     };
   }
 }

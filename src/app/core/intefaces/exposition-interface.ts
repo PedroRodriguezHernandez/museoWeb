@@ -10,6 +10,7 @@ export interface Exhibition {
   views?: number;
   exposure: string;
   tags?: Record<string, any>;
+  daily_views?: Record<string, any>;
 
 }
 export interface ExpositionInterface {

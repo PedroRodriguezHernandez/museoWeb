@@ -17,12 +17,19 @@
              placeholder="Set price..." id="price">
     </div>
     <div class="age">
-      <label  for="age">Age</label>
-      <input type="number" class="age"
-              [formControl]="form.controls.age"
-              [ngClass]="{'input-error' : form.controls.age.invalid && submit}"
-              id="age"
+      <label for="ageGroup">Age Group</label>
+      <select
+        id="ageGroup"
+        class="age"
+        [formControl]="form.controls.age"
+        [ngClass]="{'input-error': form.controls.age.invalid && submit}"
       >
+        <option [ngValue]="null">-- Select age group --</option>
+        <option value="senior">Senior</option>
+        <option value="adult">Adult</option>
+        <option value="young">Young</option>
+        <option value="child">Child</option>
+      </select>
     </div>
     <div class="date-range">
       <label>Date Range</label>

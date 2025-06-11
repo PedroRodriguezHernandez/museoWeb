@@ -14,7 +14,7 @@ export const appRoutes: Routes = [
   { path: 'user-list', component: UserListComponent, canActivate: [authGuard] },
   { path: 'price-list', component: PriceListComponent, canActivate: [authGuard] },
   { path: 'administration', component: AdministrationComponent, canActivate: [authGuard] },
-  { path: 'crud-publish', component: CUDPublishComponent, canActivate: [authGuard] },
+  { path: 'crud-publish/:exposure?', component: CUDPublishComponent, canActivate: [authGuard] },
   { path: 'exhibition-list', component: ExhibitionListComponent, canActivate: [authGuard] },
 ];
 

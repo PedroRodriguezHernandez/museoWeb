@@ -34,7 +34,7 @@ export class ItemListComponent implements OnInit{
 
   editItem() {
     this.transferService.setData(this.exhibition);
-    this.router.navigate(['/crud-publish'])
+    this.router.navigate(['/crud-publish',''])
   }
 
   ngOnInit(): void {

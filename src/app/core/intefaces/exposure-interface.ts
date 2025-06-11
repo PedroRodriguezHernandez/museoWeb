@@ -5,6 +5,7 @@ export interface Exposure{
   list?: string[]
 }
 export interface ExposureInterface {
+  createExposures(name: string): Observable<Exposure>;
   getExposures():Observable<Exposure[]>;
   getExposureByName(name:string):Observable<Exposure>;
   deleteExposureByName(name:string):Observable<void>;

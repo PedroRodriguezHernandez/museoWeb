@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {QuillEditorComponent} from '../../components/quill-editor/quill-editor.component';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {ExpositionService} from '../../../core/services/exhibicion-supabase.service';
 import {Exhibition, ExpositionInterface} from '../../../core/intefaces/exposition-interface';
@@ -30,6 +30,7 @@ import {ExposureSupabaseService} from '../../../core/services/exposure-supabase.
 })
 export class CUDPublishComponent implements OnInit{
   constructor(
+    private activeRouter: ActivatedRoute,
     private router: Router,
     private transferData : DataTransferService,
     @Inject(ExpositionService) private exhibitionInterface : ExpositionInterface,
@@ -39,6 +40,7 @@ export class CUDPublishComponent implements OnInit{
   protected previewUrl: string | null = null;
   protected isSidebarOpen: boolean = false;
   exposuresOptions: string[] = [];
+  protected defaultExposure: string = "";
   private file: File | any = null;
   protected exhibition : Exhibition = {
     title: "",
@@ -48,6 +50,7 @@ export class CUDPublishComponent implements OnInit{
     tags: {},
     enable:false
   }
+
   form  = new FormGroup({
     title : new FormControl(this.exhibition.title,[Validators.required]),
     image: new FormControl(this.exhibition.image_url,[Validators.required]),
@@ -56,17 +59,15 @@ export class CUDPublishComponent implements OnInit{
   });
 
   async ngOnInit() {
-    this.loadExposures()
-    if(this.transferData.getData() != null) {
-      this.exhibition = await this.transferData.getData();
-      this.form.patchValue({
-        title: this.exhibition.title,
-        description: this.exhibition.image_url,
-        exposure: this.exhibition.exposure,
-        image: this.exhibition.description
-      });
-    }
 
+    this.loadExposures()
+    this.activeRouter.params.subscribe(params => {
+      this.defaultExposure = params['exposure'] || '';
+    });
+
+    if(this.defaultExposure == ''){
+      this.getData()
+    }
   }
 
   exit() {
@@ -205,5 +206,17 @@ export class CUDPublishComponent implements OnInit{
       const names = exposures.map(e => e.name);
       this.exposuresOptions = names;
     });
+  }
+
+  private async getData() {
+    if(this.transferData.getData() != null) {
+      this.exhibition = await this.transferData.getData();
+      this.form.patchValue({
+        title: this.exhibition.title,
+        description: this.exhibition.image_url,
+        exposure: this.exhibition.exposure,
+        image: this.exhibition.description
+      });
+    }
   }
 }

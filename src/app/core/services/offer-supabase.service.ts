@@ -30,8 +30,8 @@ export class OfferSupabaseService implements OfferInterface{
             name: offer.name,
             price: offer.price,
             age: offer.age,
-            startDate: offer.startDate,
-            endDate: offer.endDate
+            start_date: offer.start_date,
+            end_date: offer.end_date
           }])
           .select();
 

@@ -1,13 +1,18 @@
-<div class = "exposureItem" (click)="goToExhibitions()">
-  <div class="top">
-    <h2 class="title">Exposure: {{name}}</h2>
-    <span class="material-icons" aria-label="Delete" (click)="delete()">delete</span>
-  </div>
-
-  <div class="content">
-    <div *ngFor="let exhibition of exhibitions">
-      <strong>title: </strong>{{ exhibition.title }}
+<section class="content-exposure">
+  <div class = "exposureItem" >
+    <div class="top">
+      <h2 class="title" (click)="goToExhibitions()">Exposure: {{name}}</h2>
     </div>
-  </div>
 
-</div>
+    <div class="content">
+      <div *ngFor="let exhibition of exhibitions">
+        <strong>title: </strong>{{ exhibition.title }}
+      </div>
+    </div>
+
+  </div>
+  <div class="buttons">
+    <span class="material-icons" id="delete" aria-label="Delete" (click)="delete()">delete</span>
+    <span class="material-icons" id="go_to" aria-label="Go to" (click)="goToExhibitions()">chevron_right</span>
+  </div>
+</section>

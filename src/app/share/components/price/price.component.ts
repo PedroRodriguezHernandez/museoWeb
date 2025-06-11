@@ -28,8 +28,8 @@ export class PriceComponent implements OnInit{
     this.name = this.offer.name;
     this.price = this.offer.price;
     this.age = this.offer.age;
-    this.startDate = this.offer.startDate;
-    this.endDate = this.offer.endDate;
+    this.startDate = this.offer.start_date;
+    this.endDate = this.offer.end_date;
 
   }
 

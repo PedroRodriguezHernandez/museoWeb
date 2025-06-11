@@ -21,7 +21,7 @@ export class ExposureItemComponent implements OnChanges{
   constructor(
     private router: Router,
     private dataTransferService: DataTransferService,
-  @Inject(ExpositionService) private exhibition : ExpositionInterface,
+    @Inject(ExpositionService) private exhibition : ExpositionInterface,
     @Inject(ExposureSupabaseService) private exposureService : ExposureInterface,
   ) {}
 
@@ -41,7 +41,6 @@ export class ExposureItemComponent implements OnChanges{
 
   private loadExhibitions() {
     if (this.exhibitions_id.length > 0){
-      console.log(this.exhibitions_id)
       this.exhibition.getExpositionsByIds(this.exhibitions_id).subscribe({
         next:(exhibitions) => {
           this.exhibitions = exhibitions
@@ -55,14 +54,16 @@ export class ExposureItemComponent implements OnChanges{
 
   delete() {
     if (this.exhibitions_id.length == 0){
-      this.exposureService.deleteExposureByName(this.exposure.name).subscribe({
-        next: () => {
-          this.exposureDeleted.emit(this.exposure.name);
-        },
-        error: (err) => {
-          alert('Error deleting exposure: ' + err.message);
-        }
-      });
+      if(confirm("Are you sure you want to delete this exposure?")){
+        this.exposureService.deleteExposureByName(this.exposure.name).subscribe({
+          next: () => {
+            this.exposureDeleted.emit(this.exposure.name);
+          },
+          error: (err) => {
+            alert('Error deleting exposure: ' + err.message);
+          }
+        });
+      }
     } else {
       alert("Is not possible delete a exposure with exhibitions!");
     }

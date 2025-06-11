@@ -32,3 +32,24 @@
       </div>
   </div>
 </section>
+<div class="add-exposure" *ngIf="addExposure">
+  <div class="background">
+    <div class="content">
+      <h2 class="title">Set new exposure</h2>
+      <form [formGroup]="form">
+        <div>
+          <label for="exposure">New Exposure</label>
+          <input type="text" id="exposure"
+                 placeholder="Set exposure..."
+                 [formControl]="form.controls.exposure"
+                 [ngClass]="{'input-error' : form.controls.exposure.invalid && submit}"
+          >
+        </div>
+      </form>
+      <div class="foot">
+        <button class="cancel" (click)="closeForm()">Cancel</button>
+        <button class="add" (click)="addNewExposure()">Add Exposure</button>
+      </div>
+    </div>
+  </div>
+</div>

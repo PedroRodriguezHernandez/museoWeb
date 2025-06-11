@@ -38,10 +38,13 @@ export class ExhibitionListComponent  implements OnInit{
     }
     if (this.dataTransferService.getData()) {
       this.exposure = this.dataTransferService.getData();
+    } else {
+      this.router.navigate(['/content-list'])
     }
   }
   addItem() {
-    this.router.navigate(['/crud-publish']);
+    this.dataTransferService.clearData()
+    this.router.navigate(['/crud-publish',this.exposure.name]);
   }
 
   goBack() {
