@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
 import {Chart, registerables} from 'chart.js';
 
 Chart.register(...registerables);
@@ -12,10 +12,13 @@ Chart.register(...registerables);
 })
 export class GraphicSimpleComponent implements OnChanges, AfterViewInit {
 
-@Input() chartData!: { label: string; data: number; }[];
-@Input() type: 'bar' | 'line' = 'line';
 
-public chart:any
+  @Input() chartData!: { label: string; data: number; }[];
+  @Input() type: 'bar' | 'line' = 'line';
+  @Input() label:string = 'visits'
+  @Input() idCanva :string = "Canvas"
+
+  public chart:any
   ngAfterViewInit(): void {
     this.createChart();
   }
@@ -25,12 +28,13 @@ public chart:any
     if (this.chart) {
       this.chart.destroy();
     }
-    this.createChart();
+      this.createChart();
+    }
   }
-}
 
-private createChart() {
-    const canvas = document.getElementById('Chart') as HTMLCanvasElement;
+  private createChart() {
+    this.destroyChart();
+    const canvas = document.getElementById(this.idCanva) as HTMLCanvasElement;
     const ctx = canvas?.getContext('2d');
     if (!ctx || !this.chartData) return;
 
@@ -43,7 +47,7 @@ private createChart() {
 
     const datasets = [{
       data: values,
-      label: 'Visits',
+      label: this.label,
       backgroundColor: this.type === 'bar' ? '#3C6373' : 'transparent',
       borderColor: this.type === 'line' ? '#3C6373' : 'transparent',
       borderWidth: 2,
@@ -76,11 +80,16 @@ private createChart() {
             beginAtZero: true,
             title: {
               display: true,
-              text: 'Visits'
+              text: this.label
             }
           }
         }
       }
     });
+  }
+  destroyChart() {
+    if (this.chart) {
+      this.chart.destroy();
+    }
   }
 }

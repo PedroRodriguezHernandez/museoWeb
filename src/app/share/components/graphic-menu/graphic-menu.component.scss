@@ -1,0 +1,62 @@
+@import "styles.scss";
+
+.bar-menu{
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  min-width: 250px;
+  gap: 10px;
+  height: 100%;
+  justify-content: space-around;
+  border-right: 1px solid $light-blue;
+  align-items: center;
+  overflow-y: auto;
+
+  .menu_title{
+    color: $blue;
+    justify-self: center;
+  }
+  .dates{
+    padding: 1rem 15px;
+    box-shadow:
+      0 -2px 4px -2px $blue-shadow,
+      0 2px 4px -2px $blue-shadow;
+
+    display: flex;
+    flex-direction: row;
+    gap:5px;
+
+    div{
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  .exposures{
+    @include standard-checkboxes();
+    padding-left: 15px;
+  }
+  .exhibitions{
+    @include standard-checkboxes();
+    padding-left: 15px;
+  }
+  .typeChart{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    width: 100%;
+    padding-left: 15px;
+    label{
+      color: $blue;
+      font-weight: bold;
+    }
+    .type-btn{
+      @include standard-button($blue,$broken-white);
+      border-radius: 10px;
+    }
+  }
+  .btn{
+    @include standard-button($blue,$broken-white);
+    border-radius: 10px;
+  }
+}

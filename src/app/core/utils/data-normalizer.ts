@@ -26,9 +26,9 @@ export class DataNormalizer {
     return this.museums
       .filter(entry => {
         const entryDate = entry.date;
-        const isAfterStart = !start || entryDate >= start;
-        const isBeforeEnd = !end || entryDate <= end;
-        return isAfterStart && isBeforeEnd;
+        const isAfterStart = !start || new Date(entryDate).getTime() >= start.getTime();
+        const isBeforeEnd = !end || new Date(entryDate).getTime() <= end.getTime();
+         return isAfterStart && isBeforeEnd;
       })
       .map(entry => ({
         label: new Date(entry.date).toISOString().split('T')[0],
@@ -45,8 +45,8 @@ export class DataNormalizer {
 
     this.tickets
       .filter(ticket => {
-        const isAfterStart = !startDate || ticket.buy_at >= startDate;
-        const isBeforeEnd = !endDate || ticket.buy_at <= endDate;
+        const isAfterStart = !startDate || new Date(ticket.buy_at).getTime() >= startDate.getTime();
+        const isBeforeEnd = !endDate || new Date(ticket.buy_at).getTime() <= endDate.getTime();
         const isAllowedAge =
           !allowedAges || allowedAges.includes(ticket.age ?? 'unknown');
         return isAfterStart && isBeforeEnd && isAllowedAge;
@@ -73,8 +73,10 @@ export class DataNormalizer {
 
     this.tickets
       .filter(ticket => {
-        const isAfterStart = !startDate || ticket.buy_at >= startDate;
-        const isBeforeEnd = !endDate || ticket.buy_at <= endDate;
+        const isAfterStart =
+          !startDate || new Date(ticket.buy_at)>= startDate;
+        const isBeforeEnd =
+          !endDate || new Date(ticket.buy_at).getTime() <= endDate.getTime();
         const isAllowedAge =
           !allowedAges || allowedAges.includes(ticket.age ?? 'unknown');
         return isAfterStart && isBeforeEnd && isAllowedAge;
@@ -113,8 +115,8 @@ export class DataNormalizer {
     this.tickets
       .filter(ticket => {
         const day = ticket.buy_at;
-        const afterStart = !startDate || day >= startDate;
-        const beforeEnd = !endDate || day <= endDate;
+        const afterStart = !startDate || new Date(day).getTime() >= startDate.getTime();
+        const beforeEnd = !endDate || new Date(day).getTime() <= endDate.getTime();
         return afterStart && beforeEnd;
       })
       .forEach(ticket => {
@@ -135,8 +137,8 @@ export class DataNormalizer {
     this.tickets
       .filter(ticket => {
         const day = ticket.buy_at;
-        const afterStart = !startDate || day >= startDate;
-        const beforeEnd = !endDate || day <= endDate;
+        const afterStart = !startDate || new Date(day).getTime() >= startDate.getTime();
+        const beforeEnd = !endDate ||  new Date(day).getTime() >= endDate.getTime();
         return afterStart && beforeEnd;
       })
       .forEach(ticket => {
@@ -178,8 +180,8 @@ export class DataNormalizer {
 
   getDailyViewsPerExposure(options?: {
     exposureNames?: string[];
-    startDate?: string;
-    endDate?: string;
+    startDate?: Date;
+    endDate?: Date;
   }): { labels: string[]; categories: Record<string, number[]> } {
     const { exposureNames, startDate, endDate } = options || {};
 
@@ -205,7 +207,6 @@ export class DataNormalizer {
       });
 
       filteredViews.labels.forEach((date, idx) => {
-        // Sumar todas las vistas para esta fecha
         let totalForDate = 0;
         for (const category in filteredViews.categories) {
           totalForDate += filteredViews.categories[category][idx] ?? 0;
@@ -268,8 +269,8 @@ export class DataNormalizer {
   getDailyViewsFiltered(options?: {
     exposures?: string[];
     exhibitionTitles?: string[];
-    startDate?: string;
-    endDate?: string;
+    startDate?: Date;
+    endDate?: Date;
   }): { labels: string[]; categories: Record<string, number[]> } {
     const { exposures, exhibitionTitles, startDate, endDate } = options || {};
 
@@ -286,15 +287,14 @@ export class DataNormalizer {
       );
     }
 
-    // Construimos el objeto para agrupar por fecha y título
     const combinedByDate: Record<string, Record<string, number>> = {};
 
     filtered.forEach(ex => {
       const dailyViews = ex.daily_views || {};
       Object.entries(dailyViews).forEach(([date, count]) => {
         if (
-          (!startDate || date >= startDate) &&
-          (!endDate || date <= endDate)
+          (!startDate || new Date(date).getTime() >= startDate.getTime()) &&
+          (!endDate || new Date(date).getTime() <= endDate.getTime())
         ) {
           if (!combinedByDate[date]) {
             combinedByDate[date] = {};
@@ -306,7 +306,6 @@ export class DataNormalizer {
 
     const labels = Object.keys(combinedByDate).sort();
 
-    // Extraer todas las categorías (títulos)
     const allCategories = new Set<string>();
     Object.values(combinedByDate).forEach(catMap => {
       Object.keys(catMap).forEach(cat => allCategories.add(cat));

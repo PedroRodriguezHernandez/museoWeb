@@ -20,6 +20,7 @@ $light-blue: #689BA6;
 $ultra-light-blue: #99B8BF;
 $broken-white: #F2F2F2;
 $grey: #B3B3B3;
+$blue-shadow: rgba($blue, 0.3);
 
 body{
   margin: 0;
@@ -68,7 +69,7 @@ body{
 
 
 
-@mixin standard-inputContainer{
+@mixin standard-inputContainer(){
   background-color: $broken-white;
   display: flex;
   flex-direction: row;
@@ -193,6 +194,29 @@ body{
         div{width: 40%;}
       }
     }
+  }
+}
+
+@mixin standard-checkboxes{
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+  box-shadow:
+    0 -2px 4px -2px $blue-shadow,
+    0 2px 4px -2px $blue-shadow;
+  .title{
+    color: $dark-blue;
+    font-weight: bold;
+  }
+  .content{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
   }
 }
 

@@ -18,6 +18,8 @@ interface RawData {
 export class GraphicMultiCategoryComponent implements OnChanges, AfterViewInit {
   @Input() data!: { labels: string[]; categories: Record<string, number[]> };
   @Input() type: 'bar' | 'line' = 'line';
+  @Input() idCanva :string = "MultiCanvas"
+  @Input() label: string = "";
 
   private chart?: any;
 
@@ -35,7 +37,9 @@ export class GraphicMultiCategoryComponent implements OnChanges, AfterViewInit {
   }
 
   private createChart() {
-    const canvas = document.getElementById('multiCategoryChart') as HTMLCanvasElement;
+    this.destroyChart();
+
+    const canvas = document.getElementById(this.idCanva) as HTMLCanvasElement;
     const ctx = canvas?.getContext('2d');
     if (!ctx || !this.data) return;
 
@@ -80,7 +84,7 @@ export class GraphicMultiCategoryComponent implements OnChanges, AfterViewInit {
             beginAtZero: true,
             title: {
               display: true,
-              text: 'Value'
+              text: this.label
             }
           }
         }
@@ -94,5 +98,9 @@ export class GraphicMultiCategoryComponent implements OnChanges, AfterViewInit {
     const b = Math.floor(Math.random() * 200);
     return `rgba(${r}, ${g}, ${b}, 1)`;
   }
-
+  destroyChart() {
+    if (this.chart) {
+      this.chart.destroy();
+    }
+  }
 }

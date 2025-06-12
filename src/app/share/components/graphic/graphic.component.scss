@@ -1,4 +1,20 @@
-.chart-container {
-  width: 100%;
+@import "styles.scss";
+
+.graph-content{
+  display: flex;
+  flex-direction: row;
   height: 100%;
+  border-bottom: 1px solid $light-blue;
+  .bar-menu{
+    width: fit-content;
+  }
+  .graphic{
+    width: 100%;
+    justify-self: center;
+    .btn{
+      @include standard-button($broken-white,red);
+      position: absolute;
+      height: fit-content;
+    }
+  }
 }

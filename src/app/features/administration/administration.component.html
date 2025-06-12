@@ -1,9 +1,18 @@
-<app-header></app-header>
-<h1>Exhibition viewing statistics</h1>
-<!--div class="graphic" *ngIf="simple">
-  <app-graphic-simple [chartData]="data" [type]="chartType"></app-graphic-simple>
-</div-->
-<div class="graphic" >
-  <app-graphic-multi-category [data]="data" [type]="chartType"></app-graphic-multi-category>
+<div class="app-administration">
+  <app-header></app-header>
+  <div class="top-bar">
+    <button class="btn" (click)="addGraphic()" [disabled]="graphics.length >= 2">
+      Add Graphic
+    </button>
+  </div>
+<div class="graphic" *ngFor="let graphicId of graphics">
+    <app-graphic
+      [exposuresInputs]="exposures"
+      [exhibitionsInputs]="exhibitions"
+      [tickets]="tickets"
+      [museums]="museum"
+      [idCanva]="graphicId.toString()"
+      (closeGraphic)="removeGraphic(graphicId)">
+    </app-graphic>
 </div>
-
+</div>

@@ -1,3 +1,42 @@
-<div class="chart-container">
-  <canvas  id="Chart" ></canvas>
+<div class="graph-content">
+  <div class="bar-menu">
+  <app-graphic-menu
+    [exposuresInputs]="exposuresInputs"
+    [exhibitionsInputs]="exhibitionsInputs"
+    [tickets]="tickets"
+    [museums]="museums"
+
+    [isSingleSelection]="simple"
+    (isSingleSelectionChange)="onSingleSelectionChange($event)"
+
+    [selectedExhibitions]="selectedExhibitions"
+    (selectedExhibitionsChange)="onSelectedExhibitionsChange($event)"
+
+    [selectedExposures]="selectedExposures"
+    (selectedExposuresChange)="onSelectedExposuresChange($event)"
+
+    [fromDate]="fromDate"
+    (fromDateChange)="onFromDateChange($event)"
+
+    [toDate]="toDate"
+    (toDateChange)="onToDateChange($event)"
+
+    [selectedOption]="selectedOption"
+    (selectedOptionChange)="onSelectedOptionChange($event)"
+
+    [chartType]="chartType"
+    (chartTypeChange)="onChartTypeChange($event)"
+  ></app-graphic-menu>
+  </div>
+  <div class="graphic" *ngIf="simple">
+    <button class="btn" (click)="closeThisGraph()"> X </button>
+    <app-graphic-simple [chartData]="data" [type]="chartType"
+                        [label]="lable" [idCanva]="idCanva"></app-graphic-simple>
+  </div>
+
+  <div class="graphic"  *ngIf="!simple">
+    <button  class="btn" (click)="closeThisGraph()">X</button>
+    <app-graphic-multi-category [data]="data" [type]="chartType"
+                                [label]="lable"></app-graphic-multi-category>
+  </div>
 </div>
