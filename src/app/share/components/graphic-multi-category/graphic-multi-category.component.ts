@@ -22,6 +22,7 @@ export class GraphicMultiCategoryComponent implements OnChanges, AfterViewInit {
   @Input() label: string = "";
 
   private chart?: any;
+  private resizeObserver!: ResizeObserver;
 
   ngAfterViewInit(): void {
     this.createChart();
@@ -90,6 +91,10 @@ export class GraphicMultiCategoryComponent implements OnChanges, AfterViewInit {
         }
       }
     });
+    this.resizeObserver = new ResizeObserver(() => {
+      this.chart?.resize();
+    });
+    this.resizeObserver.observe(canvas);
   }
 
   private generateRandomColor(): string {
@@ -99,8 +104,12 @@ export class GraphicMultiCategoryComponent implements OnChanges, AfterViewInit {
     return `rgba(${r}, ${g}, ${b}, 1)`;
   }
   destroyChart() {
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
+    }
     if (this.chart) {
       this.chart.destroy();
+      this.chart = null;
     }
   }
 }

@@ -1,4 +1,13 @@
-import {AfterViewInit, Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  HostListener,
+  Input,
+  OnChanges,
+  SimpleChanges,
+  ViewChild
+} from '@angular/core';
 import {Chart, registerables} from 'chart.js';
 
 Chart.register(...registerables);
@@ -19,6 +28,8 @@ export class GraphicSimpleComponent implements OnChanges, AfterViewInit {
   @Input() idCanva :string = "Canvas"
 
   public chart:any
+  private resizeObserver!: ResizeObserver;
+
   ngAfterViewInit(): void {
     this.createChart();
   }
@@ -86,10 +97,19 @@ export class GraphicSimpleComponent implements OnChanges, AfterViewInit {
         }
       }
     });
+    this.resizeObserver = new ResizeObserver(() => {
+      this.chart?.resize();
+    });
+    this.resizeObserver.observe(canvas);
+
   }
   destroyChart() {
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
+    }
     if (this.chart) {
       this.chart.destroy();
+      this.chart = null;
     }
   }
 }

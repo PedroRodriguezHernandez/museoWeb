@@ -8,14 +8,16 @@
   .top-bar{
     width: 100%;
     display: flex;
-    justify-content: right;
+    justify-content: flex-end;
     .btn {
       @include standard-button($broken-white, $blue);
       margin: 10px;
     }
   }
   .graphic{
-    height: 50%;
+    flex: 1;
+    overflow-y: auto;
+    padding: 0 10px;
   }
 }
 
