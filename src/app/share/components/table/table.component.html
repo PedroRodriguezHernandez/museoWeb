@@ -1,4 +1,4 @@
-<table class="data-table">
+<table class="data-table" *ngIf="chartData">
   <thead>
   <tr>
     <th>{{ label }}</th>
@@ -9,6 +9,23 @@
   <tr *ngFor="let item of chartData">
     <td>{{ item.label }}</td>
     <td>{{ item.data }}</td>
+  </tr>
+  </tbody>
+</table>
+
+<table class="data-table" *ngIf="categorizedData">
+  <thead>
+  <tr>
+    <th>{{ label }}</th>
+    <th *ngFor="let category of categoryNames">{{ category }}</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let date of categorizedData.labels; let i = index">
+    <td>{{ date }}</td>
+    <td *ngFor="let category of categoryNames">
+      {{ categorizedData.categories[category][i] }}
+    </td>
   </tr>
   </tbody>
 </table>

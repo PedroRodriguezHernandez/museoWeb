@@ -1,42 +1,52 @@
 <div class="graph-content">
   <div class="bar-menu">
-  <app-graphic-menu
-    [exposuresInputs]="exposuresInputs"
-    [exhibitionsInputs]="exhibitionsInputs"
-    [tickets]="tickets"
-    [museums]="museums"
+    <app-graphic-menu
+      [exposuresInputs]="exposuresInputs"
+      [exhibitionsInputs]="exhibitionsInputs"
 
-    [isSingleSelection]="simple"
-    (isSingleSelectionChange)="onSingleSelectionChange($event)"
+      [tickets]="tickets"
 
-    [selectedExhibitions]="selectedExhibitions"
-    (selectedExhibitionsChange)="onSelectedExhibitionsChange($event)"
+      [museums]="museums"
 
-    [selectedExposures]="selectedExposures"
-    (selectedExposuresChange)="onSelectedExposuresChange($event)"
 
-    [fromDate]="fromDate"
-    (fromDateChange)="onFromDateChange($event)"
+      (museumSelected)="selectedMuseum($event)"
 
-    [toDate]="toDate"
-    (toDateChange)="onToDateChange($event)"
+      [isSingleSelection]="simple"
+      (isSingleSelectionChange)="onSingleSelectionChange($event)"
 
-    [selectedOption]="selectedOption"
-    (selectedOptionChange)="onSelectedOptionChange($event)"
+      [selectedExhibitions]="selectedExhibitions"
+      (selectedExhibitionsChange)="onSelectedExhibitionsChange($event)"
 
-    [chartType]="chartType"
-    (chartTypeChange)="onChartTypeChange($event)"
-  ></app-graphic-menu>
+      [selectedExposures]="selectedExposures"
+      (selectedExposuresChange)="onSelectedExposuresChange($event)"
+
+      (fromDateChange)="onFromDateChange($event)"
+      (toDateChange)="onToDateChange($event)"
+      (selectedOptionChange)="onSelectedOptionChange($event)"
+      (chartTypeChange)="onChartTypeChange($event)"
+    ></app-graphic-menu>
   </div>
-  <div class="graphic" *ngIf="simple">
-    <button class="btn" (click)="closeThisGraph()"> X </button>
+
+  <div class="row-content" *ngIf="simple">
+    <!--button class="btn" (click)="closeThisGraph()"> X </button-->
+    <div class="table">
+    <app-table [chartData]="data" [label]="lable"></app-table>
+    </div>
+    <div class="graphic">
     <app-graphic-simple [chartData]="data" [type]="chartType"
                         [label]="lable" [idCanva]="idCanva"></app-graphic-simple>
+    </div>
+  </div>
+  <div class="row-content" *ngIf="!simple">
+    <!--button class="btn" (click)="closeThisGraph()"> X </button-->
+    <div class="table">
+      <app-table [categorizedData]="data" [label]="lable"></app-table>
+    </div>
+    <div class="graphic" >
+      <!--button class="btn" (click)="closeThisGraph()"> X </button-->
+      <app-graphic-multi-category [data]="data" [type]="chartType"
+                                  [label]="lable"></app-graphic-multi-category>
+    </div>
   </div>
 
-  <div class="graphic"  *ngIf="!simple">
-    <button  class="btn" (click)="closeThisGraph()">X</button>
-    <app-graphic-multi-category [data]="data" [type]="chartType"
-                                [label]="lable"></app-graphic-multi-category>
-  </div>
 </div>

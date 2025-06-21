@@ -9,6 +9,7 @@ import {NgIf} from '@angular/common';
 import {GraphicSimpleComponent} from '../graphic-simple/graphic-simple.component';
 import {GraphicMultiCategoryComponent} from '../graphic-multi-category/graphic-multi-category.component';
 import {start} from 'node:repl';
+import {TableComponent} from '../table/table.component';
 
 @Component({
   selector: 'app-graphic',
@@ -16,7 +17,8 @@ import {start} from 'node:repl';
     GraphicMenuComponent,
     NgIf,
     GraphicSimpleComponent,
-    GraphicMultiCategoryComponent
+    GraphicMultiCategoryComponent,
+    TableComponent
   ],
   templateUrl: './graphic.component.html',
   standalone: true,
@@ -38,11 +40,13 @@ export class GraphicComponent implements OnChanges {
   toDate: string = '';
   selectedOption: number = 1
 
+
   protected simple: boolean = true;
   protected chartType: 'bar' | 'line' = 'line';
   protected data: any;
   private normalizer!: DataNormalizer;
   protected lable: string = "label"
+  private museum: string = ""
 
   ngOnChanges(changes: SimpleChanges) {
     if (
@@ -57,9 +61,9 @@ export class GraphicComponent implements OnChanges {
 
   private updateData() {
       this.normalizer = new DataNormalizer(
-        this.exposuresInputs,
-        this.tickets,
-        this.exhibitionsInputs,
+        this.exposuresInputs.filter((e) => e.museum_id === this.museum),
+        this.tickets.filter((e) => e.museum_id === this.museum),
+        this.exhibitionsInputs.filter((e) => e.museum_id === this.museum),
         this.museums
       );
       switch (this.selectedOption){
@@ -125,6 +129,7 @@ export class GraphicComponent implements OnChanges {
             startDate: this.fromDate ? new Date(this.fromDate) : undefined,
             endDate: this.toDate ? new Date(this.toDate) : undefined,
           });
+          console.log(this.data)
           break;
 
       }
@@ -163,7 +168,6 @@ export class GraphicComponent implements OnChanges {
 
   onSingleSelectionChange(event: boolean) {
     this.simple = event;
-
     this.updateData()
   }
 
@@ -171,5 +175,10 @@ export class GraphicComponent implements OnChanges {
 
   closeThisGraph() {
     this.closeGraphic.emit();
+  }
+
+  selectedMuseum(event: string) {
+    this.museum = event.trim()
+    this.updateData()
   }
 }

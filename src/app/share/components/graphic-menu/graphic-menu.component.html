@@ -10,88 +10,100 @@
     </div>
   </div>
 
-  <div class="selection-single" *ngIf="!isSingleSelection">
-    <div class="exposures">
-      <label class="title">Exposures</label>
-      <mat-form-field appearance="fill" class="select-exposures">
-        <mat-select
-          [multiple]="!isSingleSelection"
-          placeholder="Select exposures"
-          (selectionChange)="onChangeExposuresSelect($event)"
-          [(value)]="selectedExposures"
-        >
-          <mat-option *ngFor="let exposure of exposuresInputs" [value]="exposure.name">
-            {{ exposure.name }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="exhibitions">
-      <label class="title">Items</label>
-      <mat-form-field appearance="fill" class="select-exposures">
-        <mat-select
-          [multiple]="!isSingleSelection"
-          placeholder="Select items"
-          (selectionChange)="onChangeItemsSelect($event)"
-          [(value)]="selectedExhibitions"
-        >
-          <mat-option *ngFor="let exhibition of exhibitionsInputs" [value]="exhibition.title">
-            {{ exhibition.title }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-  </div>
 
-  <div class="selection-single" *ngIf="isSingleSelection">
-    <div class="exposures">
-      <label class="title">Exposures</label>
-      <mat-form-field appearance="fill" class="select-exposures">
-        <mat-select
-          [multiple]="!isSingleSelection"
-          placeholder="Select exposure"
-          (selectionChange)="onChangeExposuresSelect($event)"
-          [(value)]="selectedExposures"
-        >
-          <mat-option *ngFor="let exposure of exposuresInputs" [value]="exposure.name">
-            {{ exposure.name }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="exhibitions">
-      <label class="title">Items</label>
-      <mat-form-field appearance="fill" class="select-exposures">
-        <mat-select
-          [multiple]="!isSingleSelection"
-          placeholder="Select item"
-          (selectionChange)="onChangeItemsSelect($event)"
-          [(value)]="selectedExhibitions"
-        >
-          <mat-option *ngFor="let exhibition of exhibitionsInputs" [value]="exhibition.title">
-            {{ exhibition.title }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
+  <div class="exposures" *ngIf="!isSingleSelection">
+    <label class="title">Exposures</label>
+    <mat-form-field appearance="fill" class="select-exposures">
+      <mat-select
+        [multiple]="!isSingleSelection"
+        placeholder="Select exposures"
+        (selectionChange)="onChangeExposuresSelect($event)"
+        [(value)]="selectedExposures"
+      >
+        <mat-option *ngFor="let exposure of exposuresInputs" [value]="exposure.name">
+          {{ exposure.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
-
+  <div class="exhibitions" *ngIf="!isSingleSelection">
+    <label class="title">Items</label>
+    <mat-form-field appearance="fill" class="select-exposures">
+      <mat-select
+        [multiple]="!isSingleSelection"
+        placeholder="Select items"
+        (selectionChange)="onChangeItemsSelect($event)"
+        [(value)]="selectedExhibitions"
+      >
+        <mat-option *ngFor="let exhibition of exhibitionsInputs" [value]="exhibition.title">
+          {{ exhibition.title }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="exposures"  *ngIf="isSingleSelection">
+    <label class="title">Exposures</label>
+    <mat-form-field appearance="fill" class="select-exposures">
+      <mat-select
+        [multiple]="!isSingleSelection"
+        placeholder="Select exposure"
+        (selectionChange)="onChangeExposuresSelect($event)"
+        [(value)]="selectedExposures"
+      >
+        <mat-option *ngFor="let exposure of exposuresInputs" [value]="exposure.name">
+          {{ exposure.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="exhibitions"  *ngIf="isSingleSelection">
+    <label class="title">Items</label>
+    <mat-form-field appearance="fill" class="select-exposures">
+      <mat-select
+        [multiple]="!isSingleSelection"
+        placeholder="Select item"
+        (selectionChange)="onChangeItemsSelect($event)"
+        [(value)]="selectedExhibitions"
+      >
+        <mat-option *ngFor="let exhibition of exhibitionsInputs" [value]="exhibition.title">
+          {{ exhibition.title }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="museum">
+    <label>Museum</label>
+    <mat-form-field appearance="fill" class="typeChart">
+      <mat-select (selectionChange)="onMuseumChange($event)">
+        <mat-option *ngFor="let museum of museums" [value]="museum.id">
+          {{museum.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
   <div class="typeChart">
     <label>Chart Type</label>
-    <select class="type-btn" (change)="onChartTypeChange($event)">
-      <option value="line">Line</option>
-      <option value="bar">Bar</option>
-    </select>
+    <mat-form-field appearance="fill" class="typeChart">
+      <mat-select (selectionChange)="onChartTypeChange($event)">
+        <mat-option value="line">Line</mat-option>
+        <mat-option value="bar">Bar</mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
-  <select class="btn" (change)="onSelectChange($event)">
-    <option value="1">Total Visits</option>
-    <option value="2">Visits by Age</option>
-    <option value="3">Visits by Age and Date</option>
-    <option value="4">Purchase Dates</option>
-    <option value="5">Daily Revenue</option>
-    <option value="6">Total Visits to Exhibitions</option>
-    <option value="7">Visits to Exhibitions by Date</option>
-    <option value="8">Total Visits to Exposures</option>
-    <option value="9">Visits to Exposures by Date</option>
-  </select>
+  <div class="typeData" >
+    <label>Data</label>
+    <mat-form-field appearance="fill" class="btn">
+      <mat-select (selectionChange)="onSelectChange($event)">
+        <mat-option value="1">Total Visits</mat-option>
+        <mat-option value="2">Visits by Age</mat-option>
+        <mat-option value="3">Visits by Age and Date</mat-option>
+        <mat-option value="4">Purchase Dates</mat-option>
+        <mat-option value="5">Daily Revenue</mat-option>
+        <mat-option value="6">Total Visits to Item</mat-option>
+        <mat-option value="7">Visits to Item by Date</mat-option>
+        <mat-option value="8">Total Visits to Exposures</mat-option>
+        <mat-option value="9">Visits to Exposures by Date</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
 </section>

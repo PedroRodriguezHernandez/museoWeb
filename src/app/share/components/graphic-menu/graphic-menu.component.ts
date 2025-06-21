@@ -33,9 +33,14 @@ export interface FilterData {
 })export class GraphicMenuComponent{
 
   @Input() exposuresInputs: Exposure[] = [];
-  @Input() tickets: Tickets[] = []; //TODO(Ver si se usa)
+  @Input() tickets: Tickets[] = [];
   @Input() exhibitionsInputs: Exhibition[] = [];
-  @Input() museums: Museum[] = []; //TODO(Ver si se usa)
+
+
+  @Input() museums: Museum[] = [];
+
+ // @Input() museumSelection: string = ""
+  @Output() museumSelected = new EventEmitter<string>();
 
   @Input() isSingleSelection: boolean = true;
   @Output() isSingleSelectionChange = new EventEmitter<boolean>();
@@ -46,61 +51,56 @@ export interface FilterData {
   @Input() selectedExposures: string[] = [];
   @Output() selectedExposuresChange = new EventEmitter<string[]>();
 
-  @Input() fromDate: string = '';
   @Output() fromDateChange = new EventEmitter<string>();
-
-  @Input() toDate: string = '';
   @Output() toDateChange = new EventEmitter<string>();
-
-  @Input() selectedOption: number = 1;
   @Output() selectedOptionChange = new EventEmitter<number>();
-
-  @Input() chartType: 'bar' | 'line' = 'line';
   @Output() chartTypeChange = new EventEmitter<'bar' | 'line'>();
 
 
   onChangeItemsSelect(event: MatSelectChange) {
     this.selectedExhibitions = event.value;
-    this.selectedExhibitionsChange.emit(this.selectedExhibitions);
+    this.selectedExhibitionsChange.emit(event.value);
   }
 
-    onChangeExposuresSelect(event: MatSelectChange) {
-      this.selectedExposures = event.value;
+  onChangeExposuresSelect(event: MatSelectChange) {
+    this.selectedExposures = event.value;
+    this.selectedExposuresChange.emit(event.value);
+  }
+
+  onSelectChange(event: MatSelectChange) {
+    const selectedOption = +event.value;
+    this.selectedOptionChange.emit(selectedOption);
+
+    const multiSelectOptions = [3, 7, 9];
+    this.isSingleSelection = !multiSelectOptions.includes(selectedOption);
+    this.isSingleSelectionChange.emit(this.isSingleSelection);
+
+    if (this.isSingleSelection && this.selectedExposures.length > 1) {
+      this.selectedExposures = [this.selectedExposures[0]];
       this.selectedExposuresChange.emit(this.selectedExposures);
-  }
-
-  onSelectChange(event: Event) {
-    const selectElement = event.target as HTMLSelectElement;
-    this.selectedOption = +selectElement.value;
-    if(this.selectedOption == 3 || this.selectedOption == 7 || this.selectedOption == 9  ){
-      this.isSingleSelection = false
-    }else{
-      this.isSingleSelection = true
     }
-    this.isSingleSelectionChange.emit(this.isSingleSelection)
-    this.selectedOptionChange.emit(this.selectedOption);
   }
 
-  onChartTypeChange(event: Event) {
-    const selectElement = event.target as HTMLSelectElement;
-    this.chartType = selectElement.value as 'bar' | 'line';
-    this.chartTypeChange.emit(this.chartType);
+  onChartTypeChange(event: MatSelectChange) {
+    this.chartTypeChange.emit(event.value as 'bar' | 'line');
   }
+
 
   onFromDateChange(event: Event) {
     const value = (event.target as HTMLInputElement).value;
     const formatted = value ? new Date(value).toISOString().split('T')[0] : "";
-    this.fromDate = formatted;
     this.fromDateChange.emit(formatted);
   }
 
   onToDateChange(event: Event) {
     const value = (event.target as HTMLInputElement).value;
     const formatted = value ? new Date(value).toISOString().split('T')[0] : "";
-    this.toDate = formatted;
     this.toDateChange.emit(formatted);
   }
 
 
-
+  onMuseumChange(event: MatSelectChange) {
+    const museumSelection = event.value
+    this.museumSelected.emit(museumSelection);
+  }
 }
