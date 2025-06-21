@@ -1,0 +1,14 @@
+<table class="data-table">
+  <thead>
+  <tr>
+    <th>{{ label }}</th>
+    <th>Valor</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let item of chartData">
+    <td>{{ item.label }}</td>
+    <td>{{ item.data }}</td>
+  </tr>
+  </tbody>
+</table>

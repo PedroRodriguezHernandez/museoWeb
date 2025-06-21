@@ -2,6 +2,8 @@ import {Component, EventEmitter, Inject, Input, OnInit, output, Output} from '@a
 import {Offer, OfferInterface} from '../../../core/intefaces/offer-interface';
 import {SafeHtml} from '@angular/platform-browser';
 import {OfferSupabaseService} from '../../../core/services/offer-supabase.service';
+import {MuseumSupabaseService} from '../../../core/services/museum-supabase.service';
+import {MuseumInterface} from '../../../core/intefaces/museum-interface';
 
 @Component({
     selector: 'app-price',
@@ -13,7 +15,9 @@ import {OfferSupabaseService} from '../../../core/services/offer-supabase.servic
 export class PriceComponent implements OnInit{
 
   constructor(
-    @Inject(OfferSupabaseService) private offerInterface: OfferInterface
+    @Inject(OfferSupabaseService) private offerInterface: OfferInterface,
+    @Inject(MuseumSupabaseService) private museumService : MuseumInterface
+
   ) {}
   @Input() offer!: Offer;
   @Output() update = new EventEmitter<void>();
@@ -23,6 +27,7 @@ export class PriceComponent implements OnInit{
   protected age: number | any = null;
   protected startDate: Date = new Date();
   protected endDate: Date | any = null;
+  protected museum: string = ""
 
   ngOnInit(): void {
     this.name = this.offer.name;
@@ -30,7 +35,7 @@ export class PriceComponent implements OnInit{
     this.age = this.offer.age;
     this.startDate = this.offer.start_date;
     this.endDate = this.offer.end_date;
-
+    this.getMuseum()
   }
 
 
@@ -45,5 +50,12 @@ export class PriceComponent implements OnInit{
 
     }
 
+  }
+
+  private getMuseum() {
+    this.museumService.getMuseum().subscribe((museums) =>{
+      const matched = museums.find( m => m.id === this.offer.museum_id);
+      this.museum = matched?.name!
+    })
   }
 }

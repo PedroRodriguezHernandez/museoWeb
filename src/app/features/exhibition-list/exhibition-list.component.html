@@ -6,9 +6,12 @@
     <h1 class="title">{{exposure.name}}</h1>
     <button class="btn" (click)="addItem()">Add +</button>
   </div>
+  <div class="filter">
+    <app-filter (filter)="filterExhibitions($event)"></app-filter>
+  </div>
 
   <div class="content">
-    <div *ngFor="let expo of exhibitions">
+    <div *ngFor="let expo of filterExhibition">
       <app-item-list [exhibition]="expo"></app-item-list>
     </div>
   </div>

@@ -1,6 +1,6 @@
 <div class="header">
   <img class="logoMuseum" src="Museum_logo.png" alt="logoMuseum">
-  <nav class="nav-link">
+  <nav class="nav-link" *ngIf="!loading">
     <a
       routerLink = "/administration"
       routerLinkActive="active"
@@ -20,6 +20,7 @@
       Tickets
     </a>
     <a
+      *ngIf="isAdmin()"
       routerLink = "/user-list"
       routerLinkActive="active"
     >

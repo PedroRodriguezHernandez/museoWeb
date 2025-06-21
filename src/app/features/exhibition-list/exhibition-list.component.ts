@@ -9,6 +9,9 @@ import {ExposureItemComponent} from '../../share/components/exposure-item/exposu
 import {HeaderComponent} from '../../share/components/header/header.component';
 import {NgForOf, NgIf} from '@angular/common';
 import {ItemListComponent} from '../../share/components/item-list/item-list.component';
+import {FilterComponent} from '../../share/components/filter/filter.component';
+import {MuseumSupabaseService} from '../../core/services/museum-supabase.service';
+import {MuseumInterface} from '../../core/intefaces/museum-interface';
 
 @Component({
   selector: 'app-exhibition-list',
@@ -17,7 +20,8 @@ import {ItemListComponent} from '../../share/components/item-list/item-list.comp
     HeaderComponent,
     NgForOf,
     NgIf,
-    ItemListComponent
+    ItemListComponent,
+    FilterComponent
   ],
   templateUrl: './exhibition-list.component.html',
   standalone: true,
@@ -31,10 +35,12 @@ export class ExhibitionListComponent  implements OnInit{
   ) {}
 
   protected exhibitions : Exhibition[] = []
+  protected filterExhibition: Exhibition[] = []
   protected exposure : Exposure = {name: "", list: []}
   async ngOnInit() {
     if (this.dataTransferService.getDataList().length != 0) {
       this.exhibitions = this.dataTransferService.getDataList();
+      this.filterExhibition = this.exhibitions
     }
     if (this.dataTransferService.getData()) {
       this.exposure = this.dataTransferService.getData();
@@ -50,5 +56,12 @@ export class ExhibitionListComponent  implements OnInit{
   goBack() {
     this.dataTransferService.clearData()
     this.router.navigate(["/content-list"])
+  }
+
+  filterExhibitions(term: string) {
+    this.filterExhibition =
+      this.exhibitions.filter(exhibition =>
+        exhibition.title.toLowerCase().includes(term.toLowerCase())
+    )
   }
 }

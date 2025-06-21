@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {NgClass} from '@angular/common';
+import {NgClass, NgIf} from '@angular/common';
 import {AuthSupabaseService} from '../../core/services/auth-supabase.service';
 import {AuthInterface} from '../../core/intefaces/auth-interface';
 import {supabase} from '../../core/services/supabase.service';
@@ -11,7 +11,8 @@ import {map} from 'rxjs';
     selector: 'app-login',
   imports: [
     ReactiveFormsModule,
-    NgClass
+    NgClass,
+    NgIf
   ],
     templateUrl: './login.component.html',
     standalone: true,
@@ -22,6 +23,8 @@ export class LoginComponent implements OnInit{
     private router: Router,
     @Inject(AuthSupabaseService) private authInterface: AuthInterface
   ){}
+
+  protected fail_logout: boolean = false;
 
   ngOnInit() {
     const user = this.authInterface.getCurrentUser()
@@ -34,15 +37,17 @@ export class LoginComponent implements OnInit{
   protected isPasswordHidden: boolean = true;
   protected submit = false;
   form = new FormGroup({
-    user: new FormControl("", [Validators.required, Validators.email]),
+    user: new FormControl("", [Validators.required]),
     password: new FormControl("", [Validators.required]),
   });
+
 
   togglePassword() {
     this.isPasswordHidden = !this.isPasswordHidden
   }
 
   onSubmit() {
+    this.fail_logout = false
     this.submit = true;
     if(this.form.valid ){
       const email: string = String(this.form.get('user')?.value || '');
@@ -53,6 +58,7 @@ export class LoginComponent implements OnInit{
           this.router.navigate(['/content-list']);
         },
         error: (err) => {
+          this.fail_logout = true
           console.error('Login fallido:', err);
         }
       });

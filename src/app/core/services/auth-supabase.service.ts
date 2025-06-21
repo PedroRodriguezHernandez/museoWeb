@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {AuthInterface, AuthUser} from '../intefaces/auth-interface';
-import {from, map, Observable} from 'rxjs';
+import {catchError, from, map, Observable, throwError} from 'rxjs';
 import {supabase} from './supabase.service';
 
 
@@ -44,6 +44,40 @@ export class AuthSupabaseService implements AuthInterface {
           userName: data.user.email || ''
         };
       })
+    );
+  }
+
+  signUpWithPassword(email: string, password: string) {
+    return from(
+      supabase.auth.signUp({
+        email,
+        password,
+      })
+    ).pipe(
+      map(({ data, error }) => {
+        if (error) {
+          throw error;
+        }
+        return;
+      }),
+      catchError((err) => throwError(() => err))
+    );
+  }
+
+  signInWithMagicLink(email: string, name:string): Observable<void> {
+    return   from(supabase.auth.signInWithOtp({ email,
+      options:{
+        emailRedirectTo: "http://localhost:4200/signup",
+        data: {name:name}
+      },
+    })).pipe(
+      map(({ error }) => {
+        if (error) {
+          throw error
+        };
+        return;
+      }),
+      catchError((err) => throwError(() => err))
     );
   }
 

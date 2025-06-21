@@ -50,6 +50,15 @@
         </div>
       </div>
     </div>
+    <div>
+      <label for="museumSelect">Select Museum</label>
+      <select id="museumSelect" [formControl]="form.controls.selectedMuseumId"                  ç
+              [ngClass]="{'input-error' : form.controls.selectedMuseumId.invalid && submit}">
+        <option *ngFor="let museum of museums" [value]="museum.id">
+          {{ museum.name }}
+        </option>
+      </select>
+    </div>
   </form>
   <div class="foot">
     <button class="cancel" (click)="closePopup()">Cancel</button>

@@ -1,0 +1,32 @@
+<div class="signup-container">
+  <h2>Complete your register</h2>
+  <form [formGroup]="form">
+    <div>
+      <label>Email:</label>
+      <input alt="email" [value]="email" disabled />
+    </div>
+
+    <div>
+      <label for="password">Password:</label>
+      <input id="password" alt="password"
+             type="password"
+             [ngClass]="{'label-error' : form.controls.password.invalid && submit}"
+             [formControl]="form.controls.password"
+
+      />
+
+      <label for="rep_passwd">Repeat password</label>
+      <input id="rep_passwd" alt="password"
+             type="password"
+             [ngClass]="{'label-error' : form.controls.rep_password.invalid && submit}"
+             [formControl]="form.controls.rep_password"
+
+      />
+    </div>
+
+    <button type="submit" (click)="submit()">Create account</button>
+
+    <div *ngIf="errorMsg" class="error">{{ errorMsg }}</div>
+  </form>
+</div>
+

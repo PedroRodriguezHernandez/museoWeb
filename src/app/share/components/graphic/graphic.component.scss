@@ -2,11 +2,11 @@
 
 .graph-content{
   display: flex;
-  flex-direction: row;
-  height: 100%;
+  flex-direction: column;
+  //height: 100%;
   border-bottom: 1px solid $light-blue;
   .bar-menu{
-    width: fit-content;
+    width: 100%;
   }
   .graphic{
     width: 100%;

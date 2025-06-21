@@ -4,13 +4,14 @@ import {NgClass, NgForOf, NgIf} from '@angular/common';
 import {ItemListComponent} from '../../share/components/item-list/item-list.component';
 import {CUDPublishComponent} from '../../share/modals/cud-publish/cud-publish.component';
 import {Router} from '@angular/router';
-import {ExpositionService} from '../../core/services/exhibicion-supabase.service';
-import {Exhibition, ExpositionInterface} from '../../core/intefaces/exposition-interface';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {Exposure, ExposureInterface} from '../../core/intefaces/exposure-interface';
 import {ExposureSupabaseService} from '../../core/services/exposure-supabase.service';
 import {ExposureItemComponent} from '../../share/components/exposure-item/exposure-item.component';
-import {DataTransferService} from '../../core/services/transfer-data.service';
+import {FilterComponent} from '../../share/components/filter/filter.component';
+import {MuseumSupabaseService} from '../../core/services/museum-supabase.service';
+import {Museum, MuseumInterface} from '../../core/intefaces/museum-interface';
+import {ExposureListComponent} from '../../share/components/exposure-list/exposure-list.component';
 
 @Component({
   selector: 'app-content-list',
@@ -23,7 +24,10 @@ import {DataTransferService} from '../../core/services/transfer-data.service';
     NgIf,
     ExposureItemComponent,
     ReactiveFormsModule,
-    NgClass
+    NgClass,
+    FilterComponent,
+    ExposureListComponent,
+    ExposureListComponent
   ],
   templateUrl: './content-list.component.html',
   standalone: true,
@@ -33,23 +37,27 @@ import {DataTransferService} from '../../core/services/transfer-data.service';
 export class ContentListComponent implements OnInit{
   constructor(
     private router: Router,
-    @Inject(ExposureSupabaseService) private exposure : ExposureInterface
+    @Inject(ExposureSupabaseService) private exposure : ExposureInterface,
+    @Inject(MuseumSupabaseService) private museumService : MuseumInterface,
   ) {}
 
-  @ViewChild('dropdownRef') dropdownRef!: ElementRef;
   submit: boolean = false;
 
+  filteredExposures: Exposure[] = [];
   exposures: Exposure[] = [];
-  dropdownOpen = false;
-  selectedExposures: string[] = ['All'];
-  exposuresOptions: string[] = [];
+  museums: Museum[] = [];
+  selectedMuseum:string[] = [];
+
+
   protected addExposure: Boolean = false;
 
   form = new FormGroup({
-    exposure: new FormControl("", [Validators.required])
+    exposure: new FormControl("", [Validators.required]),
+    selectedMuseumId: new FormControl('', [Validators.required])
   })
 
   ngOnInit(): void {
+    this.loadMuseums();
     this.loadExposures();
   }
 
@@ -61,54 +69,14 @@ export class ContentListComponent implements OnInit{
     this.addExposure = false
   }
 
-  private loadExposures() {
-    this.exposure.getExposures().subscribe((exposures) => {
-      this.exposures  = exposures
-      const names = exposures.map(e => e.name);
-      this.exposuresOptions = names;
-    });
-  }
-
-
-  @HostListener('document:click', ['$event.target'])
-  onClickOutside(targetElement: HTMLElement) {
-    if (this.dropdownOpen && this.dropdownRef && !this.dropdownRef.nativeElement.contains(targetElement)) {
-      this.dropdownOpen = false;
-    }
-  }
-  toggleDropdown() {
-    this.dropdownOpen = !this.dropdownOpen;
-  }
-
-  toggleSelection(value: string) {
-    if (value === 'All') {
-      if (this.selectedExposures.includes('All')) {
-        this.selectedExposures = [];
-      } else {
-        this.selectedExposures = ['All'];
-      }
-    } else {
-      if (this.selectedExposures.includes(value)) {
-        this.selectedExposures = this.selectedExposures.filter(v => v !== value);
-      } else {
-        this.selectedExposures = this.selectedExposures.filter(v => v !== 'All');
-        this.selectedExposures.push(value);
-      }
-    }
-  }
-  isSelected(value: string): boolean {
-    return this.selectedExposures.includes(value);
-  }
-
-  onExposureDeleted(deletedName: string) {
+  onExposureDeleted($event: string) {
     this.loadExposures();
   }
-
 
   addNewExposure() {
     this.submit = true
     if(this.form.valid){
-      this.exposure.createExposures(<string>this.form.value.exposure)
+      this.exposure.createExposures(<string>this.form.value.exposure,<string>this.form.value.selectedMuseumId)
         .subscribe({
           next: () =>{
             this.loadExposures()
@@ -117,4 +85,52 @@ export class ContentListComponent implements OnInit{
         })
     }
   }
+
+  filterExposures(trim: string) {
+    this.filteredExposures = this.exposures.filter(exposure => {
+      const matchesName = exposure.name.toLowerCase().includes(trim.toLowerCase());
+      const matchesMuseum = this.selectedMuseum.length === 0 || this.selectedMuseum.includes(exposure.museum_id!);
+      return matchesName && matchesMuseum;
+    });
+  }
+
+
+  private loadMuseums() {
+    this.museumService.getMuseum().subscribe((museums) =>{
+      this.museums = museums.slice().sort((a,b) => a.name.localeCompare(b.name))
+      this.selectedMuseum = this.museums.length > 0 ? [this.museums[0].id] : []
+    })
+  }
+
+  loadExposures() {
+    this.exposure.getExposures().subscribe((exposures) => {
+      this.exposures = exposures;
+      this.filterExposuresBySelectedMuseums();
+    });
+  }
+
+  filterExposuresBySelectedMuseums() {
+    if (this.selectedMuseum.length === 0) {
+      this.filteredExposures = this.exposures;
+    } else {
+      this.filteredExposures = this.exposures.filter(exposure =>
+        this.selectedMuseum.includes(exposure.museum_id!)
+      );
+    }
+  }
+  onChangeMuseumCheckboxes(event: Event) {
+    const checkbox = event.target as HTMLInputElement;
+    const museumId = checkbox.value;
+
+    if (checkbox.checked) {
+      if (!this.selectedMuseum.includes(museumId)) {
+        this.selectedMuseum.push(museumId);
+      }
+    } else {
+      this.selectedMuseum = this.selectedMuseum.filter(id => id !== museumId);
+    }
+
+    this.filterExposuresBySelectedMuseums();
+  }
+
 }

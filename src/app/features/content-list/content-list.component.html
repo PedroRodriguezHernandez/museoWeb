@@ -1,35 +1,32 @@
-<section class="content-list">
+<section class="exposure-list">
   <app-header></app-header>
-  <div class="top">
-    <div class="dropdown-container" #dropdownRef>
-      <div class="dropdown-toggle" (click)="toggleDropdown()">
-        {{ selectedExposures.length ? selectedExposures.join(', ') : 'Filter by exposure' }}
+  <div class="content-list">
+    <div class="side_menu_expo">
+      <div>
+        <label>Filter by name</label>
+        <app-filter (filter)="filterExposures($event)"></app-filter>
+      </div>
+      <div>
+        <label>Select Museum</label>
+        <div class="checkboxes">
+          <div *ngFor="let museum of museums; let i = index">
+            <label>
+              <input
+                type="checkbox"
+                [value]="museum.id"
+                (change)="onChangeMuseumCheckboxes($event)"
+                name="museumCheckbox"
+                [checked]="selectedMuseum.includes(museum.id)"
+              >
+              {{ museum.name }}
+            </label>
+          </div>
+        </div>
       </div>
 
-      <div class="dropdown-menu" *ngIf="dropdownOpen">
-        <label class="dropdown-option">
-          <input type="checkbox" [checked]="isSelected('All')" (change)="toggleSelection('All')" />
-          All
-        </label>
-        <label class="dropdown-option" *ngFor="let exposure of exposuresOptions">
-          <input
-            type="checkbox"
-            [checked]="isSelected(exposure)"
-            (change)="toggleSelection(exposure)"
-            [disabled]="selectedExposures.includes('All')"
-          />
-          {{ exposure }}
-        </label>
-      </div>
+      <button class="btn" (click)="addItem()">Add +</button>
     </div>
-
-    <button class="btn" (click)="addItem()">Add +</button>
-  </div>
-
-  <div class="content">
-      <div *ngFor="let expo of exposures">
-        <app-exposure-item (exposureDeleted)="onExposureDeleted($event)" [exposure]="expo"></app-exposure-item>
-      </div>
+    <app-exposure-list [exposures]="filteredExposures" (exposureDeleted)="onExposureDeleted($event)"></app-exposure-list>
   </div>
 </section>
 <div class="add-exposure" *ngIf="addExposure">
@@ -44,6 +41,15 @@
                  [formControl]="form.controls.exposure"
                  [ngClass]="{'input-error' : form.controls.exposure.invalid && submit}"
           >
+        </div>
+        <div>
+          <label for="museumSelect">Select Museum</label>
+          <select id="museumSelect" [formControl]="form.controls.selectedMuseumId"                  ç
+                  [ngClass]="{'input-error' : form.controls.selectedMuseumId.invalid && submit}">
+            <option *ngFor="let museum of museums" [value]="museum.id">
+              {{ museum.name }}
+            </option>
+          </select>
         </div>
       </form>
       <div class="foot">

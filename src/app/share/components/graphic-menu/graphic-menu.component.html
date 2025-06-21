@@ -1,5 +1,4 @@
 <section  class="bar-menu">
-  <h3 class="menu_title">Bar Tools</h3>
   <div class="dates">
     <div>
       <label for="from" class="title_filter">From</label>
@@ -11,28 +10,72 @@
     </div>
   </div>
 
-  <div class="exposures">
-    <label class="title">Exposures</label>
-    <div class="content">
-      <label class="checkbox-label" *ngFor="let exposure of exposuresInputs">
-        <input [attr.type]="isSingleSelection ? 'radio' : 'checkbox'" [value]="exposure.name"
-               (change)="onChangeExposuresCheckboxes($event)"
-               name="exposure">
-        {{ exposure.name }}
-      </label>
+  <div class="selection-single" *ngIf="!isSingleSelection">
+    <div class="exposures">
+      <label class="title">Exposures</label>
+      <mat-form-field appearance="fill" class="select-exposures">
+        <mat-select
+          [multiple]="!isSingleSelection"
+          placeholder="Select exposures"
+          (selectionChange)="onChangeExposuresSelect($event)"
+          [(value)]="selectedExposures"
+        >
+          <mat-option *ngFor="let exposure of exposuresInputs" [value]="exposure.name">
+            {{ exposure.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="exhibitions">
+      <label class="title">Items</label>
+      <mat-form-field appearance="fill" class="select-exposures">
+        <mat-select
+          [multiple]="!isSingleSelection"
+          placeholder="Select items"
+          (selectionChange)="onChangeItemsSelect($event)"
+          [(value)]="selectedExhibitions"
+        >
+          <mat-option *ngFor="let exhibition of exhibitionsInputs" [value]="exhibition.title">
+            {{ exhibition.title }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
   </div>
-  <div class="exhibitions">
-    <label class="title">Exhibitions</label>
-    <div class="content">
-      <label class="checkbox-label" *ngFor="let exhibition of exhibitionsInputs">
-        <input [attr.type]="isSingleSelection ? 'radio' : 'checkbox'" [value]="exhibition.title"
-               (change)="onChangeExhibitionsCheckboxes($event)"
-               name="exhibition">
-        {{ exhibition.title }}
-      </label>
+
+  <div class="selection-single" *ngIf="isSingleSelection">
+    <div class="exposures">
+      <label class="title">Exposures</label>
+      <mat-form-field appearance="fill" class="select-exposures">
+        <mat-select
+          [multiple]="!isSingleSelection"
+          placeholder="Select exposure"
+          (selectionChange)="onChangeExposuresSelect($event)"
+          [(value)]="selectedExposures"
+        >
+          <mat-option *ngFor="let exposure of exposuresInputs" [value]="exposure.name">
+            {{ exposure.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="exhibitions">
+      <label class="title">Items</label>
+      <mat-form-field appearance="fill" class="select-exposures">
+        <mat-select
+          [multiple]="!isSingleSelection"
+          placeholder="Select item"
+          (selectionChange)="onChangeItemsSelect($event)"
+          [(value)]="selectedExhibitions"
+        >
+          <mat-option *ngFor="let exhibition of exhibitionsInputs" [value]="exhibition.title">
+            {{ exhibition.title }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
   </div>
+
   <div class="typeChart">
     <label>Chart Type</label>
     <select class="type-btn" (change)="onChartTypeChange($event)">

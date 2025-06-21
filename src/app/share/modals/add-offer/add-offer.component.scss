@@ -2,9 +2,7 @@
 
 .add-offer{
   @include standard-modal();
-  top: 0;
-  transform: translate(-50%, 0%);
-  .form{
+  form{
     .input-error{
       @include standard-input-error();
     }

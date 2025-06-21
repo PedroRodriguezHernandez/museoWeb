@@ -10,7 +10,7 @@ export class OfferSupabaseService implements OfferInterface{
   getOfferById(id : string): Observable<Offer> {
     return from(
       supabase
-        .from('Offer')
+        .from('offer')
         .select('*')
         .eq('id', id)
         .single()
@@ -25,13 +25,14 @@ export class OfferSupabaseService implements OfferInterface{
     return from(
       (async () =>{
         const {data , error} = await supabase
-          .from('Offer')
+          .from('offer')
           .insert([{
             name: offer.name,
             price: offer.price,
             age: offer.age,
             start_date: offer.start_date,
-            end_date: offer.end_date
+            end_date: offer.end_date,
+            museum_id:offer.museum_id
           }])
           .select();
 
@@ -48,7 +49,7 @@ export class OfferSupabaseService implements OfferInterface{
     return from(
       (async () =>{
         const { data, error } = await supabase
-          .from('Offer')
+          .from('offer')
           .delete()
           .eq('id', id)
         if (error) {
@@ -61,7 +62,7 @@ export class OfferSupabaseService implements OfferInterface{
   getOffers(): Observable<Offer[]> {
     return defer(async () => {
         const {data: offer, error} = await supabase
-          .from('Offer')
+          .from('offer')
           .select('*')
         if (error){
           throw error;

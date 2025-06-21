@@ -7,6 +7,7 @@ export interface Offer{
   age?: string;
   start_date: Date;
   end_date?: Date;
+  museum_id:string
 }
 
 export interface OfferInterface {

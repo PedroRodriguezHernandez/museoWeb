@@ -21,8 +21,8 @@ export class DataNormalizer {
     this.exhibitions = exhibitions;
     this.museums = museums;
   }
-
-  getMuseumFlow(start?: Date, end?: Date): { label: string; data: number }[] {
+  //TODO
+  /*getMuseumFlow(start?: Date, end?: Date): { label: string; data: number }[] {
     return this.museums
       .filter(entry => {
         const entryDate = entry.date;
@@ -35,6 +35,7 @@ export class DataNormalizer {
         data: entry.current_capacity,
       }));
   }
+  */
   getVisitsByAge(options?: {
     startDate?: Date;
     endDate?: Date;

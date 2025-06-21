@@ -64,11 +64,11 @@ export class GraphicComponent implements OnChanges {
       );
       switch (this.selectedOption){
         case 1:
-          this.data = this.normalizer.getMuseumFlow(
+          /*this.data = this.normalizer.getMuseumFlow(
             this.fromDate ? new Date(this.fromDate) : undefined,
             this.toDate ? new Date(this.toDate) : undefined
           );
-          this.lable = "Visits"
+          this.lable = "Visits"*/ //TODO
           break;
         case 2:
           this.data = this.normalizer.getVisitsByAge({

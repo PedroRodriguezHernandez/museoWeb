@@ -42,6 +42,7 @@ export class CUDPublishComponent implements OnInit{
   exposuresOptions: string[] = [];
   protected defaultExposure: string = "";
   private file: File | any = null;
+
   protected exhibition : Exhibition = {
     title: "",
     description:"",
@@ -49,6 +50,7 @@ export class CUDPublishComponent implements OnInit{
     exposure: '',
     tags: {},
     enable:false
+
   }
 
   form  = new FormGroup({
@@ -126,7 +128,7 @@ export class CUDPublishComponent implements OnInit{
 
   deleteExhibition() {
     if (this.exhibition.id != null) {
-      if (confirm("Are you sure you want to delete this exhibition?")) {
+      if (confirm("Are you sure you want to delete this item?")) {
         this.storageInterface.deleteFile('image-exhibiton', this.exhibition.image_url!.split('/').pop()!).subscribe({
           next: () => {
             this.exhibitionInterface.deleteExposition(this.exhibition.id!);
@@ -136,7 +138,7 @@ export class CUDPublishComponent implements OnInit{
         });
       }
     } else {
-      console.error("Is not possible delete this exhibition");
+      console.error("Is not possible delete this item");
     }
   }
 
@@ -150,12 +152,12 @@ export class CUDPublishComponent implements OnInit{
 
   setPublish() {
     if(this.exhibition.enable){
-      if (confirm("This exhibition is already publish, do you want to change it?")){
+      if (confirm("This item is already publish, do you want to change it?")){
         this.exhibition.enable = false;
         this.save()
       }
     }else {
-      if (confirm("Do you want to publish this exhibition?")){
+      if (confirm("Do you want to publish this item?")){
         this.exhibition.enable = true;
         this.save()
       }

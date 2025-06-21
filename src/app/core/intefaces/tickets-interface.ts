@@ -7,7 +7,9 @@ export interface Tickets{
   age?:string,
   name:string,
   price:number,
-  offer_id:number
+  offer_id:number,
+  museum_id?:string
+
 }
 export interface TicketsInterface {
   getTickets():Observable<Tickets[]>;

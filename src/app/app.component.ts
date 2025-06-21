@@ -12,6 +12,8 @@ import {EditUserComponent} from './share/modals/edit-user/edit-user.component';
 import {AddOfferComponent} from './share/modals/add-offer/add-offer.component';
 import {UserListComponent} from './features/user-list/user-list.component';
 import {DynamicTagsComponent} from './share/components/dynamic-tags/dynamic-tags.component';
+import {SignupComponent} from './features/signup/signup.component';
+import {TableComponent} from './share/components/table/table.component';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +22,7 @@ import {DynamicTagsComponent} from './share/components/dynamic-tags/dynamic-tags
     PriceComponent, LoginComponent,
     ContentListComponent, CUDPublishComponent,
     AddUserComponent, EditUserComponent,
-    AddOfferComponent, UserListComponent, DynamicTagsComponent
+    AddOfferComponent, UserListComponent, DynamicTagsComponent, SignupComponent, TableComponent
   ],
   templateUrl: './app.component.html',
   standalone: true,

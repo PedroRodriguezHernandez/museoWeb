@@ -3,7 +3,7 @@
     <img src="Museum_logo.png" alt="museum image">
   </div>
   <form class="right" [formGroup]="form">
-    <h1 class="title">Lorem Ipsum</h1>
+    <h1 class="title">Administration Expotech</h1>
     <div class="user-credential" >
       <label class="text"
              [ngClass]="{'label-error' : form.controls.user.invalid && submit}"
@@ -13,7 +13,8 @@
         <input
           type="text"
           [formControl]="form.controls.user"
-          class="userName">
+          placeholder="User Name..."
+          class="email">
       </div>
     </div>
     <div class="user-credential">
@@ -32,10 +33,12 @@
           [hidden]="isPasswordHidden"
         >
         <input [type]="isPasswordHidden ? 'password' : 'text'"
+               placeholder="Write your password"
                [formControl]="form.controls.password"
                class="password">
       </div>
     </div>
+    <p class="failLogin" *ngIf="fail_logout">Login failed. Please check your email and password.</p>
     <button class="btn" (click)="onSubmit()">Login</button>
   </form>
 </section>

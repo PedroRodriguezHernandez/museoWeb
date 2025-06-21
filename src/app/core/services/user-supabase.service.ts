@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {User, UserInterface} from '../intefaces/user-interface';
-import {defer, from, map, Observable} from 'rxjs';
+import {catchError, defer, from, map, Observable, throwError} from 'rxjs';
 import {supabase} from './supabase.service';
 
 
@@ -72,4 +72,5 @@ export class UserSupabaseService implements UserInterface{
       })
     );
   }
+
 }

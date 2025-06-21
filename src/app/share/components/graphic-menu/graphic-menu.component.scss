@@ -2,20 +2,14 @@
 
 .bar-menu{
   display: flex;
-  flex-direction: column;
-  width: fit-content;
-  min-width: 250px;
+  flex-direction: row;
   gap: 10px;
-  height: 100%;
+  height: fit-content;
   justify-content: space-around;
-  border-right: 1px solid $light-blue;
+  border-bottom: 1px solid $light-blue;
   align-items: center;
   overflow-y: auto;
 
-  .menu_title{
-    color: $blue;
-    justify-self: center;
-  }
   .dates{
     padding: 1rem 15px;
     box-shadow:
@@ -32,14 +26,19 @@
     }
   }
 
-  .exposures{
-    @include standard-checkboxes();
-    padding-left: 15px;
+  .selection-single{
+    display: flex;
+    flex-direction: row;
+    .exposures{
+      @include standard-checkboxes();
+      padding-left: 15px;
+    }
+    .exhibitions{
+      @include standard-checkboxes();
+      padding-left: 15px;
+    }
   }
-  .exhibitions{
-    @include standard-checkboxes();
-    padding-left: 15px;
-  }
+
   .typeChart{
     display: flex;
     flex-direction: column;

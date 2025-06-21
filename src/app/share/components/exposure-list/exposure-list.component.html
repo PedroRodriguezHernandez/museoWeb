@@ -1,0 +1,5 @@
+<div class="content">
+  <div class="item" *ngFor="let expo of exposures">
+    <app-exposure-item (exposureDeleted)="onExposureDeleted($event)" [exposure]="expo"></app-exposure-item>
+  </div>
+</div>

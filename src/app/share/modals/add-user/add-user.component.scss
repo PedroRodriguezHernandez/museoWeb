@@ -2,10 +2,13 @@
 
 .add-user {
   @include standard-modal();
-
-  .form{
-    .input-error{
-      @include standard-input-error();
+  min-height: 0;
+  padding: 40px;
+  form{
+    .email{
+      .input-error{
+        @include standard-input-error();
+      }
     }
   }
   .foot {

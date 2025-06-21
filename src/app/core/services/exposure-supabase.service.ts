@@ -66,13 +66,14 @@ export class ExposureSupabaseService implements ExposureInterface{
     });
   }
 
-  createExposures(name: string): Observable<Exposure> {
+  createExposures(name: string, museum_id:string): Observable<Exposure> {
     return from(
       (async() =>{
         const {data, error} = await supabase
             .from('exposure')
             .insert([{
-              name: name
+              name: name,
+              museum_id: museum_id
             }])
             .select()
 

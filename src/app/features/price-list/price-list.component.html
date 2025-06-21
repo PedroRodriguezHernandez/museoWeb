@@ -1,20 +1,30 @@
-<section class="content-list">
+<section class="offer-list">
   <app-header></app-header>
-  <div class="top">
-    <div class="filter">
-      <label for="options">Search by</label>
-      <select class="selector" id="options">
-        <option value="1">Name</option>
-        <option value="2">Date</option>
-        <option value="3">Age</option>
-      </select>
-
-      <input class="input-search" placeholder="Search">
-
+  <div class="content-list">
+  <div class="side_menu">
+    <div>
+      <label>Filter by name</label>
+      <app-filter (filter)="filterOffers($event)"></app-filter>
+    </div>
+    <div>
+      <label>Select Museum</label>
+      <div class="checkboxes">
+        <div *ngFor="let museum of museums; let i = index">
+          <label>
+            <input
+              type="checkbox"
+              [value]="museum.id"
+              (change)="onChangeMuseumCheckboxes($event)"
+              name="museumCheckbox"
+              [checked]="selectedMuseum.includes(museum.id)"
+            >
+            {{ museum.name }}
+          </label>
+        </div>
+      </div>
     </div>
     <button class="btn" (click)="openPopup()">Add +</button>
-    <div class="overlay" *ngIf="addPrice"></div>
-    <app-add-offer [visible]="addPrice" (close)="closePopup()"></app-add-offer>
+
   </div>
 
   <div class="content">
@@ -25,11 +35,15 @@
       <label class="cell">From</label>
       <label class="cell">To</label>
       <label class="cell">Age</label>
+      <label class="cell">Museum</label>
       <div class="cell" style="padding: 10px 20px"></div>
     </div>
-    <div *ngFor="let offer of offers">
+    <div *ngFor="let offer of filteredOffers">
       <app-price (update)="takeOffers()" [offer]="offer"></app-price>
     </div>
 
   </div>
+  </div>
+  <div class="overlay" *ngIf="addPrice"></div>
+  <app-add-offer [visible]="addPrice" (close)="closePopup()"></app-add-offer>
 </section>

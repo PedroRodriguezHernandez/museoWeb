@@ -5,12 +5,12 @@ export interface Exhibition {
   title: string;
   description: string;
   image_url?: string;
-  QRUrl?: string;
   enable: boolean;
   views?: number;
   exposure: string;
   tags?: Record<string, any>;
   daily_views?: Record<string, any>;
+  museum_id?:string
 }
 export interface ExpositionInterface {
   getExpositions(): Observable<Exhibition[]>;

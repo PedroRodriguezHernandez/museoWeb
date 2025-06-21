@@ -3,6 +3,8 @@ import {NgClass, NgIf} from '@angular/common';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {User, UserInterface} from '../../../core/intefaces/user-interface';
 import {UserSupabaseService} from '../../../core/services/user-supabase.service';
+import {AuthInterface} from '../../../core/intefaces/auth-interface';
+import {AuthSupabaseService} from '../../../core/services/auth-supabase.service';
 
 @Component({
     selector: 'app-add-user',
@@ -19,26 +21,20 @@ import {UserSupabaseService} from '../../../core/services/user-supabase.service'
 export class AddUserComponent implements OnChanges{
 
   constructor(
-    @Inject(UserSupabaseService) private userInterface : UserInterface
+    @Inject(AuthSupabaseService) private authService : AuthInterface
   ) { }
   @Input() visible:boolean = false;
   @Output() close = new EventEmitter<void>();
 
   submit: boolean = false;
   form = new FormGroup({
-    email: new FormControl("", [Validators.required, Validators.email]),
+    email: new FormControl("", [Validators.required]),
     name: new FormControl("", [Validators.required]),
-    rol: new FormControl("",[Validators.required]),
-    start_date: new FormControl(new Date(), [Validators.required]),
-    end_date: new FormControl(""),
   });
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['visible'] && changes['visible'].currentValue === true) {
       this.submit = false;
-      this.form.reset({
-        rol: ""
-      });
     }
   }
 
@@ -49,25 +45,12 @@ export class AddUserComponent implements OnChanges{
   onSubmit(){
     this.submit = true;
     if(this.form.valid){
-      if(confirm(`Are you sure do you want to add this user:
-                  \n\tName: ${this.form.value.name}
-                  \n\tEmail: ${this.form.value.email}
-                  \n\tUser Level: ${this.form.value.rol}`))
-      {
-        const user: User = this.takeUser()
-        this.closePopup();
-      }
-
+      this.authService.signInWithMagicLink(this.form.value.email!.trim(), this.form.value.name!.trim()).subscribe(
+        () => {
+          this.closePopup();
+        }
+      )
     }
   }
 
-  private takeUser(): User {
-    return {
-      name: this.form.value.name!,
-      email: this.form.value.email!,
-      rol: this.form.value.rol!,
-      end_date: this.form.value.end_date ? new Date(this.form.value.end_date) :  undefined,
-      start_date: new Date(this.form.value.start_date!),
-    };
-  }
 }

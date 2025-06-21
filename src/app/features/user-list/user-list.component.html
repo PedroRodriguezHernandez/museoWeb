@@ -1,22 +1,11 @@
 <section class="content-list">
   <app-header></app-header>
   <div class="top">
-
-    <div class="filter">
-      <label for="options">Search by</label>
-      <select class="selector" id="options">
-        <option value="1">Name</option>
-        <option value="2">ID</option>
-        <option value="3">User Level</option>
-      </select>
-
-      <input class="input-search" placeholder="Search">
-
-    </div>
+    <app-filter (filter)="filterUsers($event)"></app-filter>
+    <button class="btn" (click)="sendInvitation()">Send Invitation</button>
   </div>
 
   <div class="content">
-
     <div class="header-user">
       <label class="cell"><strong>ID</strong></label>
       <label class="cell">Name</label>
@@ -25,8 +14,11 @@
       <div class="cell" style="padding: 10px 20px"></div>
     </div>
 
-    <div *ngFor="let user of users">
+    <div *ngFor="let user of filteredUsers">
       <app-user [user]="user"></app-user>
     </div>
+  </div>
+  <div  class="overlay" *ngIf="openInvitation">
+    <app-add-user [visible]="openInvitation" (close)="closeInvitation()"></app-add-user>
   </div>
 </section>

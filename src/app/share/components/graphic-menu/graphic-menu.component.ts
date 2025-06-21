@@ -3,8 +3,11 @@ import {Exposure} from '../../../core/intefaces/exposure-interface';
 import {Tickets} from '../../../core/intefaces/tickets-interface';
 import {Exhibition} from '../../../core/intefaces/exposition-interface';
 import {Museum} from '../../../core/intefaces/museum-interface';
-import {NgForOf} from '@angular/common';
+import {NgForOf, NgIf} from '@angular/common';
 import {FormsModule} from '@angular/forms';
+import {MatFormField} from '@angular/material/input';
+import {MatSelect, MatSelectChange} from '@angular/material/select';
+import {MatOption} from '@angular/material/core';
 
 
 export interface FilterData {
@@ -18,7 +21,11 @@ export interface FilterData {
   selector: 'app-graphic-menu',
   imports: [
     NgForOf,
-    FormsModule
+    FormsModule,
+    MatOption,
+    MatSelect,
+    MatFormField,
+    NgIf,
   ],
   templateUrl: './graphic-menu.component.html',
   standalone: true,
@@ -52,28 +59,14 @@ export interface FilterData {
   @Output() chartTypeChange = new EventEmitter<'bar' | 'line'>();
 
 
-  onChangeExhibitionsCheckboxes(event: Event)  {
-    const checkbox = event.target as HTMLInputElement;
-    const title = checkbox.value;
-
-    if (checkbox.checked) {
-      this.selectedExhibitions.push(title);
-    } else {
-      this.selectedExhibitions = this.selectedExhibitions.filter(t => t !== title);
-    }
+  onChangeItemsSelect(event: MatSelectChange) {
+    this.selectedExhibitions = event.value;
     this.selectedExhibitionsChange.emit(this.selectedExhibitions);
   }
 
-  onChangeExposuresCheckboxes(event: Event) {
-    const checkbox = event.target as HTMLInputElement;
-    const title = checkbox.value;
-
-    if (checkbox.checked) {
-      this.selectedExposures.push(title);
-    } else {
-      this.selectedExposures = this.selectedExposures.filter(t => t !== title);
-    }
-    this.selectedExposuresChange.emit(this.selectedExposures);
+    onChangeExposuresSelect(event: MatSelectChange) {
+      this.selectedExposures = event.value;
+      this.selectedExposuresChange.emit(this.selectedExposures);
   }
 
   onSelectChange(event: Event) {
@@ -107,6 +100,7 @@ export interface FilterData {
     this.toDate = formatted;
     this.toDateChange.emit(formatted);
   }
+
 
 
 }

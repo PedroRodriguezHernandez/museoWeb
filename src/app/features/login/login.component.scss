@@ -44,7 +44,10 @@
         color: red;
       }
     }
-
+    .failLogin{
+      color: red;
+      font-weight: bold;
+    }
     .btn{
       @include standard-button($broken-white, $dark-blue);
       margin-top: 50px;
