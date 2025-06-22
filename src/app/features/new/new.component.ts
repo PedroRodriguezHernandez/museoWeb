@@ -83,7 +83,9 @@ export class NewComponent implements OnInit{
 
   private filterNewsBySelectedMuseums() {
     if (this.selectedMuseum.length === 0) {
-      this.filteredNews = this.news;
+      this.filteredNews = this.news.filter(news =>
+        !news.museum_id
+      );
     } else {
       this.filteredNews = this.news.filter(news =>
         this.selectedMuseum.includes(news.museum_id!) || !news.museum_id

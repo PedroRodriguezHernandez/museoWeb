@@ -12,7 +12,6 @@ import {MuseumSupabaseService} from '../../../core/services/museum-supabase.serv
 @Component({
   selector: 'app-crud-news',
   imports: [
-    DynamicTagsComponent,
     NgIf,
     QuillEditorComponent,
     ReactiveFormsModule,
