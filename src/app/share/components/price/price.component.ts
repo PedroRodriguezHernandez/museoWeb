@@ -1,9 +1,9 @@
 import {Component, EventEmitter, Inject, Input, OnInit, output, Output} from '@angular/core';
-import {Offer, OfferInterface} from '../../../core/intefaces/offer-interface';
+import {Offer, OfferInterface} from '../../../core/intefaces/offer.interface';
 import {SafeHtml} from '@angular/platform-browser';
 import {OfferSupabaseService} from '../../../core/services/offer-supabase.service';
 import {MuseumSupabaseService} from '../../../core/services/museum-supabase.service';
-import {MuseumInterface} from '../../../core/intefaces/museum-interface';
+import {MuseumInterface} from '../../../core/intefaces/museum.interface';
 
 @Component({
     selector: 'app-price',

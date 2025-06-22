@@ -28,7 +28,6 @@
   </div>
 
   <div class="row-content" *ngIf="simple">
-    <!--button class="btn" (click)="closeThisGraph()"> X </button-->
     <div class="table">
     <app-table [chartData]="data" [label]="lable"></app-table>
     </div>
@@ -36,17 +35,18 @@
     <app-graphic-simple [chartData]="data" [type]="chartType"
                         [label]="lable" [idCanva]="idCanva"></app-graphic-simple>
     </div>
+    <button class="btn" (click)="closeThisGraph()"> X </button>
   </div>
   <div class="row-content" *ngIf="!simple">
-    <!--button class="btn" (click)="closeThisGraph()"> X </button-->
     <div class="table">
       <app-table [categorizedData]="data" [label]="lable"></app-table>
     </div>
     <div class="graphic" >
-      <!--button class="btn" (click)="closeThisGraph()"> X </button-->
       <app-graphic-multi-category [data]="data" [type]="chartType"
                                   [label]="lable"></app-graphic-multi-category>
     </div>
+    <button class="btn" (click)="closeThisGraph()"> X </button>
+
   </div>
 
 </div>

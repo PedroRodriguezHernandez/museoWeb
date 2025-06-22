@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Observable, from, defer} from 'rxjs';
 import { map } from 'rxjs/operators';
-import {Exhibition, ExpositionInterface} from '../intefaces/exposition-interface';
+import {Exhibition, ExpositionInterface} from '../intefaces/exposition.interface';
 import {supabase} from './supabase.service';
 
 @Injectable({

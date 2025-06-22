@@ -1,0 +1,34 @@
+<div class="new-list">
+  <app-header></app-header>
+  <div class="content-list">
+    <div class="side_menu_expo">
+      <div>
+        <label>Filter by name</label>
+        <app-filter (filter)="filterExposures($event)"></app-filter>
+      </div>
+      <div>
+        <label>Select Museum</label>
+        <div class="checkboxes">
+          <div *ngFor="let museum of museums; let i = index">
+            <label>
+              <input
+                type="checkbox"
+                [value]="museum.id"
+                (change)="onChangeMuseumCheckboxes($event)"
+                name="museumCheckbox"
+                [checked]="selectedMuseum.includes(museum.id)"
+              >
+              {{ museum.name }}
+            </label>
+          </div>
+        </div>
+      </div>
+      <button class="btn" (click)="addNew()">Add +</button>
+    </div>
+    <div class="list">
+      <div *ngFor="let newItem of filteredNews">
+        <app-new-item [new]="newItem"></app-new-item>
+      </div>
+    </div>
+  </div>
+</div>

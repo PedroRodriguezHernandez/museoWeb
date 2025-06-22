@@ -8,6 +8,8 @@ import { CUDPublishComponent } from './share/modals/cud-publish/cud-publish.comp
 import {adminOnlyGuard, authGuard, authOnlyGuard} from './core/guards/auth.guard';
 import {ExhibitionListComponent} from './features/exhibition-list/exhibition-list.component';
 import {SignupComponent} from './features/signup/signup.component';
+import {NewComponent} from './features/new/new.component';
+import {CrudNewsComponent} from './share/modals/crud-news/crud-news.component';
 
 export const appRoutes: Routes = [
   { path: '', component: LoginComponent },
@@ -16,7 +18,8 @@ export const appRoutes: Routes = [
   { path: 'administration', component: AdministrationComponent, canActivate: [authGuard] },
   { path: 'crud-publish/:exposure?', component: CUDPublishComponent, canActivate: [authGuard] },
   { path: 'exhibition-list', component: ExhibitionListComponent, canActivate: [authGuard] },
-
+  { path: 'news-list', component: NewComponent, canActivate: [authGuard] },
+  { path: 'crud-news', component: CrudNewsComponent, canActivate: [authGuard]},
   { path: 'user-list', component: UserListComponent, canActivate: [adminOnlyGuard] },
 
   { path: 'signup', component: SignupComponent, canActivate: [authOnlyGuard] },

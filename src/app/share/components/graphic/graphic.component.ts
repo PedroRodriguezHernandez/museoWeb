@@ -1,8 +1,8 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import {Exposure} from '../../../core/intefaces/exposure-interface';
-import {Tickets} from '../../../core/intefaces/tickets-interface';
-import {Exhibition} from '../../../core/intefaces/exposition-interface';
-import {Museum} from '../../../core/intefaces/museum-interface';
+import {Exposure} from '../../../core/intefaces/exposure.interface';
+import {Tickets} from '../../../core/intefaces/tickets.interface';
+import {Exhibition} from '../../../core/intefaces/exposition.interface';
+import {Museum} from '../../../core/intefaces/museum.interface';
 import {DataNormalizer} from '../../../core/utils/data-normalizer';
 import {GraphicMenuComponent} from '../graphic-menu/graphic-menu.component';
 import {NgIf} from '@angular/common';
@@ -10,6 +10,7 @@ import {GraphicSimpleComponent} from '../graphic-simple/graphic-simple.component
 import {GraphicMultiCategoryComponent} from '../graphic-multi-category/graphic-multi-category.component';
 import {start} from 'node:repl';
 import {TableComponent} from '../table/table.component';
+import {MuseumDaily} from '../../../core/intefaces/museum_daily_capacity.interface';
 
 @Component({
   selector: 'app-graphic',
@@ -25,6 +26,8 @@ import {TableComponent} from '../table/table.component';
   styleUrl: './graphic.component.scss'
 })
 export class GraphicComponent implements OnChanges {
+
+  @Input() museumDaily: MuseumDaily[] = [];
   @Input() exposuresInputs: Exposure[] = [];
   @Input() tickets: Tickets[] = [];
   @Input() exhibitionsInputs: Exhibition[] = [];
@@ -64,15 +67,15 @@ export class GraphicComponent implements OnChanges {
         this.exposuresInputs.filter((e) => e.museum_id === this.museum),
         this.tickets.filter((e) => e.museum_id === this.museum),
         this.exhibitionsInputs.filter((e) => e.museum_id === this.museum),
-        this.museums
+        this.museumDaily.filter((e) => e.museum_id === this.museum)
       );
       switch (this.selectedOption){
         case 1:
-          /*this.data = this.normalizer.getMuseumFlow(
+          this.data = this.normalizer.getMuseumFlow(
             this.fromDate ? new Date(this.fromDate) : undefined,
             this.toDate ? new Date(this.toDate) : undefined
           );
-          this.lable = "Visits"*/ //TODO
+          this.lable = "Visits"
           break;
         case 2:
           this.data = this.normalizer.getVisitsByAge({
@@ -129,7 +132,6 @@ export class GraphicComponent implements OnChanges {
             startDate: this.fromDate ? new Date(this.fromDate) : undefined,
             endDate: this.toDate ? new Date(this.toDate) : undefined,
           });
-          console.log(this.data)
           break;
 
       }

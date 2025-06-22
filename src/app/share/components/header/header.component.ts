@@ -2,10 +2,10 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {Router, RouterLink, RouterLinkActive} from '@angular/router';
 import {NgIf} from '@angular/common';
 import {AuthSupabaseService} from '../../../core/services/auth-supabase.service';
-import {AuthInterface} from '../../../core/intefaces/auth-interface';
+import {AuthInterface} from '../../../core/intefaces/auth.interface';
 import {ChangePasswordComponent} from '../../modals/change-password/change-password.component';
 import {UserSupabaseService} from '../../../core/services/user-supabase.service';
-import {UserInterface} from '../../../core/intefaces/user-interface';
+import {UserInterface} from '../../../core/intefaces/user.interface';
 
 @Component({
   selector: 'app-header',

@@ -1,8 +1,8 @@
 import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
-import {Exposure} from '../../../core/intefaces/exposure-interface';
-import {Tickets} from '../../../core/intefaces/tickets-interface';
-import {Exhibition} from '../../../core/intefaces/exposition-interface';
-import {Museum} from '../../../core/intefaces/museum-interface';
+import {Exposure} from '../../../core/intefaces/exposure.interface';
+import {Tickets} from '../../../core/intefaces/tickets.interface';
+import {Exhibition} from '../../../core/intefaces/exposition.interface';
+import {Museum} from '../../../core/intefaces/museum.interface';
 import {NgForOf, NgIf} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {MatFormField} from '@angular/material/input';

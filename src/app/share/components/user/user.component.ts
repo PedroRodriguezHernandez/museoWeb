@@ -1,7 +1,7 @@
 import {Component, Input, OnInit, Output} from '@angular/core';
 import {EditUserComponent} from '../../modals/edit-user/edit-user.component';
 import {NgIf} from '@angular/common';
-import {User} from '../../../core/intefaces/user-interface';
+import {User} from '../../../core/intefaces/user.interface';
 
 @Component({
   selector: 'app-user',

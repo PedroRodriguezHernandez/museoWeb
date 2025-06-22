@@ -2,8 +2,8 @@ import {Component, EventEmitter, Inject, Input, OnChanges, Output, SimpleChanges
 import {NgClass, NgForOf, NgIf} from "@angular/common";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {OfferSupabaseService} from '../../../core/services/offer-supabase.service';
-import {Offer, OfferInterface} from '../../../core/intefaces/offer-interface';
-import {Museum, MuseumInterface} from '../../../core/intefaces/museum-interface';
+import {Offer, OfferInterface} from '../../../core/intefaces/offer.interface';
+import {Museum, MuseumInterface} from '../../../core/intefaces/museum.interface';
 import {MuseumSupabaseService} from '../../../core/services/museum-supabase.service';
 
 @Component({

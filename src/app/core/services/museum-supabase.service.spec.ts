@@ -1,6 +1,6 @@
 import { MuseumSupabaseService } from './museum-supabase.service';
 import { supabase } from './supabase.service';
-import { Museum } from '../intefaces/museum-interface'; // Asegúrate que esta ruta es correcta
+import { Museum } from '../intefaces/museum.interface'; // Asegúrate que esta ruta es correcta
 
 jest.mock('./supabase.service', () => ({
   supabase: {

@@ -1,0 +1,132 @@
+@import "styles.scss";
+
+.crud-news{
+  header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px 15px;
+    background-color: $broken-white;
+    .btn{
+      @include standard-button($broken-white,red);
+      border-radius: 10px;
+    }
+
+    .right{
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+
+      .btn{
+        @include standard-button($blue,$broken-white);
+        border-radius: 10px;
+      }
+      .MenuButton{
+        justify-content: center;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+        .bar{
+          width: 30px;
+          height: 5px;
+          background-color: $dark-blue;
+        }
+        &:hover{
+          .bar{
+            background-color: lighten($dark-blue, 30);
+          }
+        }
+      }
+    }
+  }
+
+  .bar-menu {
+    @include standard-sidebar();
+    .nav-link {
+      .delete {
+        color: red;
+
+        &:hover {
+          color: lighten(red, 30);
+        }
+      }
+    }
+  }
+  form{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    padding: 15px;
+    gap: 20px;
+
+    .input-error{
+      color: red;
+    }
+
+    .top{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      width: 100%;
+
+      label{
+        font-size: 18px;
+      }
+      input{
+        width: 60%;
+        padding: 5px;
+        max-width: 750px;
+        border: 1px solid $blue;
+        border-radius: 10px;
+
+        &::selection{
+          border: 2px solid $blue;
+          border-radius: 10px;
+        }
+      }
+    }
+    .date-range{
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: left;
+      gap: 5px;
+      label{
+        font-size: 18px;
+      }
+      .group{
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        div{
+          display: flex;
+          flex-direction: column;
+          label{
+            font-size: 16px;
+          }
+        }
+      }
+    }
+    .museum{
+      display: flex;
+      flex-direction: column;
+      select{
+        padding: 5px;
+        width: fit-content;
+      }
+    }
+    .editor-container{
+      background-color: white;
+      width: 90%;
+      height: 400px;
+
+      label{
+        font-size: 18px;
+      }
+
+    }
+  }
+}

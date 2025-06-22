@@ -8,6 +8,7 @@
     </div>
     <div class="graphic" *ngFor="let graphicId of graphics">
         <app-graphic
+          [museumDaily]="museumDaily"
           [exposuresInputs]="exposures"
           [exhibitionsInputs]="exhibitions"
           [tickets]="tickets"

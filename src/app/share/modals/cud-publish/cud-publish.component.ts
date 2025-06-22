@@ -3,14 +3,14 @@ import {QuillEditorComponent} from '../../components/quill-editor/quill-editor.c
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {ExpositionService} from '../../../core/services/exhibicion-supabase.service';
-import {Exhibition, ExpositionInterface} from '../../../core/intefaces/exposition-interface';
+import {Exhibition, ExpositionInterface} from '../../../core/intefaces/exposition.interface';
 import {CommonModule, NgForOf, NgIf} from '@angular/common';
 import {DataTransferService} from '../../../core/services/transfer-data.service';
 import {StorageSupabaseService} from '../../../core/services/storage-supabase.service';
-import {StorageInterface} from '../../../core/intefaces/storage-interface';
+import {StorageInterface} from '../../../core/intefaces/storage.interface';
 import QRCode from 'qrcode';
 import {DynamicTagsComponent} from '../../components/dynamic-tags/dynamic-tags.component';
-import {ExposureInterface} from '../../../core/intefaces/exposure-interface';
+import {ExposureInterface} from '../../../core/intefaces/exposure.interface';
 import {ExposureSupabaseService} from '../../../core/services/exposure-supabase.service';
 
 

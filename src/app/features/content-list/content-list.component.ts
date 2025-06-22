@@ -5,12 +5,12 @@ import {ItemListComponent} from '../../share/components/item-list/item-list.comp
 import {CUDPublishComponent} from '../../share/modals/cud-publish/cud-publish.component';
 import {Router} from '@angular/router';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import {Exposure, ExposureInterface} from '../../core/intefaces/exposure-interface';
+import {Exposure, ExposureInterface} from '../../core/intefaces/exposure.interface';
 import {ExposureSupabaseService} from '../../core/services/exposure-supabase.service';
 import {ExposureItemComponent} from '../../share/components/exposure-item/exposure-item.component';
 import {FilterComponent} from '../../share/components/filter/filter.component';
 import {MuseumSupabaseService} from '../../core/services/museum-supabase.service';
-import {Museum, MuseumInterface} from '../../core/intefaces/museum-interface';
+import {Museum, MuseumInterface} from '../../core/intefaces/museum.interface';
 import {ExposureListComponent} from '../../share/components/exposure-list/exposure-list.component';
 
 @Component({
@@ -18,11 +18,8 @@ import {ExposureListComponent} from '../../share/components/exposure-list/exposu
   imports: [
     HeaderComponent,
     NgForOf,
-    ItemListComponent,
-    CUDPublishComponent,
     FormsModule,
     NgIf,
-    ExposureItemComponent,
     ReactiveFormsModule,
     NgClass,
     FilterComponent,

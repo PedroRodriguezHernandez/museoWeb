@@ -1,9 +1,9 @@
 import {Component, EventEmitter, Inject, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
-import {Exposure, ExposureInterface} from '../../../core/intefaces/exposure-interface';
+import {Exposure, ExposureInterface} from '../../../core/intefaces/exposure.interface';
 import {NgForOf} from '@angular/common';
 import {Router} from '@angular/router';
 import {ExpositionService} from '../../../core/services/exhibicion-supabase.service';
-import {Exhibition, ExpositionInterface} from '../../../core/intefaces/exposition-interface';
+import {Exhibition, ExpositionInterface} from '../../../core/intefaces/exposition.interface';
 import {ExposureSupabaseService} from '../../../core/services/exposure-supabase.service';
 import {DataTransferService} from '../../../core/services/transfer-data.service';
 

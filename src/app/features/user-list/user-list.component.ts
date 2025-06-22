@@ -4,7 +4,7 @@ import {ItemListComponent} from '../../share/components/item-list/item-list.comp
 import {NgForOf, NgIf} from '@angular/common';
 import {UserComponent} from '../../share/components/user/user.component';
 import {AddUserComponent} from '../../share/modals/add-user/add-user.component';
-import {User, UserInterface} from '../../core/intefaces/user-interface';
+import {User, UserInterface} from '../../core/intefaces/user.interface';
 import {UserSupabaseService} from '../../core/services/user-supabase.service';
 import {FilterComponent} from '../../share/components/filter/filter.component';
 
@@ -12,7 +12,6 @@ import {FilterComponent} from '../../share/components/filter/filter.component';
   selector: 'app-user-list',
   imports: [
     HeaderComponent,
-    ItemListComponent,
     NgForOf,
     UserComponent,
     AddUserComponent,

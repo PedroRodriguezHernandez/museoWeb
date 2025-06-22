@@ -7,9 +7,7 @@ import {JsonPipe, NgForOf, NgIf} from '@angular/common';
   selector: 'app-dynamic-tags',
   imports: [
     FormsModule,
-    JsonPipe,
     NgForOf,
-    NgIf
   ],
   templateUrl: './dynamic-tags.component.html',
   standalone: true,

@@ -1,9 +1,9 @@
 import {Component, EventEmitter, Inject, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
 import {NgClass, NgIf} from '@angular/common';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import {User, UserInterface} from '../../../core/intefaces/user-interface';
+import {User, UserInterface} from '../../../core/intefaces/user.interface';
 import {UserSupabaseService} from '../../../core/services/user-supabase.service';
-import {AuthInterface} from '../../../core/intefaces/auth-interface';
+import {AuthInterface} from '../../../core/intefaces/auth.interface';
 import {AuthSupabaseService} from '../../../core/services/auth-supabase.service';
 
 @Component({

@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {ExposureItemComponent} from '../exposure-item/exposure-item.component';
 import {NgForOf} from '@angular/common';
-import {Exposure} from '../../../core/intefaces/exposure-interface';
+import {Exposure} from '../../../core/intefaces/exposure.interface';
 
 @Component({
   selector: 'app-exposure-list',

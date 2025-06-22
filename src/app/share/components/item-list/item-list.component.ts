@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {Exhibition} from '../../../core/intefaces/exposition-interface';
+import {Exhibition} from '../../../core/intefaces/exposition.interface';
 import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
 import DOMPurify from 'dompurify';
 import {NgStyle} from '@angular/common';

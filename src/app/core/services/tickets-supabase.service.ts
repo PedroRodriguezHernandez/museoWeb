@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import {Tickets, TicketsInterface} from '../intefaces/tickets-interface';
+import {Tickets, TicketsInterface} from '../intefaces/tickets.interface';
 import {defer, from, Observable} from 'rxjs';
 import {supabase} from './supabase.service';
-import {Offer} from '../intefaces/offer-interface';
+import {Offer} from '../intefaces/offer.interface';
 import {map} from 'rxjs/operators';
-import {Exhibition} from '../intefaces/exposition-interface';
+import {Exhibition} from '../intefaces/exposition.interface';
 
 @Injectable({
   providedIn: 'root'

@@ -1,28 +1,29 @@
-import {User} from '../intefaces/user-interface';
-import {Tickets} from '../intefaces/tickets-interface';
-import {Exhibition} from '../intefaces/exposition-interface';
-import {Museum} from '../intefaces/museum-interface';
-import {Exposure} from '../intefaces/exposure-interface';
+import {User} from '../intefaces/user.interface';
+import {Tickets} from '../intefaces/tickets.interface';
+import {Exhibition} from '../intefaces/exposition.interface';
+import {Museum} from '../intefaces/museum.interface';
+import {Exposure} from '../intefaces/exposure.interface';
+import {MuseumDaily} from '../intefaces/museum_daily_capacity.interface';
 
 export class DataNormalizer {
   private exposures: Exposure[];
   private tickets: Tickets[];
   private exhibitions: Exhibition[];
-  private museums: Museum[];
+  private museums: MuseumDaily[];
 
   constructor(
     exposures: Exposure[],
     tickets: Tickets[],
     exhibitions: Exhibition[],
-    museums: Museum[]
+    museums: MuseumDaily[]
   ) {
     this.exposures = exposures;
     this.tickets = tickets;
     this.exhibitions = exhibitions;
     this.museums = museums;
   }
-  //TODO
-  /*getMuseumFlow(start?: Date, end?: Date): { label: string; data: number }[] {
+
+  getMuseumFlow(start?: Date, end?: Date): { label: string; data: number }[] {
     return this.museums
       .filter(entry => {
         const entryDate = entry.date;
@@ -32,10 +33,10 @@ export class DataNormalizer {
       })
       .map(entry => ({
         label: new Date(entry.date).toISOString().split('T')[0],
-        data: entry.current_capacity,
+        data: entry.capacity,
       }));
   }
-  */
+
   getVisitsByAge(options?: {
     startDate?: Date;
     endDate?: Date;

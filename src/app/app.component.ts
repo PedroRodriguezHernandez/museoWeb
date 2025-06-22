@@ -14,15 +14,14 @@ import {UserListComponent} from './features/user-list/user-list.component';
 import {DynamicTagsComponent} from './share/components/dynamic-tags/dynamic-tags.component';
 import {SignupComponent} from './features/signup/signup.component';
 import {TableComponent} from './share/components/table/table.component';
+import {NewComponent} from './features/new/new.component';
+import {CrudNewsComponent} from './share/modals/crud-news/crud-news.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent,
-    ItemListComponent, UserComponent,
-    PriceComponent, LoginComponent,
-    ContentListComponent, CUDPublishComponent,
-    AddUserComponent, EditUserComponent,
-    AddOfferComponent, UserListComponent, DynamicTagsComponent, SignupComponent, TableComponent
+  imports: [
+    RouterOutlet,
+    CrudNewsComponent
   ],
   templateUrl: './app.component.html',
   standalone: true,

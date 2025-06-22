@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Inject, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {NgClass, NgIf} from '@angular/common';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {User, UserInterface} from '../../../core/intefaces/user-interface';
+import {User, UserInterface} from '../../../core/intefaces/user.interface';
 import {UserSupabaseService} from '../../../core/services/user-supabase.service';
 
 @Component({

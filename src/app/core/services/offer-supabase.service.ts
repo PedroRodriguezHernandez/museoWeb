@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Offer, OfferInterface} from '../intefaces/offer-interface';
+import {Offer, OfferInterface} from '../intefaces/offer.interface';
 import {defer, from, map, Observable} from 'rxjs';
 import {supabase} from './supabase.service';
 

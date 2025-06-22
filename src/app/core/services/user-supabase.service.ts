@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {User, UserInterface} from '../intefaces/user-interface';
+import {User, UserInterface} from '../intefaces/user.interface';
 import {catchError, defer, from, map, Observable, throwError} from 'rxjs';
 import {supabase} from './supabase.service';
 

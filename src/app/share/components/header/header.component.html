@@ -20,6 +20,12 @@
       Tickets
     </a>
     <a
+      routerLink = "/news-list"
+      routerLinkActive="active"
+    >
+      News
+    </a>
+    <a
       *ngIf="isAdmin()"
       routerLink = "/user-list"
       routerLinkActive="active"

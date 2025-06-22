@@ -1,6 +1,6 @@
 import { UserSupabaseService } from './user-supabase.service';
 import { supabase } from './supabase.service';
-import { User } from '../intefaces/user-interface';
+import { User } from '../intefaces/user.interface';
 
 jest.mock('./supabase.service', () => ({
   supabase: {

@@ -1,6 +1,6 @@
 import { OfferSupabaseService } from './offer-supabase.service';
 import { supabase } from './supabase.service';
-import { Offer } from '../intefaces/offer-interface';
+import { Offer } from '../intefaces/offer.interface';
 
 jest.mock('./supabase.service', () => ({
   supabase: {

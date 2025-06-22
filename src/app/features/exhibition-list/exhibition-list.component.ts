@@ -1,9 +1,9 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {ExpositionService} from '../../core/services/exhibicion-supabase.service';
-import {Exhibition, ExpositionInterface} from '../../core/intefaces/exposition-interface';
+import {Exhibition, ExpositionInterface} from '../../core/intefaces/exposition.interface';
 import {ExposureSupabaseService} from '../../core/services/exposure-supabase.service';
-import {Exposure, ExposureInterface} from '../../core/intefaces/exposure-interface';
+import {Exposure, ExposureInterface} from '../../core/intefaces/exposure.interface';
 import {DataTransferService} from '../../core/services/transfer-data.service';
 import {ExposureItemComponent} from '../../share/components/exposure-item/exposure-item.component';
 import {HeaderComponent} from '../../share/components/header/header.component';
@@ -11,15 +11,12 @@ import {NgForOf, NgIf} from '@angular/common';
 import {ItemListComponent} from '../../share/components/item-list/item-list.component';
 import {FilterComponent} from '../../share/components/filter/filter.component';
 import {MuseumSupabaseService} from '../../core/services/museum-supabase.service';
-import {MuseumInterface} from '../../core/intefaces/museum-interface';
+import {MuseumInterface} from '../../core/intefaces/museum.interface';
 
 @Component({
   selector: 'app-exhibition-list',
   imports: [
-    ExposureItemComponent,
-    HeaderComponent,
     NgForOf,
-    NgIf,
     ItemListComponent,
     FilterComponent
   ],

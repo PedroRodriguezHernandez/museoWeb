@@ -2,8 +2,8 @@ import {Inject, inject} from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { AuthSupabaseService } from '../services/auth-supabase.service';
 import {map, switchMap, tap} from 'rxjs/operators';
-import {AuthInterface} from '../intefaces/auth-interface';
-import {UserInterface} from '../intefaces/user-interface';
+import {AuthInterface} from '../intefaces/auth.interface';
+import {UserInterface} from '../intefaces/user.interface';
 import {UserSupabaseService} from '../services/user-supabase.service';
 import {of} from 'rxjs';
 

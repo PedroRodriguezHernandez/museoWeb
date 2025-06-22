@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {AuthInterface, AuthUser} from '../intefaces/auth-interface';
+import {AuthInterface, AuthUser} from '../intefaces/auth.interface';
 import {catchError, from, map, Observable, throwError} from 'rxjs';
 import {supabase} from './supabase.service';
 

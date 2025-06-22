@@ -1,0 +1,47 @@
+@import "styles.scss";
+
+.new-item {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  width: 80%;
+  padding: 1rem;
+  border: 1px solid $blue;
+  border-radius: 8px;
+  background-color: $broken-white;
+  max-height: 200px;
+  justify-self: center;
+
+  .title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  p {
+    max-width: 100%;
+    white-space: normal;
+    text-align: justify;
+    font-size: 1rem;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    max-height: 200px;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+
+
+  .foot{
+    display: flex;
+    width: 100%;
+    justify-content: right;
+    .btn{
+      @include standard-button($blue,$broken-white);
+      right: 10px;
+    }
+  }
+
+}

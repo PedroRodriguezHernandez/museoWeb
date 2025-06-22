@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {NgClass, NgIf} from '@angular/common';
 import {AuthSupabaseService} from '../../core/services/auth-supabase.service';
-import {AuthInterface} from '../../core/intefaces/auth-interface';
+import {AuthInterface} from '../../core/intefaces/auth.interface';
 import {supabase} from '../../core/services/supabase.service';
 import {map} from 'rxjs';
 

@@ -1,6 +1,6 @@
 import { TicketsSupabaseService } from './tickets-supabase.service';
 import { supabase } from './supabase.service';
-import { Tickets } from '../intefaces/tickets-interface';
+import { Tickets } from '../intefaces/tickets.interface';
 
 jest.mock('./supabase.service', () => ({
   supabase: {

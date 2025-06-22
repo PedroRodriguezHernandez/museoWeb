@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {StorageInterface} from '../intefaces/storage-interface';
+import {StorageInterface} from '../intefaces/storage.interface';
 import {from, iif, Observable} from 'rxjs';
 import {supabase} from './supabase.service';
 import {File} from 'node:buffer';

@@ -3,12 +3,12 @@ import {HeaderComponent} from '../../share/components/header/header.component';
 import {PriceComponent} from '../../share/components/price/price.component';
 import {NgForOf, NgIf} from '@angular/common';
 import {AddOfferComponent} from '../../share/modals/add-offer/add-offer.component';
-import {Offer, OfferInterface} from '../../core/intefaces/offer-interface';
+import {Offer, OfferInterface} from '../../core/intefaces/offer.interface';
 import {OfferSupabaseService} from '../../core/services/offer-supabase.service';
 import {FormsModule} from '@angular/forms';
 import {FilterComponent} from '../../share/components/filter/filter.component';
 import {MuseumSupabaseService} from '../../core/services/museum-supabase.service';
-import {Museum, MuseumInterface} from '../../core/intefaces/museum-interface';
+import {Museum, MuseumInterface} from '../../core/intefaces/museum.interface';
 import {of} from 'rxjs';
 
 @Component({

@@ -1,14 +1,14 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {HeaderComponent} from '../../share/components/header/header.component';
 import {BaseChartDirective} from 'ng2-charts';
-import {Exhibition, ExpositionInterface} from '../../core/intefaces/exposition-interface';
+import {Exhibition, ExpositionInterface} from '../../core/intefaces/exposition.interface';
 import {ExpositionService} from '../../core/services/exhibicion-supabase.service';
 import {ExposureSupabaseService} from '../../core/services/exposure-supabase.service';
 import {MuseumSupabaseService} from '../../core/services/museum-supabase.service';
-import {Museum, MuseumInterface} from '../../core/intefaces/museum-interface';
+import {Museum, MuseumInterface} from '../../core/intefaces/museum.interface';
 import {TicketsSupabaseService} from '../../core/services/tickets-supabase.service';
-import {Tickets, TicketsInterface} from '../../core/intefaces/tickets-interface';
-import {Exposure} from '../../core/intefaces/exposure-interface';
+import {Tickets, TicketsInterface} from '../../core/intefaces/tickets.interface';
+import {Exposure} from '../../core/intefaces/exposure.interface';
 import {DataNormalizer} from '../../core/utils/data-normalizer';
 import {ChartDataNormalized, normalizeMultiLineData, normalizeVisitsByDate} from '../../core/utils/graphic-normalizer';
 import {NgForOf, NgIf} from '@angular/common';
@@ -19,18 +19,15 @@ import {
 import {FormsModule} from '@angular/forms';
 import {GraphicMenuComponent} from '../../share/components/graphic-menu/graphic-menu.component';
 import {GraphicComponent} from '../../share/components/graphic/graphic.component';
+import {MuseumDaily, MuseumDailyInterface} from '../../core/intefaces/museum_daily_capacity.interface';
+import {MuseumDailyCapacitySupabaseService} from '../../core/services/museum-daily-capacity-supabase.service';
 
 @Component({
   selector: 'app-administration',
   imports: [
     HeaderComponent,
-    BaseChartDirective,
-    NgIf,
-    GraphicSimpleComponent,
-    GraphicMultiCategoryComponent,
     NgForOf,
     FormsModule,
-    GraphicMenuComponent,
     GraphicComponent,
   ],
   templateUrl: './administration.component.html',
@@ -43,6 +40,7 @@ export class AdministrationComponent implements OnInit {
   protected exhibitions!: Exhibition[];
   protected exposures!: Exposure[];
   protected museum!: Museum[];
+  protected museumDaily!: MuseumDaily[];
   protected tickets!: Tickets[];
 
   protected chartType: 'bar' | 'line' = 'line';
@@ -53,6 +51,7 @@ export class AdministrationComponent implements OnInit {
     @Inject(ExposureSupabaseService) protected exposureInterface: ExposureSupabaseService,
     @Inject(MuseumSupabaseService) protected museumInterface: MuseumInterface,
     @Inject(TicketsSupabaseService) protected ticketsInterface: TicketsInterface,
+    @Inject(MuseumDailyCapacitySupabaseService) protected museumDailyServices: MuseumDailyInterface
   ) {
   }
 
@@ -61,6 +60,7 @@ export class AdministrationComponent implements OnInit {
     this.loadExhibition();
     this.loadMuseum();
     this.loadTickets();
+    this.loadMuseumDaily();
   }
 
   private loadMuseum() {
@@ -106,5 +106,12 @@ export class AdministrationComponent implements OnInit {
 
   removeGraphic(id: number) {
     this.graphics = this.graphics.filter(g => g !== id);
+  }
+
+  private loadMuseumDaily() {
+    this.museumDailyServices.getMuseumDaily().subscribe((museum) =>{
+      this.museumDaily = museum
+      console.log(this.museumDaily)
+    })
   }
 }

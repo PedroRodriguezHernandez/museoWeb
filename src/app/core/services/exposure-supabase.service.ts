@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Exposure, ExposureInterface} from '../intefaces/exposure-interface';
+import {Exposure, ExposureInterface} from '../intefaces/exposure.interface';
 import {defer, from, map, Observable} from 'rxjs';
 import {supabase} from './supabase.service';
 
