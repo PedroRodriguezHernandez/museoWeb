@@ -62,18 +62,27 @@ export class NewsSupabaseService implements NewsInterface {
     );
   }
   addNew(newNew: New): Observable<New> {
+
     return from(
       supabase.from('news')
-        .insert([newNew])
+        .insert([{
+          title: newNew.title,
+          body: newNew.body,
+          museum_id: newNew.museum_id ? newNew.museum_id : null,
+          start_date: newNew.start_date,
+          end_date: newNew.end_date
+        }])
         .select()
         .single()
     ).pipe(
       map(response => {
         if (response.error) {
+          console.log(response.error)
           throw new Error(response.error.message);
         }
         return response.data as New;
       })
     );
   }
+
 }

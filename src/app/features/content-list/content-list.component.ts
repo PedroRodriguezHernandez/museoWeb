@@ -95,7 +95,6 @@ export class ContentListComponent implements OnInit{
   private loadMuseums() {
     this.museumService.getMuseum().subscribe((museums) =>{
       this.museums = museums.slice().sort((a,b) => a.name.localeCompare(b.name))
-      this.selectedMuseum = this.museums.length > 0 ? [this.museums[0].id] : []
     })
   }
 
